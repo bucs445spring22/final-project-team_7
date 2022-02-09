@@ -4,15 +4,15 @@
 
 ## CS 445 Final Project
 
-### << Semester, Year >>
+### Spring, 2022
 
-<< [https://github.com/<repo>](#) >>
+[https://github.com/bucs445spring22/final-project-team_7.git](#)
 
 << [link to demo presentation slides](#) >>
 
-### Team: << team name >>
+### Team: Team_7
   
-#### << Team Members >>
+#### Andrew Goetz, Jin Xian Li, Yong Liu
 
 ## Getting Started
 
