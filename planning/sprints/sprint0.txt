@@ -1,0 +1,18 @@
+Project Overview
+
+Application Vision/Goal:
+Scope:
+Deliverables:
+Success Criteria:
+Assumptions:
+Risks:
+Design / Architectural Review:
+Test Environment:
+
+Team Members:
+
+Team Roles:
+Team Norms:
+Application Stack:
+	Libraries/Frameworks
+
