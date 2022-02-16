@@ -16,8 +16,7 @@ services:
     tty: true 
     depends_on:
       - db
-    command: ["ash"]
-    #command: ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+    command: ["flask", "run", "--host=0.0.0.0", "--port=8000"]
   db:
     image: db:latest
     working_dir: /var/db
@@ -33,6 +32,7 @@ services:
       - ./db:/var/db
     #networks:
     #  - app_net
+    command: ["flask", "run", "--host=0.0.0.0", "--port=8000"]
 
 #network:
  # - app_net
