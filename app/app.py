@@ -1,9 +1,10 @@
 from flask import *
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'woohoo'
 
 @app.route('/')
 def render():
-    print("Hello world")
+    return "Hello world"
 
 def main():
     app.run()

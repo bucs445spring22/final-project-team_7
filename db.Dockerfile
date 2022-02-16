@@ -9,4 +9,5 @@ RUN pip install -r /var/tmp/requirements.txt
 
 COPY ./db /var/db
 
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+#CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+CMD ["ash"]
