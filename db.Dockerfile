@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.9
 
 WORKDIR /var/db
 
@@ -10,4 +10,4 @@ RUN pip install -r /var/tmp/requirements.txt
 COPY ./db /var/db
 
 #CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
-CMD ["ash"]
+CMD ["sh"]
