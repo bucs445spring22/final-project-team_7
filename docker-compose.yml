@@ -8,8 +8,8 @@ services:
       dockerfile: app.Dockerfile
     working_dir: /var/app
     container_name: app
-    networks:
-      - app_net
+    #networks:
+    # - app_net
     volumes:
       - ./app:/var/app
     stdin_open: true
@@ -31,8 +31,8 @@ services:
     tty: true # docker run -t
     volumes:
       - ./db:/var/db
-    networks:
-      - app_net
+    #networks:
+    #  - app_net
 
-network:
-  - app_net
+#network:
+ # - app_net
