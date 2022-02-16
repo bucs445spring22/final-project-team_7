@@ -1,18 +1,38 @@
 Project Overview
 
 Application Vision/Goal:
+ - Create a self-hosted web application to track watched movies/shows
+ - Add movies to watched list, plan to watch, etc...
+ - User login?
+ - Rating movies
+ - Add shows after movies work
 Scope:
 Deliverables:
 Success Criteria:
+ - Fulfill the vision and maybe more
 Assumptions:
+ - That we can finish this
 Risks:
+ - 
 Design / Architectural Review:
 Test Environment:
 
 Team Members:
-
+ - Andrew Goetz
+ - Jin Xian Li
+ - Yong Liu
 Team Roles:
+ - AG: Backend
+ - JL: Frontend/Backend
+ - YL: Frontend/Backend
 Team Norms:
+ - Meet every weekend for status on project
+ - Notify discord when commiting/working on new additions to project
 Application Stack:
-	Libraries/Frameworks
-
+	Libraries/Frameworks:
+	- Flask
+	- TinyDB
+	- Python 3.9-alpine
+	- Docker
+	- requests
+	- Movies API
