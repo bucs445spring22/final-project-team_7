@@ -1,0 +1,27 @@
+1) Do you want to have an account (forced login)?
+ - guest login and user login,
+ - guest would have less functionality (bring to login page/signup if try to do something without logging in).
+ - forced login if above is too hard
+2) What is the timeframe?
+ - 6 months
+3) What problem are you trying to solve?
+ - Client wants an application to keep track of media. Movies, shows, or maybe even comics and it will be a consolidation of all those services.
+ - Client wants to watch shows, but it’s a mess to track them so this would solve the problem
+ - Doesn’t want to make accounts in all these other websites and want it in one where he can control.
+4) What is the most important feature?	
+ - Client can add things he wants to a list and keep track of all the stuff he watched
+ - Wants information about the watched shows as well (title, ratings, genre, similar shows)
+5) Is there a similar product on the market? 
+ - All those services like IMDB, but there are too many, so client wants a consolidated solution to track shows
+6) Are there any existing product or technologies that will need to be integrated?
+ - We would need APIs from different existing movie trackers like IMDB.
+7) What does success look like?
+ - Client wants all the features listed before to be fulfilled without losing sight of the main project
+ - Don’t have stuff/bloat that client doesn’t want or hasn’t asked for
+ - Need good looking GUI because client isn’t good at technology
+8) What is the lifetime of this software?
+ - It should last as long as the client wants to use it (as long as the client is watching movies)
+9) Is it single use or does it need to last 20 years?
+ - It needs to last 20 years.
+10) What additional features would you like?
+ - Login, users, as many types of media, rating system** (local user rating and IMDB rating)
