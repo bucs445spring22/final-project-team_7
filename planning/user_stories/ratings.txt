@@ -1,0 +1,15 @@
+Ratings
+
+As a movie watcher, I want a way to rate the shows that I watch. This would allow me to record my content preferences and compare them with other users on the same server.
+
+Acceptance:
+- Have a way for individual user to give a show a score.
+- Have an averaged score for users on the same server.
+
+Notes:
+
+Persona:
+- Johnson Li
+- Likes to compare things
+- Very judgemental
+- Wants to judge his movies that he watches
