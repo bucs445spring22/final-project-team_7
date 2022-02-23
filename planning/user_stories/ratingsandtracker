@@ -1,10 +1,13 @@
 Ratings and tracker
 
-As an avid movie watcher, I want an application where I can track multiple movies that I’ve watched (add them to a watched list) and rate them on a website to remember how much I liked it. I would also like to see other people’s ratings on that local website as well as the general rating on big movies sites like IMDB. I would also like to have other lists for movies that I can add to which I plan to watch.
+As an avid movie watcher, I want an application where I can search and track multiple movies that I’ve watched (add them to a watched list) and rate them on a website to remember how much I liked it. I would also like to see other people’s ratings on that local website as well as the general rating on big movies sites like IMDB. I would also like to have other lists for movies that I can add to which I plan to watch.
 
 Acceptance:
 Simple rating system within the local website
 Ability to add movies to different lists
+Ability to search for movies to add
+
+Notes:
 
 The Persona:
 name: John Doe
