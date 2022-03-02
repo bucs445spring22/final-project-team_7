@@ -4,6 +4,7 @@ As a confused movie watcher, I want a category system to make it easier for me t
 
 Acceptance:
 - Category system for sorting watched shows.
+- Must be easy to navigate through library.
 
 Notes:
 
