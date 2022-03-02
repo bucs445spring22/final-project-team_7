@@ -1,7 +1,7 @@
 # Sprint 0 Meeting Notes
 
 
-**Attended**: Andrew, Ronald, Yong
+**Attended**: Andrew Goetz, Jin Xian Li, Yong Liu
 
 ***
 
