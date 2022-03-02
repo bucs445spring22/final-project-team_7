@@ -1,6 +1,6 @@
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 # Project Proposal
-# << Project Title >>
+# MyMDB
 
 ## CS 445 Final Project
 
