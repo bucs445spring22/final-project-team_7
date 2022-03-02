@@ -7,23 +7,12 @@
 
 ## Sprint Review
 
-
-
-### SRS Sections Updated
-
-<< This won’t apply to this sprint >>
-
 ###  User Story:
 
 
-<< Corresponding User Stories completed in this sprint. For this sprint, it should be the text below >>
+As a client, I want an application that I can deploy on any server running Docker.
 
-
-As a client, I want an application that I can deploy on any server running Docker
-
-### Requirement Implemented
-
-<< The corresponding SRS requirement that the team completed in the last sprint. The requirement for sprint0 is below. >>
+### Sprint Requirements Attempted
 
 
 **The application shall minimize required dependencies**
@@ -31,42 +20,60 @@ In order to minimize dependencies, we will containerize the application with its
 Limit the dependency to a system that supports Docker containers.
 *Status: completed*
 
-### Completed Items
+### Completed Requirements
 
-<< Detailed overview  work that's been completed in this sprint, such as classes added/changed, nee components, new modules, etc. Anything you can think of that was touch in the last sprint. >>
+**Docker was implemented for the application to minimize dependencies**
+Docker files included:
+app.Dockerfile
+db.Dockerfile
+Docker-compose.yml
+**Flask base added with app.py file**
+Hello world base program to start.
 
-### Uncompleted Items
+### Incomplete Requirements
 
-<< The work that was supposed to be completed, but was not been completed in this sprint. You should also include a detailed plan to complete any uncompleted items. >>
+None
 
 ### The summary of the entire project:
 
-<< A broad general overview of the entire project >>
-
+A watchlist for movies/shows. It will have the ability to rate shows, keep track of watched shows, and display relevant information about watched shows (cover art, actors, genres, etc).
 ***
 
 ## Sprint Planning
 
-### Requirement Target:
+## Technical Flex
 
-<< The corresponding SRS requirement that our team will be complete in next sprint >>
+0/5 requirement flexes
+
+## Technical Debt
+
+None
+
+### Requirements Target:
+
+Draft and add a new class for Single Responsibility Principle
 
 ### User Stories:
 
-<< Corresponding User Stories >>
+As a client, I want a program that can keep track of the shows/movies that I watch.
 
 ### Planning
 
-<< Our team's detailed plan to complete the sprint >>
+
+Implement a MediaEntry class which incorporates different media entries like movies and TV shows.
 
 ### Action Items:
 
-<< A list of things that need to happen for our team to complete the sprint >>
+We must think about what’s to be added to the class and then write the class.
 
 ### Issues and Risks:
 
-<< A list of potential obstacles that could keep us from completing the sprint and what's being done about them >>
+
+Obstacles could include class inheritance and finding out what fields to put in the class based on the APIs we are using.
 
 ### Team Work Assignments:
 
-<< A list of each team member and their works assignments for this sprint >>
+Andrew Goetz: Input on class details and coding
+Jin Xian Li: Input on class details and coding
+Yong Liu: Input on class details and coding
+
