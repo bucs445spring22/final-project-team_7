@@ -1,7 +1,7 @@
 # Sprint 0 Meeting Notes
 
 
-**Attended**: <<record the team members in attendance (virtual counts as long as they are participating)>>
+**Attended**: Andrew, Ronald, Yong
 
 ***
 
@@ -12,8 +12,6 @@
 ### SRS Sections Updated
 
 << This won’t apply to this sprint >>
-
-
 
 ###  User Story:
 
