@@ -9,10 +9,10 @@
 ### SRS Sections Updated
 
 - Added 2 functional requirements
-- Ability to add movies to a list
-- Ability to give a rating to a movie
+  - Ability to add movies to a list
+  - Ability to give a rating to a movie
 - Added 1 non-functional requirement
-- Accessibility
+  - Accessibility
 
 ###  User Story:
 
