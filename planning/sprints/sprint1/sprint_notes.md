@@ -64,7 +64,7 @@ Obstacles could include API not working properly and returning information we ne
 
 ### Team Work Assignments:
 
-Andrew will design API class 
-Yong will work on the movie class that extends the MediaEntry Class
-Jin will work on front end design
-Anyone who has additional time will put it towards coding flask templates and parser for JSON
+- Andrew will design API class 
+- Yong will work on the movie class that extends the MediaEntry Class
+- Jin will work on front end design
+- Anyone who has additional time will put it towards coding flask templates and parser for JSON
