@@ -10,7 +10,7 @@
 
 << [link to demo presentation slides](#) >>
 
-Requirements: [https://docs.google.com/document/d/1hX_0oUR7ZxKezjC5o5HH0mNti8qfCfBhYxw3YbTXcDA/edit](#)
+[Requirements](https://docs.google.com/document/d/1hX_0oUR7ZxKezjC5o5HH0mNti8qfCfBhYxw3YbTXcDA/edit)
 ### Team: Team_7
   
 #### Andrew Goetz, Jin Xian Li, Yong Liu
