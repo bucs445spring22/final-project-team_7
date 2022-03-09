@@ -8,11 +8,11 @@
 
 ### SRS Sections Updated
 
-Added 2 functional requirements
-Ability to add movies to a list
-Ability to give a rating to a movie
-Added 1 non-functional requirement
-Accessibility
+- Added 2 functional requirements
+  - Ability to add movies to a list
+  - Ability to give a rating to a movie
+- Added 1 non-functional requirement
+  - Accessibility
 
 ###  User Story:
 
@@ -24,8 +24,8 @@ Step towards ability to add movies to a list (added class for MediaEntry).
 
 ### Completed Items
 
-Added class: MediaEntry.py
-Created requirements file
+- Added class: MediaEntry.py
+- Created requirements file
 
 ### Uncompleted Items
 
@@ -41,10 +41,10 @@ A watchlist for movies/shows. It will have the ability to rate shows, keep track
 
 ### Requirement Target:
 
-Design API class, use API successfully (potentially work on parse as well)
-Design front-end (github login page similarity for homepage)
-Maybe start some code
-Movie class that extends the MediaEntry class
+- Design API class, use API successfully (potentially work on parse as well)
+- Design front-end (github login page similarity for homepage)
+- Maybe start some code
+- Movie class that extends the MediaEntry class
 
 ### User Stories:
 
@@ -64,7 +64,7 @@ Obstacles could include API not working properly and returning information we ne
 
 ### Team Work Assignments:
 
-Andrew will design API class 
-Yong will work on the movie class that extends the MediaEntry Class
-Jin will work on front end design
-Anyone who has additional time will put it towards coding flask templates and parser for JSON
+- Andrew will design API class 
+- Yong will work on the movie class that extends the MediaEntry Class
+- Jin will work on front end design
+- Anyone who has additional time will put it towards coding flask templates and parser for JSON
