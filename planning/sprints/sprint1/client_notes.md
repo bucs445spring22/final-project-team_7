@@ -2,15 +2,15 @@
 # Client Update
 
 ## Sprint Notes Complete
-N/A
+Yes  
 
 ## Requirements Attempted in this Sprint
 
-None
+**Step towards ability to add movies to a list**
 
 ## Requirements complete
 
-None
+**Step towards ability to add movies to a list**
 
 ## Requirements incomplete
 
@@ -18,7 +18,7 @@ None
 
 ## Requirement Flex Remaining
 
-None
+<< 5 / 5 >>
 
 # Milestone Status
 
