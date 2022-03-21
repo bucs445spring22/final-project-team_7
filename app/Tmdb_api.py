@@ -1,3 +1,4 @@
+import Api
 from tmdbv3api import Movie, TMDb
 
 class Tmdb_api(Api):
