@@ -1,9 +1,9 @@
 from flask import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'woohoo'
-import index
-import signup
-import homepage
+import routes.index
+import routes.signup
+import routes.homepage
 
 def main():
     app.run()
