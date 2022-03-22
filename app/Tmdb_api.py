@@ -1,4 +1,5 @@
-import Api
+from Api import Api
+
 from tmdbv3api import Movie, TMDb
 
 class Tmdb_api(Api):
@@ -11,7 +12,7 @@ class Tmdb_api(Api):
         movie = Movie()
         m = movie.details(media_id)
         cover = COVER_URL + m.poster_path
-        pass # should return a MovieEntry?
+        pass # should return a Movie?
     def get_show(self, media_id):
         pass
     def recommend(self, media_id):
