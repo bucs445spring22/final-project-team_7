@@ -7,7 +7,7 @@ services:
     image: app:latest
     build:
       context: .
-      dockerfile: app.Dockerfile
+      dockerfile: config/app.Dockerfile
     working_dir: /var/app
     container_name: app
     networks:
@@ -27,7 +27,7 @@ services:
       - FLASK_DEBUG=1
     build:
       context: .
-      dockerfile: db.Dockerfile
+      dockerfile: config/db.Dockerfile
     container_name: db
     stdin_open: true # docker run -i
     tty: true # docker run -t
@@ -35,8 +35,8 @@ services:
       - ./db:/var/db
     networks:
       - app_net
-    #command: ["flask", "run", "--host=0.0.0.0", "--port=80"]
-    command: ["sh"]
+    command: ["flask", "run", "--host=0.0.0.0", "--port=80"]
+    #command: ["sh"]
 
 networks:
   app_net:

@@ -1,3 +1,4 @@
 requests
 flask >= 2
 tmdbv3api >= 1.7.6
+flask-login
