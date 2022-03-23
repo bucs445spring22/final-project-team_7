@@ -1,9 +1,11 @@
 class MediaEntry:
-	def __init__(self, media_type, genres, rating, cover_art, actors, release_date, content_rating):
-		this.media_type = media_type
-		this.genres = genres
-		this.rating = rating #User rating can be added later
-		this.cover_art = cover_art
-		this.actors = actors
-		this.release_date = release_date
-		this.content_rating = content_rating
+    def __init__(self, genre, media_id, title, overview, poster_url, release_date, rating):
+		#this.media_type = media_type
+		self.genres = genres
+        self.media_id = media_id
+        self.title = title
+        self.overview = overview
+		this.poster_url = poster_url
+		#this.actors = actors
+		self.release_date = release_date
+		self.rating = rating
