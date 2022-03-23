@@ -16,20 +16,13 @@ class Tmdb_api(Api):
     def recommend(self, media_id):
         pass
 
-    #TODO: add search results for shows as well
+    # TODO: add search results for shows as well
     def search(self, title):
         title = title.replace(" ", "+")
         r = requests.get("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
         d = json.loads(r.text)
-        print(d)
-
         movies = []
         for i in d.get('results'):
-            movies.append(Movie(i.get('genre_ids'),
-                                i.get('id'),
-                                i.get('title'),
-                                i.get('overview'),
-                                i.get('poster_path'),
-                                i.get('release_date'),
-                                i.get('vote_average')))
+            movies.append(Movie(i.get('genre_ids'), i.get('id'), i.get('title'), i.get(
+                'overview'), i.get('poster_path'), i.get('release_date'), i.get('vote_average')))
         return movies

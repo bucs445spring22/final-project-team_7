@@ -14,8 +14,8 @@
       </a>
     </li>
     <div class="search-container">
-        <form action="">
-          <input type="text" placeholder="Search.." name="search">
+        <form method="post">
+          <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
           <button type="submit">Submit</button>
         </form>
     </div>
