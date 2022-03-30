@@ -1,5 +1,10 @@
 flask >= 2
 flask-login
 json
+<<<<<<< HEAD
 requests
 tinydb
+=======
+tinydb
+requests
+>>>>>>> ae792c55fa9f0a0dbf1fe82660c13164544d3fa0
