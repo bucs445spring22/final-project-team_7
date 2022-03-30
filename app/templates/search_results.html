@@ -6,7 +6,22 @@
     <link rel= "icon" type="image/x-icon" href="{{ url_for('static',filename='mymdb.ico') }}">
     <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/homepage.css') }}">
   </head>
-
+  <ul>
+    <li> 
+      <a>
+        My Library
+      </a>
+    </li>
+    <div class="search-container">
+        <form method="post">
+          <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
+          <button type="submit">Submit</button>
+        </form>
+        {% if error %}
+          <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
+    </div>
+  </ul>
   <div class="search-results">
     {{ data|safe }}
   </div>

@@ -24,7 +24,7 @@ class Tmdb_api(Api):
         movie_data = json.loads(movie_req.text)
         #show_data = json.loads(show_req.text)
         ret = []
-        for i in movie.get('results'):
+        for i in movie_data.get('results'):
             ret.append(Movie(i.get('genre_ids'), i.get('id'), i.get('title'), i.get('overview'), 
                 i.get('poster_path'), i.get('release_date'), i.get('vote_average')))
         return ret

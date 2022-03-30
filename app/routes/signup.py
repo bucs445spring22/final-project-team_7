@@ -1,8 +1,7 @@
 from flask import *
 from app import app
 import sqlite3
-from tinydb import TinyDB
-from tinydb import Query
+#from tinydb import TinyDB, Query
 
 connection = sqlite3.connect("loginInfo.db")
 
