@@ -7,6 +7,13 @@ def search_results(query):
 	x = Tmdb_api()
 	movies = x.search(query)
 	res = []
+	data = ""
 	for movie in movies:
-		res.append(movie.title)
-	return jsonify(res)
+		data += "<tr>"
+		data += "<td>" + "" + "</td>"
+		data += "<td>" + movie.title + "</td>"
+		data += "<td>" + str(movie.rating) + "</td>"
+		data += "<td>" + movie.overview + "</td>"
+		data += "</tr>"
+	data = "<table border = 1>" + data + "</table>"
+	return render_template('search_results.html', data=data)
