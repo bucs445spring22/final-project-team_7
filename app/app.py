@@ -1,6 +1,7 @@
 from flask import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'woohoo'
+app.config['JSON_AS_ASCII'] = False
 import routes.index
 import routes.signup
 import routes.homepage

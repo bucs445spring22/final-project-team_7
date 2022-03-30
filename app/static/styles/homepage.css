@@ -51,6 +51,11 @@ input[type=text] {
   cursor: pointer;
 }
 
+.error {
+  color:  red;
+  position: relative;
+}
+
 @media screen and (max-width: 600px) {
   ul .search-container {
     float: none;
