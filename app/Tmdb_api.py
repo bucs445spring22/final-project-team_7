@@ -19,10 +19,12 @@ class Tmdb_api(Api):
     # TODO: add search results for shows as well
     def search(self, title):
         title = title.replace(" ", "+")
-        r = requests.get("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
-        d = json.loads(r.text)
-        movies = []
-        for i in d.get('results'):
-            movies.append(Movie(i.get('genre_ids'), i.get('id'), i.get('title'), i.get(
-                'overview'), i.get('poster_path'), i.get('release_date'), i.get('vote_average')))
-        return movies
+        movie_req = requests.get("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
+        show_req = requests.get("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
+        movie_data = json.loads(movie_req.text)
+        show_data = json.loads(show_req.text)
+        ret = []
+        for i in movie.get('results'):
+            ret.append(Movie(i.get('genre_ids'), i.get('id'), i.get('title'), i.get('overview'), 
+                i.get('poster_path'), i.get('release_date'), i.get('vote_average')))
+        return ret
