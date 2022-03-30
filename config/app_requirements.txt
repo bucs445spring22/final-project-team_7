@@ -1,4 +1,5 @@
 flask >= 2
 flask-login
 json
+tinydb
 requests
