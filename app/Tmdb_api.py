@@ -20,9 +20,9 @@ class Tmdb_api(Api):
     def search(self, title):
         title = title.replace(" ", "+")
         movie_req = requests.get("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
-        show_req = requests.get("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
+        #show_req = requests.get("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
         movie_data = json.loads(movie_req.text)
-        show_data = json.loads(show_req.text)
+        #show_data = json.loads(show_req.text)
         ret = []
         for i in movie.get('results'):
             ret.append(Movie(i.get('genre_ids'), i.get('id'), i.get('title'), i.get('overview'), 
