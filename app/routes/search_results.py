@@ -10,7 +10,7 @@ def search_results(query):
 	data = ""
 	for movie in movies:
 		data += "<tr>"
-		data += "<td>" + "<img src=https://image.tmdb.org/t/p/w500/" + str(movie.poster_url) + " width=\"160\" height =\"auto\"/></td>"
+		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"160\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + "</font></td>"
 		data += "<td><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
