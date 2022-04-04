@@ -15,7 +15,7 @@ def search_results(query):
 		data += "<td><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
 		data += "</tr>"
-	data = "<table border = 1>" + data + "</table>"
+	data = "<table style=\"width:100%\" border=1>" + data + "</table>"
 	error = None
 	if request.method == 'POST':
 		if request.form['search']:
@@ -25,4 +25,4 @@ def search_results(query):
 				error = 'No movies found'
 			else:
 				return redirect(url_for('search_results', query=request.form['search']))
-	return render_template('search_results.html', data=data)
+	return render_template('search_results.html', data=data, error=error)

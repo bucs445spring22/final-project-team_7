@@ -10,10 +10,14 @@ class Tmdb_api:
         return json.loads(requests.get(url).text)
 
     def __thumbnail_gen(self, poster_path):
-        return "https://www.themoviedb.org/t/p/w188_and_h282_bestv2" + poster_path
+        if str(poster_path) == "None":
+            return "https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif"
+        return "https://www.themoviedb.org/t/p/w188_and_h282_bestv2" + str(poster_path)
 
     def __cover_gen(self, poster_path):
-        return "https://www.themoviedb.org/t/p/w1280" + poster_path
+        if str(poster_path) == "None":
+            return "https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif"
+        return "https://www.themoviedb.org/t/p/w1280" + str(poster_path)
 
     def get_movie(self, media_id):
         data = self.__request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
