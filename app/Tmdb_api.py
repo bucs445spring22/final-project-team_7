@@ -16,8 +16,8 @@ class Tmdb_api:
         return "https://www.themoviedb.org/t/p/w1280" + poster_path
 
     def get_movie(self, media_id):
-        data = self.request_to_dict("https://api.themoviedb.org/3/movie/" + media_id + "?api_key=" + self.API_KEY)
-        movie = Movie(Movie(data.get('id'), data.get('title'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.__cover_gen(data.get('poster_path'))))
+        data = self.__request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
+        movie = Movie(data.get('id'), data.get('title'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.__thumbnail_gen(data.get('poster_path')))
         movie.runtime = data.get('runtime')
         movie.language = data.get('original_language')
         movie.genres = data.get('genres')

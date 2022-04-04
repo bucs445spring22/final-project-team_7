@@ -1,7 +1,7 @@
 # from MediaEntry import MediaEntry
 
 class Movie:
-    runtime = ""
+    runtime = 0
     language = ""
     genres = {}
     cover_url = ""
