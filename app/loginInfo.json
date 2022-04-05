@@ -1,1 +1,1 @@
-{"_default": {"1": {"username": "test", "password": "test"}, "2": {"username": "test3", "password": "aa"}, "3": {"username": "test34", "password": "ad"}, "4": {"username": "fuck", "password": "fk"}, "5": {"username": "poop", "password": "ronald"}}}
+{"_default": {"1": {"username": "test", "hashed": "$2b$12$DNMEA6YvfNqfABsmLn4E6..s4UEYEmwIuWnGEkm9J287TOlYnRara"}, "2": {"username": "admin", "hashed": "$2b$12$vl/cQulPybm.WpfhAXJVOOioqtVoanRAwcF80udMuY.H7KifWonky"}}}

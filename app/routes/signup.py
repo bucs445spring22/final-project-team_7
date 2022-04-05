@@ -2,6 +2,7 @@ from flask import *
 from tinydb import TinyDB, Query
 from pymongo import MongoClient
 from app import app
+import bcrypt
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -16,7 +17,9 @@ def signup():
                 error = 'User name already exists. Please try again.'
                 return render_template('signup.html', error=error)
             else:
-                new_login = {"username": request.form['username'], "password": request.form['password']}
+                salt = bcrypt.gensalt()
+                hashed = bcrypt.hashpw(request.form['password'].encode('utf-8'), salt)
+                new_login = {"username": request.form['username'], "hashed": hashed.decode("utf-8")}
                 db.insert(new_login)
                 return redirect(url_for('login'))
             return redirect(url_for('login'))
