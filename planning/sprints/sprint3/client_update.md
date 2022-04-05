@@ -3,19 +3,25 @@
 
 ## Sprint Notes
 
+Complete
+
 ## SRS Updated
 
+Complete
 
 ## Requirements Attempted in this Sprint
 
-
+* Ability to search for a movie
+* Ability to fetch movie metadata from TMDB
 
 ## Requirements complete
 
+* Ability to search for a movie
+* Ability to fetch movie metadata from TMDB
 
 ## Requirements incomplete
 
-<< TBD >>
+None
 
 ## Requirement Flex Remaining
 
@@ -23,10 +29,14 @@
 
 ## Requirements Attempted in next Sprint
 
-<< TBD >>
+* Ability to login and manage a user account
+* Ability to store information in a database
+* Scalability
 
 # Milestone Status
 
-<< Pass/Fail >>
+Pass
 
 ## Requested Changes
+
+None
