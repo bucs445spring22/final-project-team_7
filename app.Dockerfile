@@ -7,7 +7,7 @@ WORKDIR /var/app
 
 # Dependencies
 RUN pip install --upgrade pip
-COPY ./app/app_requirements.txt /var/tmp/requirements.txt
+COPY ./config/app_requirements.txt /var/tmp/requirements.txt
 RUN pip install -r /var/tmp/requirements.txt
 
 COPY ./app /var/app

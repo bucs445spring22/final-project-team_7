@@ -12,8 +12,18 @@
         My Library
       </a>
     </li>
-    <div class="search-container">
+    <li> 
+      <a>
+        Sign Out
+      </a>
+    </li>
+
+  <div class="search-container">
         <form method="post">
+        <select name="media-type" id="media-type">
+          <option value="movies">TMDB</option>
+          <option value="shows">My Library</option>
+        </select>
           <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
           <button type="submit">Submit</button>
         </form>

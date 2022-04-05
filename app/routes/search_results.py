@@ -10,10 +10,11 @@ def search_results(query):
 	data = ""
 	for movie in movies:
 		data += "<tr>"
-		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"160\" height =\"auto\"/></td>"
-		data += "<td><font color=\"white\">" + movie.title + "</font></td>"
-		data += "<td><font color=\"white\">" + str(movie.rating) + "</font></td>"
+		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
+		data += "<td><font color=\"white\">" + movie.title + " (" + movie.release_date + ")" "</font></td>"
+		data += "<td style=\"text-align: center\" width=\"50\"><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
+		data += "<td><a href=\"something\" class=\"button1\">+</a></td>"
 		data += "</tr>"
 	data = "<table style=\"width:100%\" border=1>" + data + "</table>"
 	error = None

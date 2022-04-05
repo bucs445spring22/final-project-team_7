@@ -18,6 +18,31 @@ li a {
   text-decoration: none;
 }
 
+a.button1{
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.2s;
+}
+a.button1:hover{
+  color:#000000;
+  background-color:#FFFFFF;
+}
+@media all and (max-width:30em){
+  a.button1{
+    display:block;
+    margin:0.4em auto;
+  }
+}
+
 li a:hover {
   background-color: #111;
   cursor: pointer;
@@ -46,7 +71,18 @@ input[type=text] {
   cursor: pointer;
 }
 
-.search-container button:hover {
+select {
+  float: left;
+  padding: 6px;
+  padding-bottom: 5.5px;
+  margin-top: 14px;
+  font-size: 17px;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover, select {
   background: #ccc;
   cursor: pointer;
 }
@@ -60,7 +96,7 @@ input[type=text] {
   ul .search-container {
     float: none;
   }
-  ul a, ul input[type=text], ul .search-container button {
+  ul a, ul input[type=text], ul .search-container button, select {
     float: none;
     display: block;
     text-align: left;
