@@ -1,8 +1,14 @@
 from flask import *
 from app import app
+<<<<<<< HEAD
 #import sqlite3
 from tinydb import TinyDB, Query
 
+=======
+import sqlite3
+#from tinydb import TinyDB, Query
+from pymongo import MongoClient
+>>>>>>> 62b69876ae1e956c4c2c4248ad80879a4b0c2798
 connection = sqlite3.connect("loginInfo.db")
 
 @app.route('/signup', methods=('GET', 'POST'))
