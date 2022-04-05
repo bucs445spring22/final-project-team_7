@@ -1,6 +1,3 @@
-# Build: docker build -t app
-# Run: docker run -dit -p 80:5000 app
-
 FROM python:3.9
 
 WORKDIR /var/app

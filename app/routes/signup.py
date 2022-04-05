@@ -1,15 +1,7 @@
 from flask import *
-from app import app
-<<<<<<< HEAD
-#import sqlite3
 from tinydb import TinyDB, Query
-
-=======
-import sqlite3
-#from tinydb import TinyDB, Query
 from pymongo import MongoClient
->>>>>>> 62b69876ae1e956c4c2c4248ad80879a4b0c2798
-connection = sqlite3.connect("loginInfo.db")
+from app import app
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -20,12 +12,12 @@ def signup():
         if request.form['password'] != request.form['passwordconfirm']:
             error = 'Password confirmation incorrect. Please try again.'
         else:
-            cursor = connection.cursor()
-            cursor.execute("INSERT INTO login VALUES (request.form['UserName'], request.form['password'])")
-            if db.search(User.userName == request.form['UserName']) is None:
-                new_login = {"userName": request.form['UserName'], "passWord": request.form['password']}
-                db.insert(new_login)
-            else:
+            if db.search(User.username == request.form['username']):
                 error = 'User name already exists. Please try again.'
+                return render_template('signup.html', error=error)
+            else:
+                new_login = {"username": request.form['username'], "password": request.form['password']}
+                db.insert(new_login)
+                return redirect(url_for('login'))
             return redirect(url_for('login'))
     return render_template('signup.html', error=error)

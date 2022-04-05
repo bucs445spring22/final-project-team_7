@@ -7,7 +7,6 @@ import routes.signup
 import routes.homepage
 import routes.search_results
 
-
 def main():
     app.run()
     team = {
