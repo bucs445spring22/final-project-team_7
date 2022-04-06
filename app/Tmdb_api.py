@@ -1,5 +1,7 @@
 #from Api import Api
 from Movie import Movie
+from Show import Show
+from Season import Season
 import requests
 import json
 
@@ -32,8 +34,24 @@ class Tmdb_api:
         movie.cover_url = self.cover_gen(data.get('poster_path'))
         return movie
 
+    def init_season_list(self, data):
+        seasons = []
+        x = data.get('seasons')
+        for i in range(len(x)):
+            seasons[i] = Season(x.get('id'), x.get('name'), x.get('overview'), x.get('episode_count'), x.get('air_date'), thumbnail_gen(x.get('poster_path')), cover_gen(x.get('poster_path')))
+        return seasons
+
     def get_show(self, media_id):
-        pass
+        data = self.request_to_dict("https://api.themoviedb.org/3/tv/" + str(media_id) + "?api_key=" + self.API_KEY)
+        show = Show(data.get('id'), data.get('title'), data.get('overview'), self.date_gen(data.get('first_air_date')), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
+        show.runtime = episode_runtime[0]
+        show.language = data.get('original_language')
+        show.genres = data.get('genres')
+        show.cover_url = self.cover_gen(data.get('poster_path'))
+        show.total_episodes = data.get('number_of_episodes')
+        show.total_seasons = data.get('number_of_seasons')
+        show.seasons = init_season_list(self, data);
+        return show
 
     def recommend(self, media_id):
         pass

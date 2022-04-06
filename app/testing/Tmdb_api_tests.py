@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '..')
+
 from Tmdb_api import Tmdb_api
 from Movie import Movie
 import pytest
