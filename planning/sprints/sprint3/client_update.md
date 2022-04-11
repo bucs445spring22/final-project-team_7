@@ -9,11 +9,6 @@ Complete
 
 Complete
 
-## Requirements Attempted in this Sprint
-
-* Ability to search for a movie
-* Ability to fetch movie metadata from TMDB
-
 ## Requirements complete
 
 * Ability to search for a movie

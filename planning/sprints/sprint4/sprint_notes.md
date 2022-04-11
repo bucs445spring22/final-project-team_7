@@ -21,8 +21,6 @@ As a user I want to be able to make a secure account and not have to make a new 
 
 Ability to login and manage a user account
 Ability to store information in a database
-Scalability
-Security
 
 ### Completed Items
 
@@ -33,8 +31,7 @@ Support for shows has been added
 
 ### Incomplete Items
 
-Support for shows implemented, but shows have yet to be added to the search function
-TinyDB can store user passwords, but it is not yet able to store a user’s media library.
+None
 
 ### The summary of the entire project:
 
@@ -46,15 +43,13 @@ A watchlist for movies/shows. It will have the ability to rate shows, keep track
 
 ### Requirement Target:
 
-Ability to login and manage a user account
-Ability to store information in a database
 Ability to add movies to the library
-Scalability
+Ability to manage account
+
 
 ### User Stories:
 
-I want to be able to login with a user account that I signed up with before and access the information that my account has.
-As a confused media watcher, I want a system where if I want another type of media added, it can be easily done.
+I want to be able to login with a user account and add movies to the library in order to append them to my list.
 
 ### Planning
 
