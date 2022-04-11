@@ -1,5 +1,5 @@
 class Season:
-    def __init__(self, season_id, name, overview, episode_count, air_date, thumbnail_url, cover_url, seasons):
+    def __init__(self, season_id, name, overview, episode_count, air_date, thumbnail_url, cover_url):
         self.season_id = season_id
         self.name = name
         self.overview = overview
