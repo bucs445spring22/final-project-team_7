@@ -1,7 +1,7 @@
 from flask import *
 from app import app
 from tinydb import TinyDB, Query
-from pymongo import MongoClient
+from tinydb.operations import set
 import bcrypt
 
 @app.route('/', methods=('GET', 'POST'))
@@ -10,12 +10,14 @@ def login():
     User = Query()
     error = None
     if request.method == 'POST':
-
         if db.search(User.username == request.form['username']):
-            hashed = db.get(User.username == request.form['username'])
-            hashed = str(hashed.get("hashed")).encode("utf-8")
+            ret = db.get(User.username == request.form['username'])
+            status = ret.get("status")
+            hashed = str(ret.get("hashed")).encode("utf-8")
+
             if bcrypt.checkpw(request.form['password'].encode("utf-8"), hashed):
-                return redirect(url_for('homepage'))
+                db.update(set('status', 'True'), User.username == request.form['username'])
+                return redirect(url_for('homepage', user=request.form['username']))
             else:
                 error = 'Invalid Credentials. Please try again.'
         else:
