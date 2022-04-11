@@ -1,71 +1,75 @@
-# Sprint Meeting Notes
+# Sprint 4 Meeting Notes
 
-*note: replace anything surrounded by << >> and **remove** the << >>*
-
-**Attended**: << record the team members in attendance (virtual counts as long as they are participating) >>
-
-**DATE**: << meeting date >>
+**Attended**: Andrew Goetz, Jin Xian Li, Yong Liu
 
 ***
 
-## Sprint << num >> Review
+## Sprint Review
 
 ### SRS Sections Updated
 
-<< List any SRS sections that were updated in the last sprint >>
+Added top-level section for User Interface
+ 
+###  User Story:
 
-### User Story
-
-<< Corresponding User Stories completed in this sprint >>
+I want to be able to login with a user account that I signed up with before and access the information that my account has.
+As a user I want to be able to make an account and not have to make a new one every time.
+As a confused media watcher, I want a system where if I want another type of media added, it would be easily done.
+As a user I want to be able to make a secure account and not have to make a new one every time.
 
 ### Sprint Requirements Attempted
 
-<< The corresponding SRS requirement that the team completed in the last sprint >>
+Ability to login and manage a user account
+Ability to store information in a database
+Scalability
+Security
 
-### Completed Requirements
+### Completed Items
 
-<< The work that's been completed in this sprint >>
+Fixed TinyDB error and added password hashing for (temporary?) TinyDB database
+Added TinyDB for signup and login where it remembers users now
+Further tests for application has been added
+Support for shows has been added
 
-### Incomplete Requirements
+### Incomplete Items
 
-<< The work that has not been completed in this sprint. Be VERY detailed and specific regarding what isn't working and what needs to be completed >>
+Support for shows implemented, but shows have yet to be added to the search function
+TinyDB can store user passwords, but it is not yet able to store a user’s media library.
 
-### The summary of the entire project
+### The summary of the entire project:
 
-<< A general overview of the entire project >>
+A watchlist for movies/shows. It will have the ability to rate shows, keep track of watched shows, and display relevant information about watched shows (cover art, actors, genres, etc).
 
 ***
 
-## Sprint << num >> Planning
+## Sprint Planning
 
-## Requirements Flex
+### Requirement Target:
 
-<< # >>/5 requirement flexes remaining
+Ability to login and manage a user account
+Ability to store information in a database
+Ability to add movies to the library
+Scalability
 
-## Technical Debt
+### User Stories:
 
-<< Any requirements from the previous sprint that are using a technical flex >>
-
-### Requirement Target
-
-<< The corresponding SRS requirement that our team will be complete in next sprint >>
-
-### User Stories
-
-<< Corresponding User Stories >>
+I want to be able to login with a user account that I signed up with before and access the information that my account has.
+As a confused media watcher, I want a system where if I want another type of media added, it can be easily done.
 
 ### Planning
 
-<< Our team's detailed plan to complete the sprint >>
+Continue refining UI, adding UI elements to support user actions such as adding/removing media from library.  Want to be able to get movies into a user library now that user accounts are working.
 
-### Action Items
+### Action Items:
 
-<< A list of things that need to happen in our for our team to complete the sprint >>
+Continue development of user accounts: need a way for a particular user to access their media library and add to it.  Database should continue to be revamped.
 
-### Issues and Risks
+### Issues and Risks:
 
-<< A list of potential obstacles that could keep us from completing the sprint and what's being done about them >>
+Current implementation of the database uses TinyDB, we may want to switch to another solution to achieve scalability requirements.
 
-### Team Work Assignments
+### Team Work Assignments:
 
-<< A list of each team member and their works assignments for this sprint >>
+Andrew will continue backend/API development + refining tests.
+Yong will adjust database to store movies.
+Ronald will make necessary frontend changes to support adding/removing movies to the user library and viewing those movies on the user’s homepage.
