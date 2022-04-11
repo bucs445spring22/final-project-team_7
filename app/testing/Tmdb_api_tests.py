@@ -62,7 +62,3 @@ def test_thumbnail_gen():
 def test_cover_gen():
     api = Tmdb_api()
     assert api.cover_gen("/url.jpg") == "https://www.themoviedb.org/t/p/w1280" + "/url.jpg"
-    
-def test_date_gen():
-    api = Tmdb_api()
-    assert api.date_gen("1212-10-11") == "1212"
