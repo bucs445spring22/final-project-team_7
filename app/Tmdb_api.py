@@ -63,4 +63,8 @@ class Tmdb_api:
         movie_list = [Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in movie_data.get('results')]
 
         show_list = [Show(i.get('id'), i.get('name'), i.get('overview'), i.get('first_air_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in show_data.get('results')]
-        return [sub[item] for item in range(len(show_list)) for sub in [movie_list, show_list]]
+        if len(movie_list) == 0:
+            return show_list
+        if len(show_list) == 0:
+            return movie_list
+        return [sub[item] for item in range(min(len(movie_list), len(show_list))) for sub in [movie_list, show_list]]
