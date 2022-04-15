@@ -11,7 +11,7 @@ def search_results(query):
 	for movie in movies:
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
-		data += "<td><font color=\"white\">" + movie.title + " (" + movie.release_date + ")" "</font></td>"
+		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
 		data += "<td style=\"text-align: center\" width=\"50\"><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
 		data += "<td><a href=\"something\" class=\"button1\">+</a></td>"

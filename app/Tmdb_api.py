@@ -56,7 +56,7 @@ class Tmdb_api:
         title = title.replace(" ", "+")
         movie_data = self.request_to_dict("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
         #show_data = self.request_to_dict("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
-
+#i.get('release_date')
         movie_list = []
         for i in movie_data.get('results'):
             movie_list.append(Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))))
