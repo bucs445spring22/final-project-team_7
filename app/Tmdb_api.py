@@ -23,7 +23,7 @@ class Tmdb_api:
 
     def get_movie(self, media_id) -> Movie:
         data = self.request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
-        movie = Movie(data.get('id'), data.get('title'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
+        movie = Movie(data.get('id'), data.get('name'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
         movie.runtime = data.get('runtime')
         movie.language = data.get('original_language')
         movie.genres = data.get('genres')
@@ -55,14 +55,13 @@ class Tmdb_api:
     def search(self, title) -> list:
         title = title.replace(" ", "+")
         movie_data = self.request_to_dict("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
-        #show_data = self.request_to_dict("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
-#i.get('release_date')
+        show_data = self.request_to_dict("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
         movie_list = []
         for i in movie_data.get('results'):
             movie_list.append(Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))))
 
-#        show_list = []
-#        for i in show_data.get('results'):
-#            show_list.append(Show(i.get('id'), i.get('title'), i.get('overview'), i.get('first_air_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))))
+        show_list = []
+        for i in show_data.get('results'):
+            show_list.append(Show(i.get('id'), i.get('name'), i.get('overview'), i.get('first_air_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))))
 
-        return movie_list #[sub[item] for item in range(len(show_list)) for sub in [movie_list, show_list]]
+        return [sub[item] for item in range(len(show_list)) for sub in [movie_list, show_list]]
