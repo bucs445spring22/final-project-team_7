@@ -43,25 +43,24 @@ class Tmdb_api:
         return show
 
     def init_season_list(self, data) -> list:
-        seasons = []
-        x = data.get('seasons')
-        for i in x:
-            seasons.append(Season(i.get('id'), i.get('name'), i.get('overview'), i.get('episode_count'), i.get('air_date'), self.thumbnail_gen(i.get('poster_path')), self.cover_gen(i.get('poster_path'))))
-        return seasons
+        return [Season(i.get('id'), i.get('name'), i.get('overview'), i.get('episode_count'), i.get('air_date'), self.thumbnail_gen(i.get('poster_path')), self.cover_gen(i.get('poster_path'))) for i in data.get('seasons')]
 
-    def recommend(self, media_id): # -> list:
-        pass
+    def recommend(self, media_id, MEDIA_TYPE) -> list:
+        t = "tv/" if MEDIA_TYPE == "Show" else "movie/"
+        data = request_to_dict("https://api.themoviedb.org/3/" + t + str(media_id) + "/recommendations?api_key=" + self.API_KEY)
+        media_list = []
+        if MEDIA_TYPE == "Movie":
+            media_list = [Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in data.get('results')]
+        elif MEDIA_TYPE == "Show":
+            media_list = [Show(i.get('id'), i.get('name'), i.get('overview'), i.get('first_air_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in data.get('results')]
+        return media_list
 
     def search(self, title) -> list:
         title = title.replace(" ", "+")
         movie_data = self.request_to_dict("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
         show_data = self.request_to_dict("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
-        movie_list = []
-        for i in movie_data.get('results'):
-            movie_list.append(Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))))
 
-        show_list = []
-        for i in show_data.get('results'):
-            show_list.append(Show(i.get('id'), i.get('name'), i.get('overview'), i.get('first_air_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))))
+        movie_list = [Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in movie_data.get('results')]
 
+        show_list = [Show(i.get('id'), i.get('name'), i.get('overview'), i.get('first_air_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in show_data.get('results')]
         return [sub[item] for item in range(len(show_list)) for sub in [movie_list, show_list]]
