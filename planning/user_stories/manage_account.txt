@@ -1,0 +1,15 @@
+manage_account
+
+As a user I want to be able to manage my account information including removing media already in my library
+
+Acceptance:
+- Can access personal library of medias
+- Can change personal library of medias (remove them from the list)
+- Maybe add ability to modify account
+
+Notes:
+
+Persona:
+- John Li
+- Loves to manage people
+- Does not like insubordination

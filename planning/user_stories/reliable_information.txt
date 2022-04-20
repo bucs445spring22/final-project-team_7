@@ -1,0 +1,15 @@
+reliable_information
+
+As a movie watcher, I want a reliable way to search new and updated movies that just came out
+
+Acceptance:
+- Application should be able to have a search option that displays new medias, not just old ones
+- API used is constantly updated with new movies and can relay through user searches
+
+Notes:
+
+Persona:
+- Smith John
+- Constantly searching for things
+- Likes to search for different medias
+- Doesn't like outdated websites

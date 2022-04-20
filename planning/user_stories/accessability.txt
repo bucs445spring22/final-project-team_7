@@ -1,0 +1,15 @@
+accessability
+
+As a confused movie watcher, I want a category system to make it easier for me to find the media I want.
+
+Acceptance:
+- Must be easy to use the application in terms of adding shows and sorting already added.
+- Have a category system for different types of medias
+
+Notes:
+
+Persona:
+- Andrew Johnson
+- Constantly searching for things
+- Hates messy websites
+- Wants to search for the shows he watches
