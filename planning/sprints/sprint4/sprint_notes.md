@@ -43,8 +43,8 @@ A watchlist for movies/shows. It will have the ability to rate shows, keep track
 
 ### Requirement Target:
 
-Ability to add movies to the library
-Ability to manage account
+- Ability to add movies to the library
+- Ability to manage account
 
 
 ### User Stories:
