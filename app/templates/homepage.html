@@ -8,13 +8,13 @@
   </head>
 
   <ul>
-    <li> 
+    <li>
       <a>
         My Library
       </a>
     </li>
-    <li> 
-      <a>
+    <li>
+      <a href="/">
         Sign Out
       </a>
     </li>
@@ -32,5 +32,7 @@
         {% endif %}
     </div>
     </ul>
-
+    <div class="search-results">
+      {{ data|safe }}
+    </div>
 </html>

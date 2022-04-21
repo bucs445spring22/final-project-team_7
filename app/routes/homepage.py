@@ -8,7 +8,16 @@ def homepage():
     db = TinyDB("loginInfo.json")
     User = Query()
     status = ""
+    data = ""
     username = request.args['user']
+    movies = (db.get(User.username == username)).get("movies")
+    movies = movies.split(',')
+    movies.pop()
+    for movie in movies:
+        data += "<tr style='height:2px'>"
+        data += "<td>" + movie + "</td>"
+        data += "</tr>"
+    data = "<table style=\"width:100%\" border=1>" + data + "</table>"
     if db.search(User.username == username):
         ret = db.get(User.username == username)
         status = ret.get("status")
@@ -24,4 +33,4 @@ def homepage():
                     return redirect(url_for('search_results', query=request.form['search'], user=username))
     else:
         return redirect(url_for('login'))
-    return render_template('homepage.html', error=error)
+    return render_template('homepage.html', error=error, data=data)
