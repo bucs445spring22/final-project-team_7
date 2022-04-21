@@ -19,7 +19,7 @@ def signup():
             else:
                 salt = bcrypt.gensalt()
                 hashed = bcrypt.hashpw(request.form['password'].encode('utf-8'), salt)
-                new_login = {"username": request.form['username'], "hashed": hashed.decode("utf-8"), "status": "False"}
+                new_login = {"username": request.form['username'], "hashed": hashed.decode("utf-8"), "status": "False", "movies" : ""}
                 db.insert(new_login)
                 return redirect(url_for('login'))
             return redirect(url_for('login'))

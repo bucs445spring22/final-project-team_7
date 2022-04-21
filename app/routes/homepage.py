@@ -21,7 +21,7 @@ def homepage():
                 if not movies:
                     error = 'No movies found'
                 else:
-                    return redirect(url_for('search_results', query=request.form['search']))
+                    return redirect(url_for('search_results', query=request.form['search'], user=username))
     else:
         return redirect(url_for('login'))
     return render_template('homepage.html', error=error)

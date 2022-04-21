@@ -7,19 +7,19 @@
     <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/homepage.css') }}">
   </head>
   <ul>
-    <li> 
+    <li>
       <a>
         My Library
       </a>
     </li>
-    <li> 
+    <li>
       <a>
         Sign Out
       </a>
     </li>
 
   <div class="search-container">
-        <form method="post">
+        <form method="post" action="/search_again">
         <select name="media-type" id="media-type">
           <option value="1">TMDB</option>
           <option value="2">My Library</option>
@@ -33,6 +33,8 @@
     </div>
   </ul>
   <div class="search-results">
+    <form id="myform" method="post" action="/add_movie">
     {{ data|safe }}
+    </form>
   </div>
 </html>
