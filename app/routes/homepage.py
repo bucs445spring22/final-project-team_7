@@ -5,19 +5,25 @@ from tinydb import TinyDB, Query
 
 @app.route('/homepage', methods=('GET', 'POST'))
 def homepage():
+    counter = 1
     db = TinyDB("loginInfo.json")
     User = Query()
     status = ""
     data = ""
+    x = Tmdb_api()
     username = request.args['user']
     movies = (db.get(User.username == username)).get("movies")
     movies = movies.split(',')
     movies.pop()
     for movie in movies:
-        data += "<tr style='height:2px'>"
-        data += "<td>" + movie + "</td>"
-        data += "</tr>"
-    data = "<table style=\"width:100%\" border=1>" + data + "</table>"
+        this = x.search(movie)[0]
+        data += "<td>" + "<img src=" + this.thumbnail_url + " width=\"200\" height =\"auto\"/></td>"
+        data += "<td style=color:white width='100'>" + movie + "</td>"
+        if counter%5 == 0 and counter > 0:
+            data+= "<tr></tr>"
+        counter+=1
+    data = "<table border=1>" + data + "</table>"
+    data = "<h1 style=color:white>Welcome to your library, " + username + "!</h1>" + data
     if db.search(User.username == username):
         ret = db.get(User.username == username)
         status = ret.get("status")
