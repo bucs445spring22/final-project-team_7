@@ -1,0 +1,14 @@
+remove_movie
+
+As a confused movie watcher, I want to be able to remove a movie from my list if I no longer want it there.
+
+Acceptance:
+- Movie can be removed from library
+- Movie can be readded after removal if user wishes
+
+Notes:
+
+Persona:
+- Andrew Johnson
+- Constantly making mistakes
+- Hates not having control
