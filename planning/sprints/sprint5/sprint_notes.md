@@ -1,71 +1,70 @@
-# Sprint Meeting Notes
+# Sprint 5 Meeting Notes
 
-*note: replace anything surrounded by << >> and **remove** the << >>*
-
-**Attended**: << record the team members in attendance (virtual counts as long as they are participating) >>
-
-**DATE**: << meeting date >>
+**Attended**: Andrew Goetz, Jin Xian Li, Yong Liu
 
 ***
 
-## Sprint << num >> Review
+## Sprint Review
 
 ### SRS Sections Updated
 
-<< List any SRS sections that were updated in the last sprint >>
-
-### User Story
-
-<< Corresponding User Stories completed in this sprint >>
+Added top-level section for coverage output
+Adjusted many non-functional requirements
+ 
+###  User Story:
+ 
+I want to be able to login with a user account that I signed up with before and access the information that my account has.
+As a confused media watcher, I want a system where if I want another type of media added, it can be easily done.
 
 ### Sprint Requirements Attempted
 
-<< The corresponding SRS requirement that the team completed in the last sprint >>
+Ability to add movies to the library
+Ability to manage account
 
-### Completed Requirements
+### Completed Items
 
-<< The work that's been completed in this sprint >>
+Media is now displayed in the user’s library and can be added to the library.
+Additional testing has been added for shows/seasons, and coverage screenshot was added to SRS along with a revamp of non-functional requirements.
 
-### Incomplete Requirements
+### Incomplete Items
 
-<< The work that has not been completed in this sprint. Be VERY detailed and specific regarding what isn't working and what needs to be completed >>
+None
 
-### The summary of the entire project
+### The summary of the entire project:
 
-<< A general overview of the entire project >>
+A watchlist for movies/shows. It will have the ability to rate shows, keep track of watched shows, and display relevant information about watched shows (cover art, actors, genres, etc).
 
 ***
 
-## Sprint << num >> Planning
+## Sprint Planning
 
-## Requirements Flex
+### Requirement Target:
 
-<< # >>/5 requirement flexes remaining
+Ability to give a rating to a movie
+Ability to see metadata about a searched movie
 
-## Technical Debt
+### User Stories:
 
-<< Any requirements from the previous sprint that are using a technical flex >>
-
-### Requirement Target
-
-<< The corresponding SRS requirement that our team will be complete in next sprint >>
-
-### User Stories
-
-<< Corresponding User Stories >>
+After I finish watching a movie or TV Show, I would like to be able to rate it from 1-10 stars. I would leave a 1 star rating if I disliked the movie/show or a 10 star rating if I enjoyed it.
+I want to be able to look at the movies and their information that I add to my list
 
 ### Planning
 
-<< Our team's detailed plan to complete the sprint >>
+Should get started on rating system: the rating system should average all ratings together into a global rating for the MediaEntry. This global rating may require storage in the database that is not associated with any particular account (since all should be able to access it).
+Other major thing that has to get done is a webpage to display more detailed information about a MediaEntry, accessible by clicking on a MediaEntry in search results or in library.
 
-### Action Items
+### Action Items:
 
-<< A list of things that need to happen in our for our team to complete the sprint >>
+Complete rating system, display more in depth information about MediaEntry in dedicated page. Increases testing.
 
-### Issues and Risks
+### Issues and Risks:
 
-<< A list of potential obstacles that could keep us from completing the sprint and what's being done about them >>
+Want to ensure database is scaling properly with increased feature load (ratings).
+Want to ensure we aren’t making unnecessary network requests, better to store stuff like images locally as well if possible.
 
-### Team Work Assignments
+### Team Work Assignments:
 
-<< A list of each team member and their works assignments for this sprint >>
+Yong do database stuff.
+Andrew do backend to support ratings + testing + paperwork.
+Jin Xian Li do frontend stuff to support aforementioned features.
+Everyone determine how to better test their part of the application and write those tests.
