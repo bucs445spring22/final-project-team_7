@@ -3,6 +3,7 @@ from app import app
 from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
 from tinydb.operations import add
+from tinydb.operations import delete
 
 counter = 0
 db = TinyDB("loginInfo.json")
@@ -24,7 +25,7 @@ def search_results():
 	data = ""
 	inlist = {}
 	string = (db.get(User.username == username)).get("movies")
-	string = string.split(',')
+	string = string.split('**')
 	for i in range(len(string)):
 		inlist[string[i]] = ""
 	for movie in movies:
@@ -35,7 +36,7 @@ def search_results():
 		data += "<td style=\"text-align: center\" width=\"50\"><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
 		if movie.title in inlist:
-			data += "<td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='add' type='submit' value='" + str(counter) + "'>C</button></a></td>"
+			data += "<td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='remove' type='submit' value='" + str(counter) + "'>-</button></a></td>"
 		else:
 			data += "<td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='add' type='submit' value='" + str(counter) + "'>+</button></a></td>"
 		data += "</tr>"
@@ -63,6 +64,6 @@ def add_movie():
 	global username
 	for i in range(counter):
 		if str(i) == request.form["add"]:
-			db.update(add('movies', res[i]+","), User.username == username)
+			db.update(add('movies', res[i]+"**"), User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))

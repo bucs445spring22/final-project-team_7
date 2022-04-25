@@ -13,7 +13,7 @@ def homepage():
     x = Tmdb_api()
     username = request.args['user']
     movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split(',')
+    movies = movies.split('**')
     movies.pop()
     for movie in movies:
         this = x.search(movie)[0]
