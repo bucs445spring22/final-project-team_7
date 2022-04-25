@@ -2,6 +2,7 @@ from flask import *
 from app import app
 from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
+import LibrarySearch
 
 @app.route('/homepage', methods=('GET', 'POST'))
 def homepage():
@@ -31,12 +32,24 @@ def homepage():
     if status == "True":
         if request.method == 'POST':
             if request.form['search']:
-                x = Tmdb_api()
-                movies = x.search(request.form['search'])
-                if not movies:
-                    error = 'No movies found'
-                else:
-                    return redirect(url_for('search_results', query=request.form['search'], user=username))
+                if request.form.get('media-type') == "TMDB":
+                    x = Tmdb_api()
+                    movies = x.search(request.form['search'])
+                    if not movies:
+                        error = 'No movies found'
+                    else:
+                        return redirect(url_for('search_results', query=request.form['search'], user=username))
+                elif request.form.get('media-type') == "Local Library":
+                    movies = library_search(movies, request.form['search'])
+                    return render_template('homepage.html', error=error, data=data)
     else:
         return redirect(url_for('login'))
     return render_template('homepage.html', error=error, data=data)
+
+def library_search(media_list, search) -> list:
+    ret = []
+    for i in media_list:
+        if i.lower().find(search.lower()) != -1:
+            print(i)
+            ret.append(i)
+    return ret
