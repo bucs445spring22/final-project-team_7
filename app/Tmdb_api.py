@@ -13,12 +13,12 @@ class Tmdb_api:
 
     def thumbnail_gen(self, poster_path) -> str:
         if str(poster_path) == "None":
-            return "https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif"
+            return "static/cover_not_found.gif"
         return "https://www.themoviedb.org/t/p/w188_and_h282_bestv2" + poster_path
 
     def cover_gen(self, poster_path) -> str:
         if str(poster_path) == "None":
-            return "https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif"
+            return "static/cover_not_found.gif"
         return "https://www.themoviedb.org/t/p/w1280" + poster_path
 
     def get_movie(self, media_id) -> Movie:

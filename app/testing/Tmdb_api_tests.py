@@ -49,7 +49,6 @@ def test_get_show():
     assert x.seasons[1].date == "10-03"
     assert x.seasons[1].thumbnail_url == "https://www.themoviedb.org/t/p/w188_and_h282_bestv2" + "/AiP9Qfc2pmiqCeeQHVkvDcrTST6.jpg"
     assert x.seasons[1].cover_url == "https://www.themoviedb.org/t/p/w1280" + "/AiP9Qfc2pmiqCeeQHVkvDcrTST6.jpg"
-        
 
 def test_request_to_dict():
     api = Tmdb_api()
