@@ -48,11 +48,15 @@ Ability to give a rating to a movie
 
 Ability to see metadata about a searched movie
 
+Ability to remove a movie
+
 ### User Stories:
 
 After I finish watching a movie or TV Show, I would like to be able to rate it from 1-10 stars. I would leave a 1 star rating if I disliked the movie/show or a 10 star rating if I enjoyed it.
 
 I want to be able to look at the movies and their information that I add to my list
+
+As a user I want to be able to remove a media from my library.
 
 ### Planning
 
@@ -62,7 +66,7 @@ Other major thing that has to get done is a webpage to display more detailed inf
 
 ### Action Items:
 
-Complete rating system, display more in depth information about MediaEntry in dedicated page. Increases testing.
+Complete rating system, display more in depth information about MediaEntry in dedicated page. Increases testing. Implement removal of media.
 
 ### Issues and Risks:
 
@@ -76,6 +80,6 @@ Yong do database stuff.
 
 Andrew do backend to support ratings + testing + paperwork.
 
-Jin Xian Li do frontend stuff to support aforementioned features.
+Jin Xian Li do frontend stuff to support aforementioned features and removing movie from db.
 
 Everyone determine how to better test their part of the application and write those tests.
