@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '..')
 from Tmdb_api import Tmdb_api
-from Util import request_to_dict
+from Util import request_to_dict, library_search, 
 import pytest
 
 def test_request_to_dict():
