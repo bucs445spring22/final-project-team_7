@@ -4,6 +4,7 @@ from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
 from tinydb.operations import add
 from tinydb.operations import delete
+from routes.homepage import library_search, build_data
 
 counter = 0
 db = TinyDB("loginInfo.json")
@@ -48,11 +49,21 @@ def search_results():
 
 @app.route('/search_again', methods=['POST'])
 def search_again():
-	x = Tmdb_api()
-	movies = x.search(request.form['search'])
-	if not movies:
-		error = 'No movies found'
-		return render_template('homepage.html', error=error, user=username)
+	global db
+	global User
+	if request.form.get('media-type') == "TMDB":
+		x = Tmdb_api()
+		movies = x.search(request.form['search'])
+		if not movies:
+			error = 'No movies found'
+		return redirect(url_for('search_results', query=request.form['search'], user=username))
+	elif request.form.get('media-type') == "Local Library":
+		movies = (db.get(User.username == username)).get("movies")
+		movies = movies.split('**')
+		movies.pop()
+		movies = library_search(movies, request.form['search'])
+		data = build_data(movies, username)
+		return render_template('homepage.html', user=username, data=data)
 	return redirect(url_for('search_results', query=request.form['search'], user=username))
 
 @app.route('/add_movie', methods=['POST'])

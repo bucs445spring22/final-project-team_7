@@ -30,7 +30,7 @@ def homepage():
                 elif request.form.get('media-type') == "Local Library":
                     movies = library_search(movies, request.form['search'])
                     data = build_data(movies, username)
-                    return render_template('homepage.html', error=error, data=data)
+                    return render_template('homepage.html', user=username, data=data)
     else:
         return redirect(url_for('login'))
     return render_template('homepage.html', error=error, data=data)
