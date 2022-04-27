@@ -4,7 +4,7 @@ from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
 from tinydb.operations import add
 from tinydb.operations import delete, set
-from Util import library_search, build_data
+from Util import library_search, build_data, check_status
 
 counter = 0
 db = TinyDB("loginInfo.json")
