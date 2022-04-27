@@ -2,7 +2,6 @@ from flask import *
 from app import app
 from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
-import LibrarySearch
 
 @app.route('/homepage', methods=('GET', 'POST'))
 def homepage():
