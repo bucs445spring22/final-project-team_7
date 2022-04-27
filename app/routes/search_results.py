@@ -3,8 +3,8 @@ from app import app
 from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
 from tinydb.operations import add
-from tinydb.operations import delete
-from routes.homepage import library_search, build_data
+from tinydb.operations import delete, set
+from Util import library_search, build_data
 
 counter = 0
 db = TinyDB("loginInfo.json")
@@ -21,6 +21,8 @@ def search_results():
 	global username
 	search = request.args["query"]
 	username = request.args["user"]
+	if not check_status(User, username, db):
+		return redirect(url_for('login'))
 	x = Tmdb_api()
 	movies = x.search(search)
 	data = ""
@@ -78,3 +80,11 @@ def add_movie():
 			db.update(add('movies', res[i]+"**"), User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
+
+@app.route('/sign_out', methods=['POST'])
+def sign_out():
+	global db
+	global User
+	global username
+	db.upsert({'status': 'False'}, User.username == username)
+	return redirect(url_for('login'))
