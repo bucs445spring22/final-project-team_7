@@ -18,23 +18,23 @@
       </a>
     </li>
 
-  <div class="search-container">
-        <form method="post" action="/search_again">
+    <div class="search-container">
+      <form method="post">
         <select name="media-type" id="media-type">
-          <option value="1">TMDB</option>
-          <option value="2">My Library</option>
+          <option value="TMDB">TMDB</option>
+          <option value="Local Library">Local Library</option>
         </select>
-          <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
-          <button type="submit">Submit</button>
-        </form>
-        {% if error %}
-          <p class="error"><strong>Error:</strong> {{ error }}
-        {% endif %}
+        <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
+        <button type="submit">Submit</button>
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
     </div>
   </ul>
   <div class="search-results">
     <form id="myform" method="post" action="/add_movie">
-    {{ data|safe }}
+      {{ data|safe }}
     </form>
   </div>
 </html>
