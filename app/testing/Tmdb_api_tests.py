@@ -50,10 +50,6 @@ def test_get_show():
     assert x.seasons[1].thumbnail_url == "https://www.themoviedb.org/t/p/w188_and_h282_bestv2" + "/AiP9Qfc2pmiqCeeQHVkvDcrTST6.jpg"
     assert x.seasons[1].cover_url == "https://www.themoviedb.org/t/p/w1280" + "/AiP9Qfc2pmiqCeeQHVkvDcrTST6.jpg"
 
-def test_request_to_dict():
-    api = Tmdb_api()
-    assert type({}) == type(api.request_to_dict("https://api.themoviedb.org/3/movie/11?api_key=d7dbb644708bdabf2a395267c0890814"))
-
 def test_thumbnail_gen():
     api = Tmdb_api()
     assert api.thumbnail_gen("/url.jpg") == "https://www.themoviedb.org/t/p/w188_and_h282_bestv2" + "/url.jpg"

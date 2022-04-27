@@ -1,15 +1,12 @@
-#from Api import Api
+from Api import Api
 from Movie import Movie
 from Show import Show
 from Season import Season
-import requests
-import json
+from Util import request_to_dict
 
-class Tmdb_api:
+class Tmdb_api(Api):
     API_KEY = "d7dbb644708bdabf2a395267c0890814"
 
-    def request_to_dict(self, url) -> dict:
-        return json.loads(requests.get(url).text)
 
     def thumbnail_gen(self, poster_path) -> str:
         if str(poster_path) == "None":
@@ -22,7 +19,7 @@ class Tmdb_api:
         return "https://www.themoviedb.org/t/p/w1280" + poster_path
 
     def get_movie(self, media_id) -> Movie:
-        data = self.request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
+        data = request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
         movie = Movie(data.get('id'), data.get('name'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
         movie.runtime = data.get('runtime')
         movie.language = data.get('original_language')
@@ -31,7 +28,7 @@ class Tmdb_api:
         return movie
 
     def get_show(self, media_id) -> Show:
-        data = self.request_to_dict("https://api.themoviedb.org/3/tv/" + str(media_id) + "?api_key=" + self.API_KEY)
+        data = request_to_dict("https://api.themoviedb.org/3/tv/" + str(media_id) + "?api_key=" + self.API_KEY)
         show = Show(data.get('id'), data.get('title'), data.get('overview'), data.get('first_air_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
         show.runtime = data.get('episode_run_time')[0]
         show.language = data.get('original_language')
@@ -57,8 +54,8 @@ class Tmdb_api:
 
     def search(self, title) -> list:
         title = title.replace(" ", "+")
-        movie_data = self.request_to_dict("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
-        show_data = self.request_to_dict("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
+        movie_data = request_to_dict("https://api.themoviedb.org/3/search/movie?api_key=" + self.API_KEY + "&query=" + title)
+        show_data = request_to_dict("https://api.themoviedb.org/3/search/tv?api_key=" + self.API_KEY + "&query=" + title)
 
         movie_list = [Movie(i.get('id'), i.get('title'), i.get('overview'), i.get('release_date'), i.get('vote_average'), self.thumbnail_gen(i.get('poster_path'))) for i in movie_data.get('results')]
 
