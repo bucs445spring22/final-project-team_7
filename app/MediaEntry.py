@@ -6,6 +6,7 @@ class MediaEntry:
     year = ""
     date = ""
     rating = 0
+    user_rating = 0
     thumbnail_url = ""
     def __init__(self, media_id, title, overview, release_date, rating, thumbnail_url):
         self.media_id = media_id

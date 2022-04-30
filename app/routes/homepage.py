@@ -44,5 +44,3 @@ def sign_out2():
     global username
     db.upsert({'status': 'False'}, User.username == username)
     return redirect(url_for('login'))
-
-
