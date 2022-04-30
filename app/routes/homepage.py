@@ -5,7 +5,9 @@ from tinydb import TinyDB, Query
 from Util import library_search, build_data, check_status
 
 db = TinyDB("loginInfo.json")
+movie_db = TinyDB("movies.json")
 User = Query()
+Movie = Query()
 username = ""
 
 @app.route('/homepage', methods=('GET', 'POST'))
@@ -20,7 +22,7 @@ def homepage():
     movies = (db.get(User.username == username)).get("movies")
     movies = movies.split('**')
     movies.pop()
-    data = build_data(movies, username)
+    data = build_data(Movie, movies, username, movie_db)
     error = None
     if request.method == 'POST':
         if request.form['search']:

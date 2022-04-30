@@ -12,14 +12,14 @@ def library_search(media_list, search) -> list:
             ret.append(i)
     return ret
 
-def build_data(media_list, username) -> str:
-    from Tmdb_api import Tmdb_api
+def build_data(Movie, media_list, username, db) -> str:
     data = ""
-    x = Tmdb_api()
     counter = 1
     for m in media_list:
-        this = x.search(m)[0]
-        data += "<td>" + "<img src=" + this.thumbnail_url + " width=\"200\" height =\"auto\"/></td>"
+        if db.search(Movie.movie == m):
+            thumbnail = db.get(Movie.movie == m)
+            thumbnail = thumbnail.get("thumbnail_url")
+        data += "<td>" + "<img src=" + thumbnail + " width=\"200\" height =\"auto\"/></td>"
         data += "<td style=color:white width='100'>" + m + "</td>"
         if counter%5 == 0 and counter > 0:
             data+= "<tr></tr>"

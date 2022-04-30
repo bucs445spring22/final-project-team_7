@@ -9,6 +9,8 @@ from Util import library_search, build_data, check_status
 counter = 0
 db = TinyDB("loginInfo.json")
 User = Query()
+movie_db = TinyDB("movies.json")
+Movie = Query()
 res = []
 username = ""
 
@@ -33,6 +35,9 @@ def search_results():
 		inlist[string[i]] = ""
 	for movie in movies:
 		res.append(movie.title)
+		if not movie_db.search(Movie.movie == (movie.title)):
+			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url}
+			movie_db.insert(new_movie)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
