@@ -44,9 +44,9 @@ def search_results():
 		data += "<td style=\"text-align: center\" width=\"50\"><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
 		if movie.title in inlist:
-			data += "<td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='remove' type='submit' value='" + str(counter) + "'>-</button></a></td>"
+			data += "<form id='myform2' method='post' action='/remove_movie'><td><a class='button1' value=\">" + str(counter) + "\"><button form='myform2' name='remove' type='submit' value='" + str(counter) + "'>-</button></a></td></form>"
 		else:
-			data += "<td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='add' type='submit' value='" + str(counter) + "'>+</button></a></td>"
+			data += "<form id='myform' method='post' action='/add_movie'><td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='add' type='submit' value='" + str(counter) + "'>+</button></a></td></form>"
 		data += "</tr>"
 		counter+=1
 	data = "<table style=\"width:100%\" border=1>" + data + "</table>"
@@ -93,3 +93,18 @@ def sign_out():
 	global username
 	db.upsert({'status': 'False'}, User.username == username)
 	return redirect(url_for('login'))
+
+@app.route('/remove_movie', methods=['POST'])
+def remove_movie():
+	global counter
+	global db
+	global User
+	global res
+	global username
+	string = (db.get(User.username == username)).get("movies")
+	for i in range(counter):
+		if str(i) == request.form["remove"]:
+			string = string.replace(res[i] + "**", "")
+			db.upsert({'movies': string}, User.username == username)
+			return redirect(url_for('homepage', user=username))
+	return redirect(url_for('homepage', user=username))
