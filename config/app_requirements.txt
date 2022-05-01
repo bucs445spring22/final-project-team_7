@@ -4,3 +4,4 @@ tinydb
 requests
 pymongo
 bcrypt
+gunicorn

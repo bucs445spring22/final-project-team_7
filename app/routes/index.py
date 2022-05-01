@@ -9,6 +9,8 @@ def login():
     db = TinyDB("loginInfo.json")
     User = Query()
     error = None
+
+
     if request.method == 'POST':
         if db.search(User.username == request.form['username']):
             ret = db.get(User.username == request.form['username'])
@@ -23,3 +25,6 @@ def login():
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', error=error)
+
+
+    

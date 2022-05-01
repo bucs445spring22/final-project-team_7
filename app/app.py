@@ -1,7 +1,18 @@
-from flask import *
+from flask import Flask, render_template, request
+
+
+import contextlib
+import os
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'woohoo'
-app.config['JSON_AS_ASCII'] = False
+app.config.from_pyfile('config.py')
+app.secret_key = os.environ.get("SECRET_KEY")
+
+# ensure the instance folder exists
+with contextlib.suppress(OSError):
+    os.makedirs(app.instance_path)
+
+
 import routes.index
 import routes.signup
 import routes.homepage

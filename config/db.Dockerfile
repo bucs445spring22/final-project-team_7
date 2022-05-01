@@ -7,7 +7,6 @@ RUN pip install --upgrade pip
 COPY ./config/db_requirements.txt /var/tmp/requirements.txt
 RUN pip install -r /var/tmp/requirements.txt
 
+COPY ./config/gunicorn.conf.py /var/gunicorn.conf.py
 COPY ./db /var/db
 
-#CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
-CMD ["sh"]
