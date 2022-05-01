@@ -6,11 +6,12 @@ import routes.index
 import routes.signup
 import routes.homepage
 import routes.search_results
+import routes.movie_page
 
 def main():
     app.run()
     team = {
-         "Team Member 1": "Andrew Goetz", 
+         "Team Member 1": "Andrew Goetz",
          "Team Member 2": "Jin Xian Li",
          "Team Member 3": "Yong Liu",
     }

@@ -58,6 +58,9 @@ def search_results():
 def search_again():
 	global db
 	global User
+	global movie_db
+	global Movie
+	global username
 	if request.form.get('media-type') == "TMDB":
 		x = Tmdb_api()
 		movies = x.search(request.form['search'])
@@ -69,7 +72,7 @@ def search_again():
 		movies = movies.split('**')
 		movies.pop()
 		movies = library_search(movies, request.form['search'])
-		data = build_data(movies, username)
+		data = build_data(Movie, movies, username, movie_db)
 		return render_template('homepage.html', user=username, data=data)
 	return redirect(url_for('search_results', query=request.form['search'], user=username))
 
