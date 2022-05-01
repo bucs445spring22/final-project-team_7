@@ -36,7 +36,7 @@ def search_results():
 	for movie in movies:
 		res.append(movie.title)
 		if not movie_db.search(Movie.movie == (movie.title)):
-			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url}
+			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id)}
 			movie_db.insert(new_movie)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"

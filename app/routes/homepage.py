@@ -62,6 +62,6 @@ def sign_out2():
     db.upsert({'status': 'False'}, User.username == username)
     return redirect(url_for('login'))
 
-@app.route('/goto_movie_page', methods=['GET','POST'])
+@app.route('/goto_movie_page', methods=['POST'])
 def goto_movie_page():
-    return redirect(url_for('movie_page'))
+    return redirect(url_for('movie_page', user=username, id=request.form['mov']))
