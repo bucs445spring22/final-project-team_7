@@ -18,7 +18,7 @@ def test_get_movie():
     api = Tmdb_api()
     x = api.get_movie(11) # Star wars
     assert x.MEDIA_TYPE == "Movie"
-    assert x.runtime == 121 
+    assert x.runtime == 121
     assert x.language == "en"
     assert x.genres[0].get("name") == "Adventure"
     assert x.genres[1].get("name") == "Action"
@@ -57,3 +57,8 @@ def test_thumbnail_gen():
 def test_cover_gen():
     api = Tmdb_api()
     assert api.cover_gen("/url.jpg") == "https://www.themoviedb.org/t/p/w1280" + "/url.jpg"
+
+def test_recommend():
+    api = Tmdb_api()
+    x = api.get_movie(11)
+    assert api.recommend(11, "Movie")[1].title == "Return of the Jedi"

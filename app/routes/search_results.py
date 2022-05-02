@@ -30,13 +30,13 @@ def search_results():
 	data = ""
 	inlist = {}
 	string = (db.get(User.username == username)).get("movies")
-	string = string.split('**')
+	string = string.split('~~~')
 	for i in range(len(string)):
 		inlist[string[i]] = ""
 	for movie in movies:
 		res.append(movie.title)
 		if not movie_db.search(Movie.movie == (movie.title)):
-			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url}
+			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
 			movie_db.insert(new_movie)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
@@ -58,6 +58,9 @@ def search_results():
 def search_again():
 	global db
 	global User
+	global movie_db
+	global Movie
+	global username
 	if request.form.get('media-type') == "TMDB":
 		x = Tmdb_api()
 		movies = x.search(request.form['search'])
@@ -66,10 +69,10 @@ def search_again():
 		return redirect(url_for('search_results', query=request.form['search'], user=username))
 	elif request.form.get('media-type') == "Local Library":
 		movies = (db.get(User.username == username)).get("movies")
-		movies = movies.split('**')
+		movies = movies.split('~~~')
 		movies.pop()
 		movies = library_search(movies, request.form['search'])
-		data = build_data(movies, username)
+		data = build_data(Movie, movies, username, movie_db)
 		return render_template('homepage.html', user=username, data=data)
 	return redirect(url_for('search_results', query=request.form['search'], user=username))
 
@@ -78,11 +81,31 @@ def add_movie():
 	global counter
 	global db
 	global User
+	global Movie
+	global movie_db
 	global res
 	global username
+	rec_final = ""
+	rec_thumbnail = ""
+	x = Tmdb_api()
+	recs = []
+	open = False
+	name = ""
 	for i in range(counter):
 		if str(i) == request.form["add"]:
-			db.update(add('movies', res[i]+"**"), User.username == username)
+			if movie_db.search(Movie.movie == res[i]):
+				mov = movie_db.get(Movie.movie == res[i])
+				if mov.get('rec_final') == "":
+					open = True
+				name = mov.get('movie')
+				recs = x.recommend(int(mov.get('id')), str(mov.get('type')))
+			for rec in recs:
+				rec_final += rec.title + "~~~"
+				rec_thumbnail += rec.thumbnail_url + "~~~"
+			if open:
+				movie_db.update(add("rec_final", rec_final), Movie.movie == name)
+				movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
+			db.update(add('movies', res[i]+"~~~"), User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
 
@@ -104,7 +127,12 @@ def remove_movie():
 	string = (db.get(User.username == username)).get("movies")
 	for i in range(counter):
 		if str(i) == request.form["remove"]:
-			string = string.replace(res[i] + "**", "")
+			string = string.replace(res[i] + "~~~", "")
 			db.upsert({'movies': string}, User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
+
+@app.route('/goto_library3', methods=['POST'])
+def goto_library3():
+    global username
+    return redirect(url_for('homepage', user=username))
