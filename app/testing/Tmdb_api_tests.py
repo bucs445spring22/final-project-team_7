@@ -61,4 +61,4 @@ def test_cover_gen():
 def test_recommend():
     api = Tmdb_api()
     x = api.get_movie(11)
-    print(api.recommend(11, "Movie")[1].title) == "Return of the Jedi"
+    assert api.recommend(11, "Movie")[1].title == "Return of the Jedi"
