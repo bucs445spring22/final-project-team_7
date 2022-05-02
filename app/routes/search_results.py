@@ -30,7 +30,7 @@ def search_results():
 	data = ""
 	inlist = {}
 	string = (db.get(User.username == username)).get("movies")
-	string = string.split('**')
+	string = string.split('~~~')
 	for i in range(len(string)):
 		inlist[string[i]] = ""
 	for movie in movies:
@@ -69,7 +69,7 @@ def search_again():
 		return redirect(url_for('search_results', query=request.form['search'], user=username))
 	elif request.form.get('media-type') == "Local Library":
 		movies = (db.get(User.username == username)).get("movies")
-		movies = movies.split('**')
+		movies = movies.split('~~~')
 		movies.pop()
 		movies = library_search(movies, request.form['search'])
 		data = build_data(Movie, movies, username, movie_db)
@@ -88,26 +88,24 @@ def add_movie():
 	rec_final = ""
 	rec_thumbnail = ""
 	x = Tmdb_api()
-	recs = ""
-	open = True
+	recs = []
+	open = False
 	name = ""
 	for i in range(counter):
 		if str(i) == request.form["add"]:
-			if db.search(Movie.movie == res[i]):
-				mov = db.get(Movie.movie == res[i])
-				if type(mov.get('rec_final')) == type(NoneType):
+			if movie_db.search(Movie.movie == res[i]):
+				mov = movie_db.get(Movie.movie == res[i])
+				if mov.get('rec_final') == "":
 					open = True
-				id = mov.get('id')
-				type = mov.get('type')
 				name = mov.get('movie')
-				recs = x.recommend(id, type)
+				recs = x.recommend(int(mov.get('id')), str(mov.get('type')))
 			for rec in recs:
-				rec_final += rec.title + "**"
-				rec_thumbnail += rec.thumbnail_url + "**"
+				rec_final += rec.title + "~~~"
+				rec_thumbnail += rec.thumbnail_url + "~~~"
 			if open:
 				movie_db.update(add("rec_final", rec_final), Movie.movie == name)
 				movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
-			db.update(add('movies', res[i]+"**"), User.username == username)
+			db.update(add('movies', res[i]+"~~~"), User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
 
@@ -129,7 +127,12 @@ def remove_movie():
 	string = (db.get(User.username == username)).get("movies")
 	for i in range(counter):
 		if str(i) == request.form["remove"]:
-			string = string.replace(res[i] + "**", "")
+			string = string.replace(res[i] + "~~~", "")
 			db.upsert({'movies': string}, User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
+
+@app.route('/goto_library3', methods=['POST'])
+def goto_library3():
+    global username
+    return redirect(url_for('homepage', user=username))

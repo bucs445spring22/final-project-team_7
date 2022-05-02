@@ -41,7 +41,7 @@ def search3():
     global Movie
     global movie_db
     movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split('**')
+    movies = movies.split('~~~')
     movies.pop()
     data = build_data(Movie, movies, username, movie_db)
     error = None
@@ -58,3 +58,8 @@ def search3():
                 movies = library_search(movies, request.form['search'])
                 data = build_data(Movie, movies, username, movie_db)
                 return render_template('homepage.html', user=username, data=data)
+
+@app.route('/goto_library2', methods=['POST'])
+def goto_library2():
+    global username
+    return redirect(url_for('homepage', user=username))

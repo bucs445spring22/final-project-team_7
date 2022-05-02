@@ -31,6 +31,7 @@ def build_data(Movie, media_list, username, db) -> str:
 
 def build_media(Movie, id, db) -> str:
     data = ""
+    counter = 0
     if db.search(Movie.id == id):
         mov = db.get(Movie.id == id)
         title = mov.get('movie')
@@ -41,18 +42,22 @@ def build_media(Movie, id, db) -> str:
         type = mov.get('type')
         rec_final = mov.get('rec_final')
         rec_thumbnail = mov.get('rec_thumbnail')
-        rec_final = rec_final.split("**")
-        rec_thumbnail = rec_thumbnail.split("**")
+        rec_final = rec_final.split("~~~")
+        rec_thumbnail = rec_thumbnail.split("~~~")
         data += "<div style=''>"
         data += "<h1 style=color:white>" + title + " " + date + " (" + rating + ")" "</h1>"
         data += "<img src=" + thumbnail + " width=\"350\" height =\"auto\"/>"
         data += "<p style=color:white>" + "[" + type + "] " + overview + "</p>"
         data += "</div>"
-        data += "<div style=''>"
         data += "<h2 style=color:white>"+ "Because you watched this, here are some related medias:" +"</h2>"
+        data += "<table border=1>"
         for i in range(len(rec_final)-1):
-            data+="<img src=" + rec_thumbnail[i] + " width=\"350\" height =\"auto\"/>"
-            data += "<p style=color:white>" + rec_final[i] + "</p>"
+            data += "<td style=color:white width='200'><img src=" + rec_thumbnail[i] + " width=\"200\" height =\"auto\"/>"
+            data += "<p style=color:white>" + rec_final[i] + "</p></td>"
+            counter +=1
+            if counter%7==0:
+                data+= "<tr></tr>"
+        data += "</table>"
         data += "</div>"
     return data
 

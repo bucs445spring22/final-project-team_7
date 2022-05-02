@@ -19,7 +19,7 @@ def homepage():
     global movie_db
     username = request.args['user']
     movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split('**')
+    movies = movies.split('~~~')
     movies.pop()
     data = build_data(Movie, movies, username, movie_db)
     error = None
@@ -36,7 +36,7 @@ def search():
     global Movie
     global movie_db
     movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split('**')
+    movies = movies.split('~~~')
     movies.pop()
     data = build_data(Movie, movies, username, movie_db)
     error = None
@@ -64,4 +64,10 @@ def sign_out2():
 
 @app.route('/goto_movie_page', methods=['POST'])
 def goto_movie_page():
+    global username
     return redirect(url_for('movie_page', user=username, id=request.form['mov']))
+
+@app.route('/goto_library', methods=['POST'])
+def goto_library():
+    global username
+    return redirect(url_for('homepage', user=username))
