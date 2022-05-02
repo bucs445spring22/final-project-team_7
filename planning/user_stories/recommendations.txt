@@ -1,4 +1,7 @@
-User Story 3:
+Recommendations
+
+As a movie enthusiast, I want to be able to view more detailed information about movies and know what to watch next.
+
 Persona: Bored Timmy
 Bored Timmy has a lot of free time on his hands as he is the son of a rich businessman and he spends most of his day watching movies and TV shows.
 He will occasionally stream the movies/shows he watches to his friends on discord, but often run out of ideas of what they all collectively would enjoy.
