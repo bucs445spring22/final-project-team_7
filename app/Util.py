@@ -39,6 +39,10 @@ def build_media(Movie, id, db) -> str:
         date = str(mov.get('date'))
         rating = str(mov.get('rating'))
         type = mov.get('type')
+        rec_final = mov.get('rec_final')
+        rec_thumbnail = mov.get('rec_thumbnail')
+        rec_final = rec_final.split("**")
+        rec_thumbnail = rec_thumbnail.split("**")
         data += "<div style=''>"
         data += "<h1 style=color:white>" + title + " " + date + " (" + rating + ")" "</h1>"
         data += "<img src=" + thumbnail + " width=\"350\" height =\"auto\"/>"
@@ -46,10 +50,14 @@ def build_media(Movie, id, db) -> str:
         data += "</div>"
         data += "<div style=''>"
         data += "<h2 style=color:white>"+ "Because you watched this, here are some related medias:" +"</h2>"
+        for i in range(len(rec_final)-1):
+            data+="<img src=" + rec_thumbnail[i] + " width=\"350\" height =\"auto\"/>"
+            data += "<p style=color:white>" + rec_final[i] + "</p>"
         data += "</div>"
     return data
 
 def check_status(User, username, db):
+    status = ""
     if db.search(User.username == username):
         ret = db.get(User.username == username)
         status = ret.get("status")

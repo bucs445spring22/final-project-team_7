@@ -36,7 +36,7 @@ def search_results():
 	for movie in movies:
 		res.append(movie.title)
 		if not movie_db.search(Movie.movie == (movie.title)):
-			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id)}
+			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
 			movie_db.insert(new_movie)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
@@ -81,10 +81,32 @@ def add_movie():
 	global counter
 	global db
 	global User
+	global Movie
+	global movie_db
 	global res
 	global username
+	rec_final = ""
+	rec_thumbnail = ""
+	x = Tmdb_api()
+	recs = ""
+	open = True
+	name = ""
 	for i in range(counter):
 		if str(i) == request.form["add"]:
+			if db.search(Movie.movie == res[i]):
+				mov = db.get(Movie.movie == res[i])
+				if type(mov.get('rec_final')) == type(NoneType):
+					open = True
+				id = mov.get('id')
+				type = mov.get('type')
+				name = mov.get('movie')
+				recs = x.recommend(id, type)
+			for rec in recs:
+				rec_final += rec.title + "**"
+				rec_thumbnail += rec.thumbnail_url + "**"
+			if open:
+				movie_db.update(add("rec_final", rec_final), Movie.movie == name)
+				movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
 			db.update(add('movies', res[i]+"**"), User.username == username)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
