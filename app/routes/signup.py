@@ -6,7 +6,11 @@ import bcrypt
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
-    db = TinyDB("loginInfo.json")
+    """
+    App route for signup page
+    Returns: template rendering of signup webpage
+    """
+    db = TinyDB("login_info.json")
     User = Query()
     error = None
     if request.method == 'POST':

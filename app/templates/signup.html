@@ -1,26 +1,26 @@
 <html>
-  <title>
-    MyMDB Signup
-  </title>
-  <head>
-    <link rel= "icon" type="image/x-icon" href="{{ url_for('static',filename='mymdb.ico') }}">
-    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/login.css') }}">
-  </head>
-    <div class="signup">
+   <title>
+      MyMDB Signup
+   </title>
+   <head>
+      <link rel= "icon" type="image/x-icon" href="{{ url_for('static',filename='mymdb.ico') }}">
+      <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/login.css') }}">
+   </head>
+   <div class="signup">
       <h1>
-        <a href = "/">
-          <img src="{{ url_for('static',filename='mymdb.png') }}">
-        </a>
+         <a href = "/">
+         <img src="{{ url_for('static',filename='mymdb.png') }}">
+         </a>
       </h1>
       <h1>Signup to MyMDB</h1>
-        <form method="post">
-          <input type="text" name="username" placeholder="Username" required="required" value="{{ request.form.username }}">
-          <input type="password" name="password" placeholder="Password" required="required" value="{{ request.form.password }}"/>
-          <input type="password" name="passwordconfirm" placeholder="Confirm Password" required="required" value="{{ request.form.passwordconfirm }}"/>
-          <button type="submit" class="btn btn-primary btn-block btn-large" value="Login">Sign up</button>
-        </form>
-        {% if error %}
-          <p class="error"><strong>Error:</strong> {{ error }}
-        {% endif %}
-    </div>
+      <form method="post">
+         <input type="text" name="username" placeholder="Username" required="required" value="{{ request.form.username }}">
+         <input type="password" name="password" placeholder="Password" required="required" value="{{ request.form.password }}"/>
+         <input type="password" name="passwordconfirm" placeholder="Confirm Password" required="required" value="{{ request.form.passwordconfirm }}"/>
+         <button type="submit" class="btn btn-primary btn-block btn-large" value="Login">Sign up</button>
+      </form>
+      {% if error %}
+      <p class="error"><strong>Error:</strong> {{ error }}
+         {% endif %}
+   </div>
 </html>

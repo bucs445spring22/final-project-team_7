@@ -4,7 +4,14 @@ from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
 from Util import library_search, build_data, check_status, build_media
 
-db = TinyDB("loginInfo.json")
+"""
+GLOBAL VARIABLES USED: db, movie_db, User, Movie
+Reason: Database needs it
+
+Other global variables: username
+Reason: Passed between post requests to check validity
+"""
+db = TinyDB("login_info.json")
 movie_db = TinyDB("movies.json")
 User = Query()
 Movie = Query()
@@ -12,6 +19,10 @@ username = ""
 
 @app.route('/movie_page', methods=['GET','POST'])
 def movie_page():
+    """
+    App route for page of each movie
+    Returns: rendering of movie.html with data
+    """
     global db
     global User
     global username
@@ -27,14 +38,22 @@ def movie_page():
 
 @app.route('/sign_out3', methods=['POST'])
 def sign_out3():
-	global db
-	global User
-	global username
-	db.upsert({'status': 'False'}, User.username == username)
-	return redirect(url_for('login'))
+    global db
+    global User
+    global username
+    """
+    App route for signing out each user and signs out user once button clicked
+    Returns: redirection to login
+    """
+    db.upsert({'status': 'False'}, User.username == username)
+    return redirect(url_for('login'))
 
 @app.route('/search3', methods=['POST'])
 def search3():
+    """
+    App route for searching through movie page
+    Returns: redirection to search results of searched movie
+    """
     global db
     global User
     global username
@@ -61,5 +80,9 @@ def search3():
 
 @app.route('/goto_library2', methods=['POST'])
 def goto_library2():
+    """
+    App route for going to the homepage through the movie's metadata page
+    Returns: redirecting to homepage
+    """
     global username
     return redirect(url_for('homepage', user=username))
