@@ -3,32 +3,23 @@ import bcrypt
 from tinydb.operations import set
 
 class User:
-    # def __init__(self):
-    #     db = TinyDB("loginInfo.json")
     
-    # def user_exist(self, username):
-    #     User = Query()
-    #     if db.search(User.username == username):
-    #         return True
-    #     else:
-    #         return False
-    
-    # def add_user(self, username, password):
-    #     User = Query()
-
-    # @classmethod
-    # def all(cls):
-        
-    #     db = TinyDB("loginInfo.json")
-    #     print(db.all())
-    #     return db.all()
     def __init__(self, name="", password=""):
         self.name, self.password = password, password #double check
 
-    # def add_user(self, name, password):
-    #     db = TinyDB("loginInfo.json")
-    
-    def verify_user(self) -> bool:
+    def add_user(self):
+        db = TinyDB("loginInfo.json")
+        que = Query()
+        if db.search(que.username == self.name):
+            return {"Results": False and self.name}
+        else:
+            salt = bcrypt.gensalt()
+            hashed = bcrypt.hashpw(self.password.encode("utf-8"), salt)
+            new_login = {"username": self.name, "hashed": hashed.decode("utf-8"), "status": "False", "movies" : ""}
+            db.insert(new_login)
+            return {"Results": True and self.name}
+
+    def verify_login(self) -> bool:
         db = TinyDB("loginInfo.json")
         que = Query()
         if db.search(que.username == self.name):

@@ -18,14 +18,21 @@ def index():
     return loginDB.all()
 
 
-@app.route('/verify', methods=('POST',))
-def verify():
-    print(f'FORM: {request.json}')
-    # name = request.form['username']
-    # password = request.form['password'].encode("utf-8")
-    # u = User(name, password)
-    print("In app.py print")
+
+@app.route('/verifySignUp', methods=('POST',))
+def verifySignUp():
+    print(f'FORM FOR SIGN UP: {request.json}')
+    print("DEBUGGER: In app.py verifySignup()")
     name = request.json.get('username')
     password = request.json.get('password')
     u = User(name, password)
-    return u.verify_user()
+    return u.add_user()
+
+@app.route('/verifyLogin', methods=('POST',))
+def verify():
+    print(f'FORM: {request.json}')
+    print("DEBUGGER: In app.py verify()")
+    name = request.json.get('username')
+    password = request.json.get('password')
+    u = User(name, password)
+    return u.verify_login()

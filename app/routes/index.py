@@ -6,9 +6,6 @@ from tinydb.operations import set
 import bcrypt
 #add global variables to define current user
 import requests
-
-import contextlib
-import os
 import json
 
 @app.route('/', methods=('GET', 'POST'))
@@ -26,7 +23,7 @@ def login():
             password = request.form['password']
             headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
             data = {'username': username, 'password':password}
-            response = requests.post("http://db:8000/verify", data=json.dumps(data), headers=headers)
+            response = requests.post("http://db:8000/verifyLogin", data=json.dumps(data), headers=headers)
             results = response.json()
             app.logger.debug(f'VERIFIED: {results}')
             verified = results.get('user')
