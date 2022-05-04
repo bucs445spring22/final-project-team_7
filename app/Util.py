@@ -46,6 +46,7 @@ def build_data(movie_query, media_list, username, db) -> str:
         counter+=1
     data = "<table border=1>" + data + "</table>"
     data = "<h1 style=color:white>Welcome to your library, " + username + "!</h1>" + data
+    print(data)
     return data
 
 def build_media(movie_query, id, db) -> str:
@@ -60,10 +61,8 @@ def build_media(movie_query, id, db) -> str:
     counter = 0
     if db.search(movie_query.id == id):
         mov = db.get(movie_query.id == id)
-        rec_final = mov.get('rec_final')
-        rec_thumbnail = mov.get('rec_thumbnail')
-        rec_final = rec_final.split("~~~")
-        rec_thumbnail = rec_thumbnail.split("~~~")
+        rec_final = mov.get('rec_final').split("~~~")
+        rec_thumbnail = mov.get('rec_thumbnail').split("~~~")
         data += "<div style=''>"
         data += "<h1 style=color:white>" + mov.get('movie') + " " + mov.get('date') + " (" + str(mov.get('rating')) + ")" "</h1>"
         data += "<img src=" + mov.get('thumbnail_url') + " width=\"350\" height =\"auto\"/>"
@@ -83,11 +82,11 @@ def build_media(movie_query, id, db) -> str:
 
 def check_status(User, username, db):
     """
-    Builds data for homepage
+    Checks login status
     Parameters: User (Query): query for user db
                 username (str): username of person making request
                 db (db): User database to see who's logged in
-    Returns: bool:Returning value
+    Returns: bool indicating a user's login status
     """
     status = ""
     if db.search(User.username == username):
