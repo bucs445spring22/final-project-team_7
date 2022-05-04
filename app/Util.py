@@ -71,11 +71,11 @@ def build_media(movie_query, id, db) -> str:
         rec_final = rec_final.split("~~~")
         rec_thumbnail = rec_thumbnail.split("~~~")
         data += "<div style=''>"
-        data += "<h1 style=color:white>" + title + " " + date + " (" + rating + ")" "</h1>"
-        data += "<img src=" + thumbnail + " width=\"350\" height =\"auto\"/>"
-        data += "<p style=color:white>" + "[" + type + "] " + overview + "</p>"
+        data += "<h1 style=color:white>" + mov.get('thumbnail_url') + " " + mov.get('date') + " (" + mov.get('rating') + ")" "</h1>"
+        data += "<img src=" + mov.get('thumbnail_url') + " width=\"350\" height =\"auto\"/>"
+        data += "<p style=color:white>" + "[" + mov.get('type') + "] " + overview + "</p>"
         data += "</div>"
-        data += "<h2 style=color:white>"+ "Because you watched this, here are some related medias:" +"</h2>"
+        data += "<h2 style=color:white>"+ "Because you watched this, you might like these " + mov.get('') + ":" +"</h2>"
         data += "<table border=1>"
         for i in range(len(rec_final)-1):
             data += "<td style=color:white width='200'><img src=" + rec_thumbnail[i] + " width=\"200\" height =\"auto\"/>"

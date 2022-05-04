@@ -3,6 +3,9 @@ sys.path.insert(0, '..')
 from Tmdb_api import Tmdb_api
 from Util import request_to_dict, library_search, build_data, build_media, check_status
 import pytest
+from tinydb import TinyDB, Query
+from tinydb.operations import add
+from tinydb.operations import delete, set
 
 def test_request_to_dict():
     api = Tmdb_api()
