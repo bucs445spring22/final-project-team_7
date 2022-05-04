@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '..')
 from Tmdb_api import Tmdb_api
-from Util import request_to_dict, library_search, build_data, check_status
+from Util import request_to_dict, library_search, build_data, build_media, check_status
 import pytest
 
 def test_request_to_dict():
@@ -14,6 +14,9 @@ def test_library_search():
     assert(library_search(media_list, "Star Wars") == ["Star Wars"])
 
 def test_build_data():
+    pass
+
+def test_build_media():
     pass
 
 def test_check_status():
