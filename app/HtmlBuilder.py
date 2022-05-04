@@ -1,7 +1,7 @@
 from Tmdb_api import Tmdb_api
 
 class HtmlBuilder:
-    #NOTE HtmlBuilder is to be used after communication with the database is properly working
+    #NOTE HtmlBuilder is to be used after communication with the database is properly working, should replace Util.py build functions
     def build_homepage(self, media_list, username) -> str:
         """
         Builds data to display on homepage
