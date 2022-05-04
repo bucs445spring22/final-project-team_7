@@ -60,22 +60,16 @@ def build_media(movie_query, id, db) -> str:
     counter = 0
     if db.search(movie_query.id == id):
         mov = db.get(movie_query.id == id)
-        title = mov.get('movie')
-        thumbnail = mov.get('thumbnail_url')
-        overview = mov.get('overview')
-        date = str(mov.get('date'))
-        rating = str(mov.get('rating'))
-        type = mov.get('type')
         rec_final = mov.get('rec_final')
         rec_thumbnail = mov.get('rec_thumbnail')
         rec_final = rec_final.split("~~~")
         rec_thumbnail = rec_thumbnail.split("~~~")
         data += "<div style=''>"
-        data += "<h1 style=color:white>" + mov.get('thumbnail_url') + " " + mov.get('date') + " (" + mov.get('rating') + ")" "</h1>"
+        data += "<h1 style=color:white>" + mov.get('movie') + " " + mov.get('date') + " (" + str(mov.get('rating')) + ")" "</h1>"
         data += "<img src=" + mov.get('thumbnail_url') + " width=\"350\" height =\"auto\"/>"
-        data += "<p style=color:white>" + "[" + mov.get('type') + "] " + overview + "</p>"
+        data += "<p style=color:white>" + "[" + mov.get('type') + "] " + mov.get('overview') + "</p>"
         data += "</div>"
-        data += "<h2 style=color:white>"+ "Because you watched this, you might like these " + mov.get('') + ":" +"</h2>"
+        data += "<h2 style=color:white>"+ "Because you watched this, here's some related content:" +"</h2>"
         data += "<table border=1>"
         for i in range(len(rec_final)-1):
             data += "<td style=color:white width='200'><img src=" + rec_thumbnail[i] + " width=\"200\" height =\"auto\"/>"
