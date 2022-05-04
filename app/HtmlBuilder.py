@@ -19,9 +19,9 @@ class HtmlBuilder:
             counter += 1
         data += "</table>"
         return data
-    def build_media(self, media) -> str:
+    def build_mediaview(self, media) -> str:
         """
-        Builds data for an individual MediaEntry clicked
+        Builds webpage to view an individual MediaEntry
         Parameters: media is the Movie or Show object to display
         Returns: A string containing html code of the webpage
         """

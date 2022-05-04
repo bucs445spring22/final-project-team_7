@@ -1,10 +1,10 @@
+import pytest
 import sys
 sys.path.insert(0, '..')
 
-from Tmdb_api import Tmdb_api
 from Movie import Movie
 from Show import Show
-import pytest
+from Tmdb_api import Tmdb_api
 
 def test_search():
     api = Tmdb_api()

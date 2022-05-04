@@ -47,11 +47,10 @@ class MediaBuilder:
             return build_show(media, media_id)
         return None
 
-    def build_movie(media, media_id) -> Movie:
+    def build_movie(media) -> Movie:
         """
         Builds a movie object from media dict
         arguments: media(dict): dict containing movie metadata
-                   media_id(media_id): the id of the movie we're building
         return: Movie object with media_id containing metadata from media
         """
         release_date = None
@@ -64,12 +63,11 @@ class MediaBuilder:
         movie.cover_url = media.get('cover_url')
         return movie
 
-    def build_show(media, media_id) -> Show:
+    def build_show(media) -> Show:
         """
         Builds a show object from media dict
         arguments: media(dict): dict containing show metadata
-                   media_id(media_id): the id of the show we're building
-        return: Show object with media_id containing metadata from media
+        return: Show object containing metadata from media dict
         """
         show = Show(media.get('id'), media.get('title'), media.get('overview'), media.get('first_air_date'), media.get('vote_average'), self.thumbnail_gen(media.get('poster_path')))
         show.runtime = media.get('episode_run_time')
@@ -78,6 +76,6 @@ class MediaBuilder:
         show.cover_url = self.cover_gen(media.get('poster_path'))
         show.total_episodes = media.get('total_episodes')
         show.total_seasons = media.get('total_seasons')
-        # May not use seasons list
+        # Might not use seasons list
         #show.seasons = self.init_season_list(media)
         return show
