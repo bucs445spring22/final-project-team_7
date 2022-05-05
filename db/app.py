@@ -39,7 +39,7 @@ def verify():
 @app.route('/lookup_library', methods=('POST',))#return db
 def lookup_library():
     print(f'FORM: {request.json}')
-    print("DEBUGGER: In app.py verify()")
+    print("DEBUGGER: In app.py lookup_library()")
     name = request.json.get('user')
     db = Database(name)
     return db.lookup_library()

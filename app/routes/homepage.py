@@ -1,8 +1,11 @@
 from flask import *
+from flask import Flask, request
 from app import app
 from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query
 from Util import library_search, build_data, check_status
+import requests
+import json
 
 db = TinyDB("loginInfo.json")
 movie_db = TinyDB("movies.json")
@@ -19,8 +22,14 @@ def homepage():
     global movie_db
     username = request.args['user']
     data = {'user': username}
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    response = requests.get("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
+    users = response.json()
+    print(users)
 
 
+
+    #name = request.args.get('name')
     # movies = (db.get(User.username == username)).get("movies")
     # movies = movies.split('~~~')
     # movies.pop()
@@ -31,9 +40,7 @@ def homepage():
 
     data = build_data(Movie, movies, username, movie_db)
     
-    response = requests.get("http://api:8000/users")
-    users = response.json()
-    name = request.args.get('name')
+   
     
     error = None
     status = ""
