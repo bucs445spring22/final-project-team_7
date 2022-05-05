@@ -5,13 +5,13 @@ from Show import Show
 #from Season import Season
 
 class MediaBuilder:
-    def __init__(self, User):
+    def __init__(self, username):
         """
         LibraryBuilder constructor, requires User argument.
-        arguments: User is used to determine the current user of the library.
+        arguments: username(str): is used to determine the current user of the library.
         Therefore, this class must be reinitialized whenever a user is changed.
         """
-        self.username = User.username
+        self.username = username
 
     def build_library(self) -> list:
         """
@@ -47,7 +47,7 @@ class MediaBuilder:
             return build_show(media, media_id)
         return None
 
-    def build_movie(media) -> Movie:
+    def build_movie(self, media) -> Movie:
         """
         Builds a movie object from media dict
         arguments: media(dict): dict containing movie metadata
@@ -63,7 +63,7 @@ class MediaBuilder:
         movie.cover_url = media.get('cover_url')
         return movie
 
-    def build_show(media) -> Show:
+    def build_show(self, media) -> Show:
         """
         Builds a show object from media dict
         arguments: media(dict): dict containing show metadata
