@@ -12,8 +12,8 @@ class HtmlBuilder:
         data = "<h1 style=color:white>Welcome to your library, " + username + "!</h1><table border=1>"
         counter = 1
         for m in media_list:
-            data += "<form method='post' action='/goto_movie_page'><td><a class='button1' value=\">" + m.get('title') + "\"><button type='submit' name='mov' value='" + str(m.get('media_id')) + "'><img src ='" + m.get('thumbnail_url') + "'></button></a></td></form>"
-            data += "<td style=color:white width='100'>" + m.get('title') + "</td>"
+            data += "<form method='post' action='/goto_movie_page'><td><a class='button1' value=\">" + m.title + "\"><button type='submit' name='mov' value='" + str(m.media_id) + "'><img src ='" + m.thumbnail_url + "'></button></a></td></form>"
+            data += "<td style=color:white width='100'>" + m.title + "</td>"
             if counter%5 == 0 and counter > 0:
                 data += "<tr></tr>"
             counter += 1

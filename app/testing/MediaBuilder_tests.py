@@ -6,9 +6,11 @@ from MediaBuilder import MediaBuilder
 from Tmdb_api import Tmdb_api
 
 def test_build_library():
+    #TODO figure out how the heck to test this?
     pass
 
 def test_build_media():
+    #TODO figure out how the heck to test this?
     pass
 
 def test_build_movie():
