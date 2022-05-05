@@ -5,6 +5,10 @@ sys.path.insert(0, '..')
 from MediaBuilder import MediaBuilder
 from Tmdb_api import Tmdb_api
 
+def test_verify_constructor():
+    builder = MediaBuilder("admin")
+    assert builder.username == "admin"
+
 def test_build_library():
     #TODO figure out how the heck to test this?
     pass

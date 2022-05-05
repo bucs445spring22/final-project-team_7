@@ -33,7 +33,7 @@ class HtmlBuilder:
         data += "<div style=''><h1 style=color:white>" + media.title + " " + media.date + " (" + str(media.rating) + ")</h1>"
         data += "<img src=" + media.thumbnail_url + " width=\"350\" height =\"auto\"/>"
         data += "<p style=color:white>" + "[" + media.MEDIA_TYPE + "] " + media.overview + "</p></div>"
-        if recommended.len() != 0
+        if len(recommended) != 0:
             data += "<h2 style=color:white>"+ "Because you watched this, here's some related content:" +"</h2>"
             data += "<table border=1>"
         for i in recommended:

@@ -26,9 +26,9 @@ class MediaBuilder:
         media_list = []
         for cur in results:
             if cur.get('MEDIA_TYPE') == "Movie":
-                media_list.append(build_movie(cur, media_id))
+                media_list.append(build_movie(cur, cur.get('media_id')))
             elif cur.get('MEDIA_TYPE') == "Show":
-                media_list.append(build_show(cur, media_id))
+                media_list.append(build_show(cur, cur.get('media_id')))
         return media_list
 
     def build_media(self, media_id):
