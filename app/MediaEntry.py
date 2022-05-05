@@ -9,6 +9,10 @@ class MediaEntry:
     user_rating = 0
     thumbnail_url = ""
     def __init__(self, media_id, title, overview, release_date, rating, thumbnail_url):
+        """
+        Constructor which constructs a MediaEntry construct.
+        Constructor only initializes mandatory fields, other fields of the object can be left with initial value
+        """
         self.media_id = media_id
         self.title = title
         self.overview = overview
