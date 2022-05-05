@@ -69,11 +69,13 @@ class MediaBuilder:
         arguments: media(dict): dict containing show metadata
         return: Show object containing metadata from media dict
         """
-        show = Show(media.get('id'), media.get('title'), media.get('overview'), media.get('first_air_date'), media.get('vote_average'), self.thumbnail_gen(media.get('poster_path')))
-        show.runtime = media.get('episode_run_time')
-        show.language = media.get('original_language')
+        if type(media.get('year')) != None and type(media.get('date')) != None:
+            release_date = (media.get('year') + "-" + media.get('date'))
+        show = Show(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))
+        show.runtime = media.get('runtime')
+        show.language = media.get('language')
         show.genres = media.get('genres')
-        show.cover_url = self.cover_gen(media.get('poster_path'))
+        show.cover_url = media.get('cover_url')
         show.total_episodes = media.get('total_episodes')
         show.total_seasons = media.get('total_seasons')
         # Might not use seasons list

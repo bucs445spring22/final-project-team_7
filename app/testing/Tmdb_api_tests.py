@@ -17,6 +17,7 @@ def test_search():
 def test_get_movie():
     api = Tmdb_api()
     x = api.get_movie(11) # Star wars
+    assert x.title == "Star Wars"
     assert x.MEDIA_TYPE == "Movie"
     assert x.runtime == 121
     assert x.language == "en"
