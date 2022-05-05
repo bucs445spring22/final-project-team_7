@@ -3,10 +3,16 @@ import bcrypt
 from tinydb.operations import set
 
 class User:
-    
+    """
+    Constructor for User Class, takes in username and password
+    """
     def __init__(self, name="", password=""):
         self.name, self.password = password, password #double check
 
+    """
+    Add User to Login Database, if User already exists, return False otherwise
+    encrypt password and add to database return True
+    """
     def add_user(self):
         db = TinyDB("loginInfo.json")
         que = Query()
@@ -19,6 +25,10 @@ class User:
             db.insert(new_login)
             return {"Results": True and self.name}
 
+    """
+    Verifies if User login information is correct and returns True or False
+    True if it exists, False otherwise
+    """
     def verify_login(self) -> bool:
         db = TinyDB("loginInfo.json")
         que = Query()

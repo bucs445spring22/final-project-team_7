@@ -31,7 +31,6 @@ def login():
             print(type(verified))
             if verified:
                 return redirect(url_for('homepage', user=request.form['username']))
-                
             else:
               error = 'Invalid Credentials. Please try again.'
 

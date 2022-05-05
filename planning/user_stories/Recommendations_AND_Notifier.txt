@@ -1,0 +1,12 @@
+User Story 3:
+Persona: Bored Timmy
+Bored Timmy has a lot of free time on his hands as he is the son of a rich businessman and he spends most of his day watching movies and TV shows.
+He will occasionally stream the movies/shows he watches to his friends on discord, but often run out of ideas of what they all collectively would enjoy.
+His goal is to have an easily usable website to keep track of all movies watched and all future information.
+Title: Recommendations, a Notifier, and Accessibility
+After watching a good movie or a good TV show, Timmy would like to have the option to see recommendations for similar movies or shows to the current one Timmy has finished watching.
+Timmy would also like to receive notifications for when the date of the sequel is known for the shows Timmy has watched.
+Timmy is lazy and would like to have a "remember me" option when signing into the website so he doesn’t have to continuously relog in.
+A light and dark mode for the website is a must has Timmy has sensitive eyes.
+Acceptance:
+A recommendation system, light/dark mode, and a notifier to notify when a sequel is announced for a show/movie I’ve watched.

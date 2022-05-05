@@ -18,15 +18,30 @@ def homepage():
     global Movie
     global movie_db
     username = request.args['user']
-    movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split('~~~')
-    movies.pop()
+    data = {'user': username}
+
+
+    # movies = (db.get(User.username == username)).get("movies")
+    # movies = movies.split('~~~')
+    # movies.pop()
+
+    #add a get request to send all info of db
+
+
+
     data = build_data(Movie, movies, username, movie_db)
+    
+    response = requests.get("http://api:8000/users")
+    users = response.json()
+    name = request.args.get('name')
+    
     error = None
     status = ""
+
     if not check_status(User, username, db):
         return redirect(url_for('login'))
     return render_template('homepage.html', error=error, data=data)
+
 
 @app.route('/search', methods=['POST'])
 def search():

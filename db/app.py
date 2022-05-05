@@ -1,6 +1,7 @@
 import contextlib
 
-from loginDB.user import User
+from model.user import User
+from model.db import Database
 from tinydb import TinyDB, Query
 import os
 from flask import Flask, request
@@ -16,8 +17,6 @@ with contextlib.suppress(OSError):
 @app.route('/users', methods=('GET',))
 def index():
     return loginDB.all()
-
-
 
 @app.route('/verifySignUp', methods=('POST',))
 def verifySignUp():
@@ -36,3 +35,15 @@ def verify():
     password = request.json.get('password')
     u = User(name, password)
     return u.verify_login()
+
+@app.route('/lookup_library', methods=('POST',))#return db
+def lookup_library():
+    print(f'FORM: {request.json}')
+    print("DEBUGGER: In app.py verify()")
+    name = request.json.get('user')
+    db = Database(name)
+    return db.lookup_library()
+
+@app.route('/lookup_media', methods=('POST',))
+def lookup_media():
+    pass

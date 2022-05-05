@@ -63,6 +63,7 @@ def build_media(Movie, id, db) -> str:
 
 def check_status(User, username, db):
     status = ""
+    
     if db.search(User.username == username):
         ret = db.get(User.username == username)
         status = ret.get("status")
