@@ -26,6 +26,7 @@ class MediaSerializer:
                'rating': media.rating,
                'thumbnail_url': media.thumbnail_url,
                'MEDIA_TYPE': media.MEDIA_TYPE}
+        #if media.MEDIA_TYPE == "Movie" or media.MEDIA_TYPE == "Show":
         ret.update({'runtime': media.runtime,
                     'language': media.language,
                     'genres': media.genres,
