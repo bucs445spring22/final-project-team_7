@@ -7,7 +7,7 @@ from Show import Show
 class MediaBuilder:
     def __init__(self, username):
         """
-        LibraryBuilder constructor, requires User argument.
+        MediaBuilder constructor, requires username argument.
         arguments: username(str): is used to determine the current user of the library.
         Therefore, this class must be reinitialized whenever a user is changed.
         """
@@ -17,8 +17,8 @@ class MediaBuilder:
         """
         Get user's library from database 
         Returns: Return user's library as a list of all movies in the library
-        TODO: consider sorting library by title before returning
         """
+        #TODO: consider sorting library by title before returning
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         data = {'username': self.username}
         response = requests.post("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
