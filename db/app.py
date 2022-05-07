@@ -1,9 +1,9 @@
 import contextlib
-
 from model.user import User
 from model.db import Database
 from tinydb import TinyDB, Query
 import os
+import json
 from flask import Flask, request
 
 
@@ -38,11 +38,12 @@ def verify():
 
 @app.route('/lookup_library', methods=('POST',))#return db
 def lookup_library():
-    print(f'FORM: {request.json}')
-    print("DEBUGGER: In app.py lookup_library()")
+   
     name = request.json.get('user')
-    db = Database(name)
-    return db.lookup_library()
+    datab = Database(name)
+    return datab.lookup_library()
+
+
 
 @app.route('/lookup_media', methods=('POST',))
 def lookup_media():

@@ -1,15 +1,20 @@
 from tinydb import TinyDB, Query
-import bcrypt
 from tinydb.operations import set
+import json
 
 class Database:
     def __init__(self, username = ""):
         self.username = username
-        string = username + "_DB.json"
-        self.db = TinyDB(string)
-
+        self.string = username + "_DB.json"
+        self.db = TinyDB(self.string)
+    
     def lookup_library(self):
-        que = Query()
-        print(self.db.all())
+        with open(self.string) as json_file:
+            data = json.load(json_file)
 
-        return "hi"
+        # print("HIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIH")
+        # moviesList = {}
+        # for i in self.db.all():
+        #     movies[ i.get('name')] = i.get('email')
+        #     #moviesList[i.get('media_id')] = i.get('movieInfo')
+        return data
