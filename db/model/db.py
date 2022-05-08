@@ -1,5 +1,5 @@
-from tinydb import TinyDB, Query
-from tinydb.operations import set
+from tinydb import TinyDB, Query, table
+#from tinydb.operations import set, Delete
 import json
 
 class Database:
@@ -17,10 +17,17 @@ class Database:
     def add_movie(self,data) -> bool:
         db = TinyDB(self.string)
         que = Query()
+
+        # if db.all()[0].doc_id == 0.0:
+        #     if db.all()[0].get("title") == "Example":
+
+
         for i in range(len(db.all())):
             if db.all()[i].doc_id == data:
-                pass
+                return {"Results": False and "Already in library"}
+        
+        db.insert(table.Document((data), doc_id = data.get("media_id")))
 
-        return
+        return {"Results": True and "Added to library"}
                 
 

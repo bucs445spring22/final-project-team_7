@@ -1,10 +1,14 @@
 from flask import *
+from flask import Flask, request, render_template
 from app import app
 from Tmdb_api import Tmdb_api
 from tinydb import TinyDB, Query, table
 from tinydb.operations import add
 from tinydb.operations import delete, set
 from Util import library_search, build_data, check_status
+import requests
+import json
+
 
 counter = 0
 db = TinyDB("loginInfo.json")
@@ -68,6 +72,7 @@ def search_results():
 	data = "<table style=\"width:100%\" border=1>" + data + "</table>"
 	error = None
 
+
 	return render_template('search_results.html', user=username, data=data)
 
 
@@ -78,6 +83,7 @@ def search_again():
 	global movie_db
 	global Movie
 	global username
+
 	if request.form.get('media-type') == "TMDB":
 		x = Tmdb_api()
 		movies = x.search(request.form['search'])
@@ -93,7 +99,7 @@ def search_again():
 		return render_template('homepage.html', user=username, data=data)
 	return redirect(url_for('search_results', query=request.form['search'], user=username))
 
-@app.route('/add_movie', methods=['POST'])
+@app.route('/add_movie', methods=['POST'] )
 def add_movie():
 	global counter
 	global db
@@ -110,7 +116,6 @@ def add_movie():
 	open = False
 	name = ""
 
-
 	info = {'user': username, 'movies': storage}
 	print("PRINTING INFO", info)
 
@@ -119,10 +124,19 @@ def add_movie():
 	for i in range(counter):
 		if str(i) == request.form["add"]:
 			tmp = x.get_movie(res[i])
-			info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': movie.title,'overview': tmp.overview, 'year': tmp.year, 
+			info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
 			'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
 			'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url} }
 			print(info)
+			headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+			response = requests.post("http://db:8000/add_movie", data=json.dumps(info),headers = headers)
+			results = response.json()
+			print("JSON: ", results)
+
+			app.logger.debug(f'VERIFIED: {results}')
+			verified = results.get('Results')
+			print(verified)
+
 			# if storage.has_key(res[i]):
 			# #movie_db.search(Movie.movie == res[i]):
 			# 	mov = movie_db.get(Movie.movie == res[i])

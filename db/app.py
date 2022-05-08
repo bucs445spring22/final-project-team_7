@@ -45,7 +45,8 @@ def lookup_library():
 @app.route('/add_movie', methods=('POST',))
 def add_movie():
     name = request.json.get('user')
-    data = request.json.get('movies')
+    print("USER WE ARE ADDING TO,: ",name)
+    data = request.json.get('data')
     datab = Database(name)
     return datab.add_movie(data)
 

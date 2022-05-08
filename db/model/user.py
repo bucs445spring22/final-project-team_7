@@ -26,7 +26,7 @@ class User:
             format = self.name + "_DB.json"
             userDb = TinyDB(format)
             userDb.insert(table.Document({'media_id': 0,
-             'title': "",
+             'title': "Example",
              'overview': "",
              'year': "",
              'date': "",
@@ -36,7 +36,7 @@ class User:
              'runtime': 0,
              'language': "",
              'genres': [],
-             'cover_url': ""}, doc_id=0.0))
+             'cover_url': ""}, doc_id=0))
             return {"Results": True and self.name}
 
     """
