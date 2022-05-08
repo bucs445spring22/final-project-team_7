@@ -1,4 +1,5 @@
 from email import header
+from unittest import result
 from flask import *
 from flask import Flask, request, render_template
 from app import app
@@ -26,28 +27,13 @@ def homepage():
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     response = requests.post("http://db:8000/lookup_library", data=json.dumps(data),headers = headers)
     results = response.json()
-    media_list = []
-    for cur in results:
-        if cur.get('MEDIA_TYPE') == "Movie":
-            media_list.append(build_movie(cur, cur.get('media_id')))
-        elif cur.get('MEDIA_TYPE') == "Show":
-            media_list.append(build_show(cur, cur.get('media_id')))
+    print("JSON: ", results)
 
-    #new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url,
-    #"overview": movie.overview, "date": movie.date, "rating": movie.rating,
-    # "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
+    data = ""
+    data = "<table border=1>" + data + "</table>"
+    data = "<h1 style=color:white>Welcome to your library, " + username + "!</h1>" + data
 
-
-    #name = request.args.get('name')
-    # movies = (db.get(User.username == username)).get("movies")
-    # movies = movies.split('~~~')
-    # movies.pop()
-
-    #add a get request to send all info of db
-
-
-    
-    data = build_data(Movie, media_list, username, movie_db)
+    #data = build_data(Movie, media_list, username, movie_db)
     
    
     
@@ -66,10 +52,11 @@ def search():
     global username
     global Movie
     global movie_db
-    movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split('~~~')
-    movies.pop()
-    data = build_data(Movie, movies, username, movie_db)
+    # movies = (db.get(User.username == username)).get("movies")
+    # movies = movies.split('~~~')
+    # movies.pop()
+
+    #data = build_data(Movie, movies, username, movie_db)
     error = None
     if request.method == 'POST':
         if request.form['search']:
@@ -80,6 +67,8 @@ def search():
                     error = 'No movies found'
                 else:
                     return redirect(url_for('search_results', query=request.form['search'], user=username))
+           
+           #TODO: FIX BELOW         
             elif request.form.get('media-type') == "Local Library":
                 movies = library_search(movies, request.form['search'])
                 data = build_data(Movie, movies, username, movie_db)

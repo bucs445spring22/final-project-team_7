@@ -1,7 +1,7 @@
 from flask import *
 from app import app
 from Tmdb_api import Tmdb_api
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, table
 from tinydb.operations import add
 from tinydb.operations import delete, set
 from Util import library_search, build_data, check_status
@@ -12,6 +12,7 @@ User = Query()
 movie_db = TinyDB("movies.json")
 Movie = Query()
 res = []
+storage = {}
 username = ""
 
 @app.route('/search_results', methods=('GET', 'POST'))
@@ -20,6 +21,7 @@ def search_results():
 	global db
 	global User
 	global res
+	global storage
 	global username
 	search = request.args["query"]
 	username = request.args["user"]
@@ -29,15 +31,29 @@ def search_results():
 	movies = x.search(search)
 	data = ""
 	inlist = {}
-	string = (db.get(User.username == username)).get("movies")
-	string = string.split('~~~')
-	for i in range(len(string)):
-		inlist[string[i]] = ""
+	# string = (db.get(User.username == username)).get("movies")
+	# string = string.split('~~~')
+
+
+	# for i in range(len(string)):
+	# 	inlist[string[i]] = ""
 	for movie in movies:
-		res.append(movie.title)
-		if not movie_db.search(Movie.movie == (movie.title)):
-			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
-			movie_db.insert(new_movie)
+		tmp = x.get_movie(movie.media_id)
+		res.append(tmp.media_id)
+
+		if(str(movie.media_id) in storage):
+			pass
+		else:
+			
+			storage[str(tmp.media_id)] = {'media_id': str(tmp.media_id), 'title': movie.title,'overview': tmp.overview, 'year': tmp.year, 
+			'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
+			'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url}
+			
+		# if not movie_db.search(Movie.movie == (movie.title)):
+		# 	new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
+		# 	movie_db.insert(new_movie)
+
+
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
@@ -51,6 +67,7 @@ def search_results():
 		counter+=1
 	data = "<table style=\"width:100%\" border=1>" + data + "</table>"
 	error = None
+
 	return render_template('search_results.html', user=username, data=data)
 
 
@@ -85,29 +102,50 @@ def add_movie():
 	global movie_db
 	global res
 	global username
+	global storage
 	rec_final = ""
 	rec_thumbnail = ""
 	x = Tmdb_api()
 	recs = []
 	open = False
 	name = ""
+
+
+	info = {'user': username, 'movies': storage}
+	print("PRINTING INFO", info)
+
+
+
 	for i in range(counter):
 		if str(i) == request.form["add"]:
-			if movie_db.search(Movie.movie == res[i]):
-				mov = movie_db.get(Movie.movie == res[i])
-				if mov.get('rec_final') == "":
-					open = True
-				name = mov.get('movie')
-				recs = x.recommend(int(mov.get('id')), str(mov.get('type')))
-			for rec in recs:
-				rec_final += rec.title + "~~~"
-				rec_thumbnail += rec.thumbnail_url + "~~~"
-			if open:
-				movie_db.update(add("rec_final", rec_final), Movie.movie == name)
-				movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
-			db.update(add('movies', res[i]+"~~~"), User.username == username)
-			return redirect(url_for('homepage', user=username))
-	return redirect(url_for('homepage', user=username))
+			tmp = x.get_movie(res[i])
+			info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': movie.title,'overview': tmp.overview, 'year': tmp.year, 
+			'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
+			'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url} }
+			print(info)
+			# if storage.has_key(res[i]):
+			# #movie_db.search(Movie.movie == res[i]):
+			# 	mov = movie_db.get(Movie.movie == res[i])
+			# 	if mov.get('rec_final') == "":
+			# 		open = True
+			# 	name = mov.get('movie')
+			# 	recs = x.recommend(int(mov.get('id')), str(mov.get('type')))
+			# for rec in recs:
+			# 	rec_final += rec.title + "~~~"
+			# 	rec_thumbnail += rec.thumbnail_url + "~~~"
+			# if open:
+			# 	movie_db.update(add("rec_final", rec_final), Movie.movie == name)
+			# 	movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
+			# db.update(add('movies', res[i]+"~~~"), User.username == username)
+
+
+
+
+
+
+			#return redirect(url_for('homepage', user=username))
+	#return redirect(url_for('homepage', user=username))
+	return
 
 @app.route('/sign_out', methods=['POST'])
 def sign_out():

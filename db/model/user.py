@@ -1,4 +1,4 @@
-from tinydb import TinyDB, Query
+from tinydb import table,TinyDB, Query
 import bcrypt
 from tinydb.operations import set
 
@@ -23,6 +23,20 @@ class User:
             hashed = bcrypt.hashpw(self.password.encode("utf-8"), salt)
             new_login = {"username": self.name, "hashed": hashed.decode("utf-8"), "status": "False", "movies" : ""}
             db.insert(new_login)
+            format = self.name + "_DB.json"
+            userDb = TinyDB(format)
+            userDb.insert(table.Document({'media_id': 0,
+             'title': "",
+             'overview': "",
+             'year': "",
+             'date': "",
+             'rating': 0,
+             'thumbnail_url': "",
+             'MEDIA_TYPE': "",
+             'runtime': 0,
+             'language': "",
+             'genres': [],
+             'cover_url': ""}, doc_id=0.0))
             return {"Results": True and self.name}
 
     """

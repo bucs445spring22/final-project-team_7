@@ -4,5 +4,5 @@ class Movie(MediaEntry):
     MEDIA_TYPE = "Movie"
     runtime = 0
     language = ""
-    genres = {}
+    genres = []
     cover_url = ""

@@ -38,12 +38,16 @@ def verify():
 
 @app.route('/lookup_library', methods=('POST',))#return db
 def lookup_library():
-   
     name = request.json.get('user')
     datab = Database(name)
     return datab.lookup_library()
 
-
+@app.route('/add_movie', methods=('POST',))
+def add_movie():
+    name = request.json.get('user')
+    data = request.json.get('movies')
+    datab = Database(name)
+    return datab.add_movie(data)
 
 @app.route('/lookup_media', methods=('POST',))
 def lookup_media():
