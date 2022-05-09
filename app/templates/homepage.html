@@ -1,45 +1,43 @@
 <html>
-  <title>
-    MyMDB Library
-  </title>
-  <head>
-    <link rel= "icon" type="image/x-icon" href="{{ url_for('static',filename='mymdb.ico') }}">
-    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/homepage.css') }}">
-  </head>
-
-  <ul>
-    <li>
-      <form method="post" action="/goto_library">
-		<button type="submit">
-          My Library
-		</button>
-	  </form>
-
-    </li>
-    <li>
-      <form method="post" action="/sign_out2">
-      <button type="submit">
-        <a>
-        Sign Out
-        </a>
-      </button>
-    </form>
-    </li>
+   <title>
+      MyMDB Library
+   </title>
+   <head>
+      <link rel= "icon" type="image/x-icon" href="{{ url_for('static',filename='mymdb.ico') }}">
+      <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/homepage.css') }}">
+   </head>
+   <ul>
+      <li>
+         <form method="post" action="/goto_library">
+            <button type="submit">
+            My Library
+            </button>
+         </form>
+      </li>
+      <li>
+         <form method="post" action="/sign_out2">
+            <button type="submit">
+            <a>
+            Sign Out
+            </a>
+            </button>
+         </form>
+      </li>
       <div class="search-container">
-	    <form method="post" action="/search">
-          <select name="media-type" id="media-type">
-            <option value="TMDB">TMDB</option>
-            <option value="Local Library">Local Library</option>
-          </select>
-          <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
-          <button type="submit">Submit</button>
-        </form>
-        {% if error %}
-          <p class="error"><strong>Error:</strong> {{ error }}
-        {% endif %}
+         <form method="post" action="/search">
+            <select name="media-type" id="media-type">
+               <option value="TMDB">TMDB</option>
+               <option value="Local Library">Local Library</option>
+            </select>
+            <input type="text" placeholder="Search.." name="search" value="{{ request.form.search }}">
+            <button type="submit">Submit</button>
+         </form>
+         {% if error %}
+         <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
       </div>
-    </ul>
-    <div class="search-results">
+   </ul>
+   <div class="search-results">
       {{ data|safe }}
-    </div>
+   </div>
 </html>

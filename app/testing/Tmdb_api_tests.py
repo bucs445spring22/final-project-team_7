@@ -1,10 +1,10 @@
+import pytest
 import sys
 sys.path.insert(0, '..')
 
-from Tmdb_api import Tmdb_api
 from Movie import Movie
 from Show import Show
-import pytest
+from Tmdb_api import Tmdb_api
 
 def test_search():
     api = Tmdb_api()
@@ -17,6 +17,7 @@ def test_search():
 def test_get_movie():
     api = Tmdb_api()
     x = api.get_movie(11) # Star wars
+    assert x.title == "Star Wars"
     assert x.MEDIA_TYPE == "Movie"
     assert x.runtime == 121
     assert x.language == "en"

@@ -8,6 +8,9 @@ class Season:
     thumbnail_url = ""
     cover_url = ""
     def __init__(self, season_id, name, overview, episode_count, air_date, thumbnail_url, cover_url):
+        """
+        Constructor which constructs a Season construct.
+        """
         self.season_id = season_id
         self.name = name
         self.overview = overview

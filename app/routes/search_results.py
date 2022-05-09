@@ -6,8 +6,17 @@ from tinydb.operations import add
 from tinydb.operations import delete, set
 from Util import library_search, build_data, check_status
 
+"""
+GLOBAL VARIABLES USED: db, movie_db, User, Movie
+Reason: Database needs it
+
+Other global variables:
+username: Reason: Passed between post requests to check validity
+counter: Reason: need to pass counter to other post requests to check which movie is which (there is a better method no time)
+res: Reason: need to pass result between different post requests, again definitely another way to do this.
+"""
 counter = 0
-db = TinyDB("loginInfo.json")
+db = TinyDB("login_info.json")
 User = Query()
 movie_db = TinyDB("movies.json")
 Movie = Query()
@@ -16,6 +25,10 @@ username = ""
 
 @app.route('/search_results', methods=('GET', 'POST'))
 def search_results():
+	"""
+    App route for search results page assosciating with searched word
+    Returns: template rendering of search results webpage
+    """
 	global counter
 	global db
 	global User
@@ -56,6 +69,10 @@ def search_results():
 
 @app.route('/search_again', methods=['POST'])
 def search_again():
+	"""
+    App route for search results page when you search again in the page assosciating with searched word
+    Returns: template rendering of search results webpage
+    """
 	global db
 	global User
 	global movie_db
@@ -78,6 +95,10 @@ def search_again():
 
 @app.route('/add_movie', methods=['POST'])
 def add_movie():
+	"""
+    App route for if user has clicked add movie, it will add movie to db and redirect to homepage
+    Returns: template rendering of homepage (my library)
+    """
 	global counter
 	global db
 	global User
@@ -111,6 +132,10 @@ def add_movie():
 
 @app.route('/sign_out', methods=['POST'])
 def sign_out():
+	"""
+    App route for if user has clicked sign out button and signs them out of db.
+    Returns: redirection to login page
+    """
 	global db
 	global User
 	global username
@@ -119,6 +144,10 @@ def sign_out():
 
 @app.route('/remove_movie', methods=['POST'])
 def remove_movie():
+	"""
+    App route for if user has clicked remove movie, it will remove movie to db and redirect to homepage
+    Returns: template rendering of homepage (my library)
+    """
 	global counter
 	global db
 	global User
@@ -134,5 +163,9 @@ def remove_movie():
 
 @app.route('/goto_library3', methods=['POST'])
 def goto_library3():
-    global username
-    return redirect(url_for('homepage', user=username))
+	global username
+	"""
+	App route for going back to user library.
+    Returns: template rendering of homepage
+    """
+	return redirect(url_for('homepage', user=username))
