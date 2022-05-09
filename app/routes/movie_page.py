@@ -73,6 +73,16 @@ def sign_out3():
     db.upsert({'status': 'False'}, User.username == username)
     return redirect(url_for('login'))
 
+@app.route('/search_rec', methods=['POST'])
+def search_rec():
+    """
+    App route for searching rec in movie page
+    Returns: redirection to search results of searched movie
+    """
+    global username
+    error = None
+    return redirect(url_for('search_results', query="test", user=username))
+
 @app.route('/search3', methods=['POST'])
 def search3():
     """

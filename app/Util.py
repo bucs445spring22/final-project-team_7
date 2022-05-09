@@ -6,7 +6,7 @@ def request_to_dict(url) -> dict:
     """
     Converts request to dictionary
     Parameters: url (str): URL string for website that has json
-    Returns: dict:Returning value
+    Returns: dict: json to dict of json
     """
     return json.loads(requests.get(url).text)
 
@@ -15,7 +15,7 @@ def library_search(media_list, search) -> list:
     Searches media list in your library and returns list of movies user has added
     Parameters: media_list (list): list of medias in user library
                 search (str): string that you are searching
-    Returns: list:Returning value
+    Returns: list: of movies in library
     """
     ret = []
     for i in media_list:
@@ -30,7 +30,7 @@ def build_data(movie_query, media_list, username, db) -> str:
                 media_list (list): list of medias
                 username (str): username that is logged in
                 db (db file): database file of movie
-    Returns: str:Returning value
+    Returns: str: html that build homepage data
     """
     data = ""
     counter = 1
@@ -59,7 +59,7 @@ def build_media(movie_query, id, db, rate_query, user_db) -> str:
                 db (db file): database file of movie
                 rate_query(Query): query for rate debug
                 user_db (db file): db file of user ratings for movies
-    Returns: str:Returning value
+    Returns: str: that builds media html
     """
     data = ""
     counter = 0
@@ -73,17 +73,16 @@ def build_media(movie_query, id, db, rate_query, user_db) -> str:
         data += "<div style=color:white>"
         data += "<h1 style=color:white>" + mov.get('movie') + " " + mov.get('date') + " (" + str(mov.get('rating')) + ")" "</h1>"
         data += "<img src=" + mov.get('thumbnail_url') + " width=\"350\" height =\"auto\"/>"
-        data += "<p style=color:white> Your Rating: " + "<form method='post' action='/rate'> <select name='rating' id='rating'>"
         if not user_db.search(rate_query.movie_id == (id)):
-            for i in range(10):
+            data += "<h2 style=color:white> Your Rating: N/A" + "<form method='post' action='/rate'> <select name='rating' id='rating'></h2>"
+            for i in range(11):
                 data+="<option value='" + str(i)+ "'>" + str(i) +"</option>"
         else:
             rating = user_db.get(rate_query.movie_id == id)
             rate_value = rating.get('rating')
-            for i in range(10):
-                if i == 0:
-                    data +="<option value='" + str(rate_value) + "'>" + str(rate_value) +"</option>"
-                data +="<option value='" + str(i) + "'>" + str(i) + "</option>"
+            data += "<h2 style=color:white> Your Rating: " + str(rate_value) + "<form method='post' action='/rate'> <select name='rating' id='rating'></h2>"
+            for i in range(11):
+                data+="<option value='" + str(i)+ "'>" + str(i) +"</option>"
             directory_list = os.listdir()
             for file in directory_list:
                 filename = os.fsdecode(file)
@@ -100,17 +99,17 @@ def build_media(movie_query, id, db, rate_query, user_db) -> str:
             avg = "N/A"
         else:
             avg = avg/newcount
-        data+= "</select><button type='submit'>Rate Movie</button></form></p>"
-        data += "<p style=color:white>> OVERALL USER RATING: " + str(avg)
-        data += "<p style=color:white>" + "[" + mov.get('type') + "] " + mov.get('overview') + "</p>"
+        data+= "</select><button type='submit'>Rate Movie</button></form></p>\n"
         data += "</div>"
+        data += "<div style=color:white>" + "<h2 style=color:white> OVERALL USER RATING: " + str(avg) + "</h2>"
+        data += "<p style=color:white>" + "[" + mov.get('type') + "] " + mov.get('overview') + "</p></div>"
         data += "<h2 style=color:white>"+ "Because you watched this, here's some related content:" +"</h2>"
         data += "<table border=1>"
         for i in range(len(rec_final)-1):
-            data += "<td style=color:white width='200'><img src=" + rec_thumbnail[i] + " width=\"200\" height =\"auto\"/>"
-            data += "<p style=color:white>" + rec_final[i] + "</p></td>"
+            data += "<form method='post' action='/search_rec'><td style=color:white width='200'><a class='button1' value=\">" + str(id) + "\"><button type='submit' name='mov' value='" + str(id) + "'>"+ "<img src=" + rec_thumbnail[i] + " width=\"200\" height =\"auto\"/>"
+            data += "<p style=color:black>" + rec_final[i] + "</p></td> " + "</button></a></form>"
             counter +=1
-            if counter%7==0:
+            if counter%5==0:
                 data+= "<tr></tr>"
         data += "</table>"
         data += "</div>"
