@@ -23,6 +23,10 @@ class MediaBuilder:
         data = {'username': self.username}
         response = requests.post("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
         results = response.json()
+        
+        app.logger.debug(f'results: {results}')
+        print("JSON: ", results)
+
         media_list = []
         for cur in results:
             if cur.get('MEDIA_TYPE') == "Movie":

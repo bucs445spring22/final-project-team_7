@@ -28,11 +28,11 @@ class User:
             userDb.insert(table.Document({'media_id': -1,
              'title': "Example",
              'overview': "",
-             'year': "",
-             'date': "",
+             'year': "2000",
+             'date': "12-12",
              'rating': 0,
              'thumbnail_url': "",
-             'MEDIA_TYPE': "",
+             'MEDIA_TYPE': None,
              'runtime': 0,
              'language': "",
              'genres': [],
@@ -66,4 +66,16 @@ class User:
             db.update(set('status', 'False'), que.username == self.name)
             return {"user": self.name and True}
 
+        return {"user": self.name and False}
+
+    def check_status(self) -> bool:
+        db = TinyDB("loginInfo.json")
+        que = Query()
+        if db.search(que.username == self.name):
+            ret = db.get(que.username == self.name)
+            status = ret.get("status")
+            if(status == "True")
+                return {"user": self.name and True}
+            else:
+                return {"user": self.name and False}
         return {"user": self.name and False}

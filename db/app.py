@@ -18,6 +18,13 @@ with contextlib.suppress(OSError):
 def index():
     return loginDB.all()
 
+@app.route('/checkStatus', methods=('POST',))
+def checkStatus():
+    username = request.form['username']
+    pw = "123"
+    u = User(username, pw)
+    return u.check_status()
+
 @app.route('/verifySignUp', methods=('POST',))
 def verifySignUp():
     print(f'FORM FOR SIGN UP: {request.json}')
