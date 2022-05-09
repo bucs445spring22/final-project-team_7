@@ -20,7 +20,8 @@ def index():
 
 @app.route('/checkStatus', methods=('POST',))
 def checkStatus():
-    username = request.form['username']
+    #username = request.form['username']
+    username = request.json.get('username')
     pw = "123"
     u = User(username, pw)
     return u.check_status()
