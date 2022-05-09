@@ -40,7 +40,7 @@ MyMDB is a user hosted watchlist for movies/shows. Users can control their own w
 
 ### Installing
 
-- Step 1: Clone the repository with **git clone https://github.com/bucs445spring22/final-project-team_7.git)**
+- Step 1: Clone the repository with **git clone https://github.com/bucs445spring22/final-project-team_7.git**
 - Step 2: Go into the project directory with **cd final-project-team_7**
 - Step 3: In the command line type **docker-compose up --build -d** (If there's an error be sure to have docker installed)
 - Step 4: Go onto your web browser and search **localhost** in the search bar
