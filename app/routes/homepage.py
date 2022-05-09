@@ -22,10 +22,13 @@ def homepage():
     global username
     global Movie
     global movie_db
+
     username = request.args['user']
-    data = {'user': username}
+    
+
+    data2 = {'username': username}
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    response = requests.post("http://db:8000/lookup_library", data=json.dumps(data),headers = headers)
+    response = requests.post("http://db:8000/lookup_library", data=json.dumps(data2),headers = headers)
     results = response.json()
     print("JSON: ", results)
 
@@ -39,7 +42,7 @@ def homepage():
     
     error = None
     status = ""
-
+    print("user in /homepage: ", username)
     if not check_status(User, username, db):
         return redirect(url_for('login'))
     return render_template('homepage.html', error=error, data=data)
@@ -52,6 +55,8 @@ def search():
     global username
     global Movie
     global movie_db
+    print("User in /search(1): ",username)
+    
     # movies = (db.get(User.username == username)).get("movies")
     # movies = movies.split('~~~')
     # movies.pop()
@@ -66,6 +71,7 @@ def search():
                 if not movies:
                     error = 'No movies found'
                 else:
+                    print("User in /search(2): ",username)
                     return redirect(url_for('search_results', query=request.form['search'], user=username))
            
            #TODO: FIX BELOW         

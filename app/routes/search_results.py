@@ -29,12 +29,17 @@ def search_results():
 	global username
 	search = request.args["query"]
 	username = request.args["user"]
-	if not check_status(User, username, db):
-		return redirect(url_for('login'))
+
+	print("user: ", username)
+	
+	# if not check_status(User, username, db):
+	# 	return redirect(url_for('login'))
 	x = Tmdb_api()
 	movies = x.search(search)
 	data = ""
 	inlist = {}
+	
+
 	# string = (db.get(User.username == username)).get("movies")
 	# string = string.split('~~~')
 
@@ -90,6 +95,7 @@ def search_again():
 		if not movies:
 			error = 'No movies found'
 		return redirect(url_for('search_results', query=request.form['search'], user=username))
+
 	elif request.form.get('media-type') == "Local Library":
 		movies = (db.get(User.username == username)).get("movies")
 		movies = movies.split('~~~')
@@ -116,13 +122,10 @@ def add_movie():
 	open = False
 	name = ""
 
-	info = {'user': username, 'movies': storage}
-	print("PRINTING INFO", info)
-
-
 
 	for i in range(counter):
 		if str(i) == request.form["add"]:
+			print("RES: ", res[i])
 			tmp = x.get_movie(res[i])
 			info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
 			'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
@@ -152,14 +155,9 @@ def add_movie():
 			# 	movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
 			# db.update(add('movies', res[i]+"~~~"), User.username == username)
 
-
-
-
-
-
-			#return redirect(url_for('homepage', user=username))
-	#return redirect(url_for('homepage', user=username))
-	return
+			return redirect(url_for('homepage', user=username))
+	return redirect(url_for('homepage', user=username))
+	
 
 @app.route('/sign_out', methods=['POST'])
 def sign_out():

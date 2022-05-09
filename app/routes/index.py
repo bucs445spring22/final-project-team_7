@@ -8,6 +8,7 @@ import bcrypt
 import requests
 import json
 
+username = ""
 @app.route('/', methods=('GET', 'POST'))
 def login():
     db = TinyDB("loginInfo.json")
@@ -30,7 +31,7 @@ def login():
             print("v: ",verified)
             print(type(verified))
             if verified:
-                return redirect(url_for('homepage', user=request.form['username']))
+                return redirect(url_for('homepage', user= username))
             else:
               error = 'Invalid Credentials. Please try again.'
 
