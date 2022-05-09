@@ -74,7 +74,7 @@ class User:
         if db.search(que.username == self.name):
             ret = db.get(que.username == self.name)
             status = ret.get("status")
-            if(status == "True")
+            if(status == "True"):
                 return {"user": self.name and True}
             else:
                 return {"user": self.name and False}
