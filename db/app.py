@@ -46,7 +46,7 @@ def logout():
 
 @app.route('/lookup_library', methods=('POST',))#return db
 def lookup_library():
-    name = request.json.get('user')
+    name = request.json.get('username')
     datab = Database(name)
     return datab.lookup_library()
 
