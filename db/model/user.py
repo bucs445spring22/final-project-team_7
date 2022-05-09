@@ -25,7 +25,7 @@ class User:
             db.insert(new_login)
             format = self.name + "_DB.json"
             userDb = TinyDB(format)
-            userDb.insert(table.Document({'media_id': 0,
+            userDb.insert(table.Document({'media_id': -1,
              'title': "Example",
              'overview': "",
              'year': "",
