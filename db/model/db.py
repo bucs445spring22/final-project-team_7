@@ -10,25 +10,26 @@ class Database:
        
     
     def lookup_library(self):
-        # ret = {}
-        # que = Query()
-        # for i in self.db.all():
-        #     ret[i.get("media_id")] = {'media_id': i.get("media_id"),
-        #      'title': i.get("title"),
-        #      'overview': i.get("overview"),
-        #      'year': i.get("year"),
-        #      'date': i.get("date"),
-        #      'rating': i.get("rating"),
-        #      'thumbnail_url': i.get("thumbnail_url"),
-        #      'MEDIA_TYPE': i.get("MEDIA_TYPE"),
-        #      'runtime': i.get("runtime"),
-        #      'language': i.get("language"),
-        #      'genres': i.get("genres"),
-        #      'cover_url': i.get("cover_url")}
+        ret = {}
+        que = Query()
+        for i in self.db.all():
+            ret[i.get("media_id")] = {'media_id': i.get("media_id"),
+             'title': i.get("title"),
+             'overview': i.get("overview"),
+             'year': i.get("year"),
+             'date': i.get("date"),
+             'rating': i.get("rating"),
+             'thumbnail_url': i.get("thumbnail_url"),
+             'MEDIA_TYPE': i.get("MEDIA_TYPE"),
+             'runtime': i.get("runtime"),
+             'language': i.get("language"),
+             'genres': i.get("genres"),
+             'cover_url': i.get("cover_url")}
+        return ret
 
-        with open(self.string) as json_file:
-            data = json.load(json_file)
-        return data
+        #with open(self.string) as json_file:
+        #    data = json.load(json_file)
+        #return data
 
     def add_movie(self,data) -> bool:
         db = TinyDB(self.string)

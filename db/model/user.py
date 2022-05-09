@@ -6,8 +6,11 @@ class User:
     """
     Constructor for User Class, takes in username and password
     """
-    def __init__(self, name="", password=""):
-        self.name, self.password = password, password #double check
+    name=""
+    password=""
+    def __init__(self, name, password):
+        self.name = name
+        self.password = password#, password #double check
 
     """
     Add User to Login Database, if User already exists, return False otherwise
@@ -71,11 +74,16 @@ class User:
     def check_status(self) -> bool:
         db = TinyDB("loginInfo.json")
         que = Query()
+        print("Before db.search")
+        print("self.name: " + self.name)
         if db.search(que.username == self.name):
             ret = db.get(que.username == self.name)
             status = ret.get("status")
+            print("Before ifs")
             if(status == "True"):
-                return {"user": self.name and True}
+                print("In true if")
+                return {"user": True}
             else:
-                return {"user": self.name and False}
-        return {"user": self.name and False}
+                print("In false if")
+                return {"user": False}
+        return {"user": False}
