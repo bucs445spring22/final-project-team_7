@@ -32,6 +32,23 @@ class HtmlBuilder:
         recommended = api.recommend(media.media_id, media.MEDIA_TYPE)
         data += "<div style=''><h1 style=color:white>" + media.title + " " + media.date + " (" + str(media.rating) + ")</h1>"
         data += "<img src=" + media.thumbnail_url + " width=\"350\" height =\"auto\"/>"
+        data += "Your Rating: " + """<form method='post' action='/rate'> <select name='media-type' id='media-type'>
+            <option value=''></option>  
+            <option value='0'>0</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+            </select>
+              <button type="submit">Rate Movie</button>
+            </form>
+        """
         data += "<p style=color:white>" + "[" + media.MEDIA_TYPE + "] " + media.overview + "</p></div>"
         if len(recommended) != 0:
             data += "<h2 style=color:white>"+ "Because you watched this, here's some related content:" +"</h2>"
