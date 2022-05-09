@@ -56,3 +56,14 @@ class User:
                 userDb = TinyDB(format)
                 return {"user": self.name and True}
         return {"user": self.name and False}
+
+    def logout(self) -> bool:
+        db = TinyDB("loginInfo.json")
+        que = Query()
+        if db.search(que.username == self.name):
+            ret = db.get(que.username == self.name)
+            status = ret.get("status")
+            db.update(set('status', 'False'), que.username == self.name)
+            return {"user": self.name and True}
+
+        return {"user": self.name and False}
