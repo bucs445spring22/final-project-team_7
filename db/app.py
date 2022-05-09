@@ -36,6 +36,14 @@ def verify():
     u = User(name, password)
     return u.verify_login()
 
+@app.route('/logout', methods=('POST',))
+def logout():
+    name = request.json.get('username')
+    pw = "123"
+    u = User(name, pw)
+    return u.logout()
+
+
 @app.route('/lookup_library', methods=('POST',))#return db
 def lookup_library():
     name = request.json.get('user')

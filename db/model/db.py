@@ -23,7 +23,7 @@ class Database:
 
 
         for i in range(len(db.all())):
-            if db.all()[i].doc_id == data:
+            if db.all()[i].doc_id == data.get("media_id"):
                 return {"Results": False and "Already in library"}
         
         db.insert(table.Document((data), doc_id = data.get("media_id")))
