@@ -23,16 +23,23 @@ class MediaBuilder:
         data = {'username': self.username}
         response = requests.post("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
         results = response.json()
-        
-        app.logger.debug(f'results: {results}')
-        print("JSON: ", results)
-
+        print(results)
+        #for key,value in results.items():
+	    #    print(key, ':', value)
+        #print(results['-1'].get('media_id'))
+        #print(results('media_id'))
+        #print(results.get('_default')))
+        #print(results.get('_default').get('0').get('MEDIA_TYPE'))
+        #print(results.get('_default').get('MEDIA_TYPE'))
         media_list = []
-        for cur in results:
-            if cur.get('MEDIA_TYPE') == "Movie":
-                media_list.append(build_movie(cur, cur.get('media_id')))
-            elif cur.get('MEDIA_TYPE') == "Show":
-                media_list.append(build_show(cur, cur.get('media_id')))
+        #for cur in results.get('_default'):
+        #    #print(type(cur))
+        #    if cur.get('MEDIA_TYPE') == "Movie":
+        #        media_list.append(self.build_movie(cur))
+        #    elif cur.get('MEDIA_TYPE') == "Show":
+        #        media_list.append(self.build_show(cur))
+        media_list.append(self.build_movie(results['-1']))
+        #media_list.append(self.build_show(cur))
         return media_list
 
     def build_media(self, media_id):
@@ -45,10 +52,10 @@ class MediaBuilder:
         data = {'username': self.username, 'media_id': media_id}
         response = requests.post("http://db:8000/lookup_media", data=json.dumps(data), headers=headers)
         media = response.json()
-        if MEDIA_TYPE == "Movie":
-            return build_movie(media, media_id)
-        elif MEDIA_TYPE == "Show":
-            return build_show(media, media_id)
+        if media.get('MEDIA_TYPE') == "Movie":
+            return self.build_movie(media)
+        elif media.get('MEDIA_TYPE') == "Show":
+            return self.build_show(media)
         return None
 
     def build_movie(self, media) -> Movie:
@@ -58,8 +65,9 @@ class MediaBuilder:
         return: Movie object with media_id containing metadata from media
         """
         release_date = None
-        if type(media.get('year')) != None and type(media.get('date')) != None:
+        if type(media.get('year')) != type(None) and type(media.get('date')) != type(None):
             release_date = (media.get('year') + "-" + media.get('date'))
+        print(media.get('media_id'))
         movie = Movie(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))
         movie.runtime = media.get('runtime')
         movie.language = media.get('language')

@@ -46,7 +46,7 @@ class User:
     Verifies if User login information is correct and returns True or False
     True if it exists, False otherwise
     """
-    def verify_login(self) -> bool:
+    def verify_login(self):
         db = TinyDB("loginInfo.json")
         que = Query()
         if db.search(que.username == self.name):
@@ -60,7 +60,7 @@ class User:
                 return {"user": self.name and True}
         return {"user": self.name and False}
 
-    def logout(self) -> bool:
+    def logout(self):
         db = TinyDB("loginInfo.json")
         que = Query()
         if db.search(que.username == self.name):
@@ -71,19 +71,19 @@ class User:
 
         return {"user": self.name and False}
 
-    def check_status(self) -> bool:
+    def check_status(self):
         db = TinyDB("loginInfo.json")
         que = Query()
-        print("Before db.search")
-        print("self.name: " + self.name)
+        #print("Before db.search")
+        #print("self.name: " + self.name)
         if db.search(que.username == self.name):
             ret = db.get(que.username == self.name)
             status = ret.get("status")
-            print("Before ifs")
+            #print("Before ifs")
             if(status == "True"):
-                print("In true if")
+                #print("In true if")
                 return {"user": True}
             else:
-                print("In false if")
+                #print("In false if")
                 return {"user": False}
         return {"user": False}

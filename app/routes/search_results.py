@@ -1,10 +1,11 @@
 from flask import *
 from app import app
 from Tmdb_api import Tmdb_api
-from tinydb import TinyDB, Query
-from tinydb.operations import add
-from tinydb.operations import delete, set
-from Util import library_search, build_data, check_status
+#from tinydb import TinyDB, Query
+#from tinydb.operations import add
+#from tinydb.operations import delete, set
+from Util import library_search, build_data
+import requests
 
 """
 GLOBAL VARIABLES USED: db, movie_db, User, Movie
@@ -16,10 +17,10 @@ counter: Reason: need to pass counter to other post requests to check which movi
 res: Reason: need to pass result between different post requests, again definitely another way to do this.
 """
 counter = 0
-db = TinyDB("login_info.json")
-User = Query()
-movie_db = TinyDB("movies.json")
-Movie = Query()
+#db = TinyDB("login_info.json")
+#User = Query()
+#movie_db = TinyDB("movies.json")
+#Movie = Query()
 res = []
 username = ""
 
@@ -30,27 +31,27 @@ def search_results():
     Returns: template rendering of search results webpage
     """
 	global counter
-	global db
-	global User
 	global res
 	global username
 	search = request.args["query"]
 	username = request.args["user"]
-	if not check_status(User, username, db):
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	data = {'username': username}
+	verify = requests.post("http://db:8000/checkStatus", data=json.dumps(data), headers=headers)
+	if not verify.json().get('user'):
 		return redirect(url_for('login'))
 	x = Tmdb_api()
 	movies = x.search(search)
 	data = ""
 	inlist = {}
-	string = (db.get(User.username == username)).get("movies")
-	string = string.split('~~~')
-	for i in range(len(string)):
-		inlist[string[i]] = ""
+    #string = (db.get(User.username == username)).get("movies")
+	#for i in range(len(string)):
+        #inlist[string[i]] = ""
 	for movie in movies:
 		res.append(movie.title)
-		if not movie_db.search(Movie.movie == (movie.title)):
-			new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
-			movie_db.insert(new_movie)
+        #if not movie_db.search(Movie.movie == (movie.title)):
+            #new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
+            #movie_db.insert(new_movie)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
@@ -100,10 +101,10 @@ def add_movie():
     Returns: template rendering of homepage (my library)
     """
 	global counter
-	global db
-	global User
-	global Movie
-	global movie_db
+    #global db
+	#global User
+    #global Movie
+    #global movie_db
 	global res
 	global username
 	rec_final = ""
@@ -136,9 +137,10 @@ def sign_out():
     App route for if user has clicked sign out button and signs them out of db.
     Returns: redirection to login page
     """
-	global db
-	global User
+    #global db
+	#global User
 	global username
+
 	db.upsert({'status': 'False'}, User.username == username)
 	return redirect(url_for('login'))
 
@@ -149,8 +151,8 @@ def remove_movie():
     Returns: template rendering of homepage (my library)
     """
 	global counter
-	global db
-	global User
+    #global db
+	#global User
 	global res
 	global username
 	string = (db.get(User.username == username)).get("movies")

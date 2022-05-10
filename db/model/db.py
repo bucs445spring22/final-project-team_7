@@ -12,8 +12,9 @@ class Database:
     def lookup_library(self):
         ret = {}
         que = Query()
+        #ret[i.get("media_id")]
         for i in self.db.all():
-            ret[i.get("media_id")] = {'media_id': i.get("media_id"),
+            ret = {'media_id': i.get("media_id"),
              'title': i.get("title"),
              'overview': i.get("overview"),
              'year': i.get("year"),
@@ -46,5 +47,3 @@ class Database:
         db.insert(table.Document((data), doc_id = data.get("media_id")))
 
         return {"Results": True and "Added to library"}
-                
-
