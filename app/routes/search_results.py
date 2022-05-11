@@ -42,16 +42,24 @@ def search_results():
 	if(not movies):
 		error = 'No movies found'
 		return render_template('homepage.html', user=username, data=error)
-	
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	info = {'username': username}
+	inlist = requests.post("http://db:8000/lookup_library", data=json.dumps(info), headers=headers)
+	inlist = inlist.json()
+	#print(inlist['11'])
+	media_ids = []
+	for t in inlist.items():
+		cur = t[1]
+		media_ids.append(cur.get('media_id'))
+
 	for movie in movies:
 		res.append(movie.media_id)
-
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
 		data += "<td style=\"text-align: center\" width=\"50\"><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
-		if movie.title in inlist:
+		if movie.media_id in media_ids:
 			data += "<form id='myform2' method='post' action='/remove_movie'><td><a class='button1' value=\">" + str(counter) + "\"><button form='myform2' name='remove' type='submit' value='" + str(counter) + "'>-</button></a></td></form>"
 		else:
 			data += "<form id='myform' method='post' action='/add_movie'><td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='add' type='submit' value='" + str(counter) + "'>+</button></a></td></form>"
@@ -105,11 +113,11 @@ def add_movie():
 	recs = []
 	open = False
 	name = ""
-	print("counter: ", counter)
+	#print("counter: ", counter)
 	username = session['name']
 	for i in range(counter):
 		if str(i) == request.form["add"]:
-			print("RES: ", res[i])
+			#print("RES: ", res[i])
 			tmp = x.get_movie(res[i])
 
 			#info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
@@ -149,12 +157,15 @@ def remove_movie():
 	#global db
 	#global User
 	global res
-
+	print("HELLO FROM remove_movie")
+	media_id = 0
 	username = session["name"]
 	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-	media_id = -1
-	data = {'username': username, 'media_id': media_id}
-	requests.post("http://db:8000/remove_media", data=json.dumps(data), headers=headers)
+	for i in range(counter):
+		if str(i) == request.form["remove"]:
+			media_id = res[i]
+			data = {'username': username, 'media_id': media_id}
+			requests.post("http://db:8000/remove_media", data=json.dumps(data), headers=headers)
 	return redirect(url_for('homepage', user=username))
 	#string = (db.get(User.username == username)).get("movies")
 	#for i in range(counter):

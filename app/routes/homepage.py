@@ -33,8 +33,6 @@ def homepage():
     html_builder = HtmlBuilder()
     data = html_builder.build_homepage(media_list, username)
     error = None
-
-   
     return render_template('homepage.html', error=error, data=data)
 
 @app.route('/search', methods=['POST'])

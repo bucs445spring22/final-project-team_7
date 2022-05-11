@@ -74,5 +74,6 @@ def add_media():
 def remove_media():
     username = request.json.get('username')
     media_id = request.json.get('media_id')
+    print("DEBUG:", media_id)
     db = Database(username)
     return db.remove_media(media_id)
