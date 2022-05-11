@@ -4,7 +4,7 @@ from Tmdb_api import Tmdb_api
 #from tinydb import TinyDB, Query
 from MediaBuilder import MediaBuilder
 from HtmlBuilder import HtmlBuilder
-from Util import library_search, build_data, check_status
+from Util import library_search
 import requests
 import json
 
@@ -33,16 +33,12 @@ def homepage():
     media_list = media_builder.build_library()
     html_builder = HtmlBuilder()
     data = html_builder.build_homepage(media_list, username)
-    #print(username)
-    #data = build_data(Movie, movies, username, movie_db)
     error = None
-    status = ""
 
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     data = {'username': username}
     verify = requests.post("http://db:8000/checkStatus", data=json.dumps(data), headers=headers)
     #print("\nDEBUG: " + str(verify.json().get('user')))
-    #if verify.json().get('user'):
     if not verify.json().get('user'):
         return redirect(url_for('login'))
     return render_template('homepage.html', error=error, data=data)
@@ -59,7 +55,6 @@ def search():
     media_list = media_builder.build_library()
     html_builder = HtmlBuilder()
     data = html_builder.build_homepage(media_list, username)
-    #data = build_data(Movie, movies, username, movie_db)
     error = None
     if request.method == 'POST':
         if request.form['search']:
@@ -72,7 +67,6 @@ def search():
                     return redirect(url_for('search_results', query=request.form['search'], user=username))
             elif request.form.get('media-type') == "Local Library":
                 media_list = library_search(media_list, request.form['search'])
-                #data = build_data(Movie, movies, username, movie_db)
                 data = html_builder.build_homepage(media_list, username)
                 return render_template('homepage.html', user=username, data=data)
 
@@ -83,7 +77,6 @@ def sign_out2():
     Returns: rendering of search results either in search_results or homepage depending on button selected
     """
     global username
-    #db.upsert({'status': 'False'}, User.username == username)
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     data = {'username': username}
     requests.post("http://db:8000/logout", data=json.dumps(data), headers=headers)

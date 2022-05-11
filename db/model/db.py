@@ -1,49 +1,62 @@
 from tinydb import TinyDB, Query, table
-#from tinydb.operations import set, Delete
-import json
 
 class Database:
     def __init__(self, username = ""):
+        """
+        Constructor for database
+        Parameters: username, a string representing current user
+        Initalizes a new table for each user in media_db.json
+        """
         self.username = username
-        self.string = username + "_DB.json"
-        self.db = TinyDB(self.string)
+        self.db = TinyDB('media_db.json')
+        self.table = self.db.table(username)
+        if len(self.table.all()) == 0:
+            self.table.upsert(table.Document({'empty': True}, doc_id=-1))
        
-    
     def lookup_library(self):
+        """
+        Gets library from the database
+        Returns library as a dict, else a dict showing library is empty
+        """
         ret = {}
-        que = Query()
-        #ret[i.get("media_id")]
-        for i in self.db.all():
-            ret = {'media_id': i.get("media_id"),
-             'title': i.get("title"),
-             'overview': i.get("overview"),
-             'year': i.get("year"),
-             'date': i.get("date"),
-             'rating': i.get("rating"),
-             'thumbnail_url': i.get("thumbnail_url"),
-             'MEDIA_TYPE': i.get("MEDIA_TYPE"),
-             'runtime': i.get("runtime"),
-             'language': i.get("language"),
-             'genres': i.get("genres"),
-             'cover_url': i.get("cover_url")}
+        for i in self.table.all():
+            if i.doc_id == -1:
+                if i.get('empty') == True:
+                    return {'-1': {'MEDIA_TYPE': 'Empty'}}
+                continue
+            ret[i['media_id']] = i
         return ret
 
-        #with open(self.string) as json_file:
-        #    data = json.load(json_file)
-        #return data
+    def lookup_media(self, media_id) -> dict:
+        """
+        Gets a single MediaEntry from library
+        Parameter: media_id, int corresponding to MediaEntry removed
+        Returns a dict matching media_id from data, or error dict
+        """
+        q = Query()
+        result = self.table.search(q.media_id == media_id)[0]
+        if len(result) == 0:
+            return {"Results": False and "Media not found"}
+        return result[0]
 
-    def add_movie(self,data) -> bool:
-        db = TinyDB(self.string)
-        que = Query()
+    def add_media(self, data):
+        """
+        Adds media to library, and sets empty to false
+        Parameter: data, a dict containing serialized MediaEntry
+        Returns: Dict indicating result of operation
+        """
+        self.table.upsert(table.Document(data, doc_id = data.get("media_id")))
+        self.table.upsert(table.Document({'empty': False}, doc_id=-1))
+        return {"Results": True and "Successfully added media"}
 
-        # if db.all()[0].doc_id == 0.0:
-        #     if db.all()[0].get("title") == "Example":
-
-
-        for i in range(len(db.all())):
-            if db.all()[i].doc_id == data.get("media_id"):
-                return {"Results": False and "Already in library"}
-        
-        db.insert(table.Document((data), doc_id = data.get("media_id")))
-
-        return {"Results": True and "Added to library"}
+    def remove_media(self, media_id):
+        """
+        Removes media from library, may set empty to true
+        Parameter: media_id, int corresponding to MediaEntry removed
+        Returns: Dict indicating result of operation
+        """
+        q = Query()
+        self.table.remove(q.media_id == media_id)
+        if len(self.table.all()) == 1:
+            self.table.upsert(table.Document({'empty': True}, doc_id=-1))
+        return {"Results": True and "Successfully removed media"}

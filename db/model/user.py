@@ -10,7 +10,7 @@ class User:
     password=""
     def __init__(self, name, password):
         self.name = name
-        self.password = password#, password #double check
+        self.password = password
 
     """
     Add User to Login Database, if User already exists, return False otherwise
@@ -26,20 +26,20 @@ class User:
             hashed = bcrypt.hashpw(self.password.encode("utf-8"), salt)
             new_login = {"username": self.name, "hashed": hashed.decode("utf-8"), "status": "False", "movies" : ""}
             db.insert(new_login)
-            format = self.name + "_DB.json"
-            userDb = TinyDB(format)
-            userDb.insert(table.Document({'media_id': -1,
-             'title': "Example",
-             'overview': "",
-             'year': "2000",
-             'date': "12-12",
-             'rating': 0,
-             'thumbnail_url': "",
-             'MEDIA_TYPE': None,
-             'runtime': 0,
-             'language': "",
-             'genres': [],
-             'cover_url': ""}, doc_id=0))
+            #format = self.name + "_DB.json"
+            #userDb = TinyDB(format)
+            #userDb.insert(table.Document({'media_id': -1,
+            # 'title': "Example",
+            # 'overview': "",
+            # 'year': "2000",
+            # 'date': "12-12",
+            # 'rating': 0,
+            # 'thumbnail_url': "",
+            # 'MEDIA_TYPE': None,
+            # 'runtime': 0,
+            # 'language': "",
+            # 'genres': [],
+            # 'cover_url': ""}, doc_id=0))
             return {"Results": True and self.name}
 
     """
@@ -55,8 +55,8 @@ class User:
             hashed = str(ret.get("hashed")).encode("utf-8")
             if bcrypt.checkpw(self.password.encode("utf-8"), hashed):
                 db.update(set('status', 'True'), que.username == self.name)
-                format = self.name + "_DB.json"
-                userDb = TinyDB(format)
+                #format = self.name + "_DB.json"
+                #userDb = TinyDB(format)
                 return {"user": self.name and True}
         return {"user": self.name and False}
 

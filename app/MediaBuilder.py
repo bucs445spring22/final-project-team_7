@@ -23,23 +23,15 @@ class MediaBuilder:
         data = {'username': self.username}
         response = requests.post("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
         results = response.json()
-        print(results)
-        #for key,value in results.items():
-	    #    print(key, ':', value)
-        #print(results['-1'].get('media_id'))
-        #print(results('media_id'))
-        #print(results.get('_default')))
-        #print(results.get('_default').get('0').get('MEDIA_TYPE'))
-        #print(results.get('_default').get('MEDIA_TYPE'))
         media_list = []
-        #for cur in results.get('_default'):
-        #    #print(type(cur))
-        #    if cur.get('MEDIA_TYPE') == "Movie":
-        #        media_list.append(self.build_movie(cur))
-        #    elif cur.get('MEDIA_TYPE') == "Show":
-        #        media_list.append(self.build_show(cur))
-        media_list.append(self.build_movie(results['-1']))
-        #media_list.append(self.build_show(cur))
+        for t in results.items():
+            cur = t[1]
+            if cur.get('MEDIA_TYPE') == "Empty":
+                return [Movie(-1, "Empty", "", "2000-05-13", 9, "")];
+            elif cur.get('MEDIA_TYPE') == "Movie":
+                media_list.append(self.build_movie(cur))
+            elif cur.get('MEDIA_TYPE') == "Show":
+                media_list.append(self.build_show(cur))
         return media_list
 
     def build_media(self, media_id):
@@ -81,6 +73,7 @@ class MediaBuilder:
         arguments: media(dict): dict containing show metadata
         return: Show object containing metadata from media dict
         """
+        release_date = None
         if type(media.get('year')) != None and type(media.get('date')) != None:
             release_date = (media.get('year') + "-" + media.get('date'))
         show = Show(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))

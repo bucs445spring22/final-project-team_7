@@ -12,7 +12,7 @@ class HtmlBuilder:
         data = "<h1 style=color:white>Welcome to your library, " + username + "!</h1><table border=1>"
         counter = 1
         for m in media_list:
-            print("DEBUG " + str(m.media_id))
+            #print("DEBUG " + str(m.media_id))
             if m.media_id == -1:
                 break
             data += "<form method='post' action='/goto_movie_page'><td><a class='button1' value=\">" + m.title + "\"><button type='submit' name='mov' value='" + str(m.media_id) + "'><img src ='" + m.thumbnail_url + "'></button></a></td></form>"

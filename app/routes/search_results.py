@@ -74,10 +74,10 @@ def search_again():
     App route for search results page when you search again in the page assosciating with searched word
     Returns: template rendering of search results webpage
     """
-	global db
-	global User
-	global movie_db
-	global Movie
+    #global db
+    #global User
+	#global movie_db
+	#global Movie
 	global username
 	if request.form.get('media-type') == "TMDB":
 		x = Tmdb_api()
@@ -140,34 +140,40 @@ def sign_out():
     #global db
 	#global User
 	global username
-
-	db.upsert({'status': 'False'}, User.username == username)
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	data = {'username': username}
+	requests.post("http://db:8000/logout", data=json.dumps(data), headers=headers)
+    #db.upsert({'status': 'False'}, User.username == username)
 	return redirect(url_for('login'))
 
 @app.route('/remove_movie', methods=['POST'])
 def remove_movie():
 	"""
-    App route for if user has clicked remove movie, it will remove movie to db and redirect to homepage
-    Returns: template rendering of homepage (my library)
-    """
+	App route for if user has clicked remove movie, it will remove movie to db and redirect to homepage
+	Returns: template rendering of homepage (my library)
+	"""
 	global counter
-    #global db
+	#global db
 	#global User
 	global res
 	global username
-	string = (db.get(User.username == username)).get("movies")
-	for i in range(counter):
-		if str(i) == request.form["remove"]:
-			string = string.replace(res[i] + "~~~", "")
-			db.upsert({'movies': string}, User.username == username)
-			return redirect(url_for('homepage', user=username))
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	media_id = -1
+	data = {'username': username, 'media_id': media_id}
+	requests.post("http://db:8000/remove_media", data=json.dumps(data), headers=headers)
 	return redirect(url_for('homepage', user=username))
+	#string = (db.get(User.username == username)).get("movies")
+	#for i in range(counter):
+	#	if str(i) == request.form["remove"]:
+	#		string = string.replace(res[i] + "~~~", "")
+	#		db.upsert({'movies': string}, User.username == username)
+	#		return redirect(url_for('homepage', user=username))
 
 @app.route('/goto_library3', methods=['POST'])
 def goto_library3():
 	global username
 	"""
 	App route for going back to user library.
-    Returns: template rendering of homepage
-    """
+	Returns: template rendering of homepage
+	"""
 	return redirect(url_for('homepage', user=username))
