@@ -4,6 +4,7 @@ from Tmdb_api import Tmdb_api
 #from tinydb import TinyDB, Query
 #from tinydb.operations import add
 #from tinydb.operations import delete, set
+from MediaSerializer import MediaSerializer
 from Util import library_search, build_data
 import requests
 from flask_session import Session
@@ -91,10 +92,10 @@ def add_movie():
     Returns: template rendering of homepage (my library)
     """
 	global counter
-    #global db
+	#global db
 	#global User
-    #global Movie
-    #global movie_db
+	#global Movie
+	#global movie_db
 	global res
 
 	username = session["name"]
@@ -111,13 +112,15 @@ def add_movie():
 			print("RES: ", res[i])
 			tmp = x.get_movie(res[i])
 
-			info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
-			'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
-			'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url} }
-			
-			print(info)
+			#info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
+			#'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
+			#'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url} }
+			media_serializer = MediaSerializer()
+			serialized= media_serializer.serialize_media(tmp)
 			headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-			response = requests.post("http://db:8000/add_media", data=json.dumps(info),headers = headers)
+			data = {'username': username, 'data': serialized}
+			#print(info)
+			response = requests.post("http://db:8000/add_media", data=json.dumps(data),headers = headers)
 			# results = response.json()
 			# print("JSON: ", results)
 
