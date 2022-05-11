@@ -6,7 +6,7 @@ from Tmdb_api import Tmdb_api
 #from tinydb.operations import delete, set
 from Util import library_search, build_data
 import requests
-
+from flask_session import Session
 """
 GLOBAL VARIABLES USED: db, movie_db, User, Movie
 Reason: Database needs it
@@ -34,7 +34,7 @@ def search_results():
 	global res
 	global username
 	search = request.args["query"]
-	username = request.args["user"]
+	username = session["name"]
 	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 	data = {'username': username}
 	verify = requests.post("http://db:8000/checkStatus", data=json.dumps(data), headers=headers)
@@ -137,13 +137,7 @@ def sign_out():
     App route for if user has clicked sign out button and signs them out of db.
     Returns: redirection to login page
     """
-    #global db
-	#global User
-	global username
-	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-	data = {'username': username}
-	requests.post("http://db:8000/logout", data=json.dumps(data), headers=headers)
-    #db.upsert({'status': 'False'}, User.username == username)
+	session["name"] = None
 	return redirect(url_for('login'))
 
 @app.route('/remove_movie', methods=['POST'])

@@ -1,8 +1,11 @@
 from flask import *
 from app import app
 import requests
-#import bcrypt
+from flask_session import Session
 
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 @app.route('/', methods=('GET', 'POST'))
 def login():
     """
@@ -39,6 +42,7 @@ def login():
         #print("v: ",verified)
         #print(type(verified))
         if verified:
+            session["name"] = request.form['username']
             return redirect(url_for('homepage', user=username))
         else:
             error = 'Invalid Credentials. Please try again.'

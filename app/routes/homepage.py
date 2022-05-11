@@ -7,6 +7,7 @@ from HtmlBuilder import HtmlBuilder
 from Util import library_search
 import requests
 import json
+from flask_session import Session
 
 """
 GLOBAL VARIABLES USED: db, movie_db, User, Movie
@@ -27,8 +28,7 @@ def homepage():
     App route for homepage (my library)
     Returns: rendering of homepage.html with data
     """
-    global username
-    username = request.args['user']
+    username = session["name"]
     media_builder = MediaBuilder(username)
     media_list = media_builder.build_library()
     html_builder = HtmlBuilder()
@@ -49,8 +49,7 @@ def search():
     App route for search (my library)
     Returns: rendering of search results either in search_results or homepage depending on button selected
     """
-    global username
-    username = request.args['user']
+    username = session["name"]
     media_builder = MediaBuilder(username)
     media_list = media_builder.build_library()
     html_builder = HtmlBuilder()
@@ -76,11 +75,8 @@ def sign_out2():
     App route for sign out
     Returns: rendering of search results either in search_results or homepage depending on button selected
     """
-    global username
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    data = {'username': username}
-    requests.post("http://db:8000/logout", data=json.dumps(data), headers=headers)
-    return redirect(url_for('login'))
+    session["name"] = None
+	return redirect(url_for('login'))
 
 @app.route('/goto_movie_page', methods=['POST'])
 def goto_movie_page():
