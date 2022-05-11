@@ -76,7 +76,7 @@ def sign_out2():
     Returns: rendering of search results either in search_results or homepage depending on button selected
     """
     session["name"] = None
-	return redirect(url_for('login'))
+    return redirect(url_for('login'))
 
 @app.route('/goto_movie_page', methods=['POST'])
 def goto_movie_page():
