@@ -33,11 +33,6 @@ def movie_page():
     username = request.args['user']
     media_id = request.args['id']
 
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    data = {'username': username}
-    verify = requests.post("http://db:8000/checkStatus", data=json.dumps(data), headers=headers)
-    if not verify.json().get('user'):
-        return redirect(url_for('login'))
     media_builder = MediaBuilder(username)
     info = media_builder.build_media(media_id)
     html_builder = HtmlBuilder()

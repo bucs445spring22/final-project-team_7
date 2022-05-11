@@ -34,12 +34,7 @@ def homepage():
     data = html_builder.build_homepage(media_list, username)
     error = None
 
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    info = {'username': username}
-    verify = requests.post("http://db:8000/checkStatus", data=json.dumps(info), headers=headers)
-    #print("\nDEBUG: " + str(verify.json().get('user')))
-    if not verify.json().get('user'):
-        return redirect(url_for('login'))
+   
     return render_template('homepage.html', error=error, data=data)
 
 @app.route('/search', methods=['POST'])

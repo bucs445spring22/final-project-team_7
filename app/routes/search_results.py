@@ -34,7 +34,6 @@ def search_results():
 	global res
 	username = session["name"]
 	search = request.args["query"]
-	username = session["name"]
 	x = Tmdb_api()
 	movies = x.search(search)
 	data = ""
@@ -42,9 +41,10 @@ def search_results():
 	if(not movies):
 		error = 'No movies found'
 		return render_template('homepage.html', user=username, data=error)
-
+	
 	for movie in movies:
-		res.append(movie.title)
+		res.append(movie.media_id)
+
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
@@ -104,21 +104,26 @@ def add_movie():
 	recs = []
 	open = False
 	name = ""
+	print("counter: ", counter)
+	username = session['name']
 	for i in range(counter):
 		if str(i) == request.form["add"]:
-			if movie_db.search(Movie.movie == res[i]):
-				mov = movie_db.get(Movie.movie == res[i])
-				if mov.get('rec_final') == "":
-					open = True
-				name = mov.get('movie')
-				recs = x.recommend(int(mov.get('id')), str(mov.get('type')))
-			for rec in recs:
-				rec_final += rec.title + "~~~"
-				rec_thumbnail += rec.thumbnail_url + "~~~"
-			if open:
-				movie_db.update(add("rec_final", rec_final), Movie.movie == name)
-				movie_db.update(add("rec_thumbnail", rec_thumbnail), Movie.movie == name)
-			db.update(add('movies', res[i]+"~~~"), User.username == username)
+			print("RES: ", res[i])
+			tmp = x.get_movie(res[i])
+
+			info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
+			'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
+			'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url} }
+			
+			print(info)
+			headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+			response = requests.post("http://db:8000/add_media", data=json.dumps(info),headers = headers)
+			# results = response.json()
+			# print("JSON: ", results)
+
+			# app.logger.debug(f'VERIFIED: {results}')
+			# verified = results.get('Results')
+			# print(verified)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
 
