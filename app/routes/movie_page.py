@@ -28,7 +28,7 @@ def movie_page():
     App route for page of each movie
     Returns: rendering of movie.html with data
     """
-    global username
+    username = session["name"]
     global media_id
     username = request.args['user']
     media_id = request.args['id']
@@ -65,14 +65,12 @@ def rate():
 
 @app.route('/sign_out3', methods=['POST'])
 def sign_out3():
-    #global db
-    #global User
-    global username
+    
     """
     App route for signing out each user and signs out user once button clicked
     Returns: redirection to login
     """
-    db.upsert({'status': 'False'}, User.username == username)
+    session["name"] = None
     return redirect(url_for('login'))
 
 @app.route('/search_rec', methods=['POST'])
@@ -81,7 +79,7 @@ def search_rec():
     App route for searching rec in movie page
     Returns: redirection to search results of searched movie
     """
-    global username
+    username = session["name"]
     error = None
     return redirect(url_for('search_results', query="test", user=username))
 
@@ -93,7 +91,7 @@ def search3():
     """
     global db
     global User
-    global username
+    username = session["name"]
     global Movie
     global movie_db
     movies = (db.get(User.username == username)).get("movies")
@@ -121,5 +119,5 @@ def goto_library2():
     App route for going to the homepage through the movie's metadata page
     Returns: redirecting to homepage
     """
-    global username
+    username = session["name"]
     return redirect(url_for('homepage', user=username))

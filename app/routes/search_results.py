@@ -22,7 +22,7 @@ counter = 0
 #movie_db = TinyDB("movies.json")
 #Movie = Query()
 res = []
-username = ""
+
 
 @app.route('/search_results', methods=('GET', 'POST'))
 def search_results():
@@ -32,26 +32,19 @@ def search_results():
     """
 	global counter
 	global res
-	global username
+	username = session["name"]
 	search = request.args["query"]
 	username = session["name"]
-	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-	data = {'username': username}
-	verify = requests.post("http://db:8000/checkStatus", data=json.dumps(data), headers=headers)
-	if not verify.json().get('user'):
-		return redirect(url_for('login'))
 	x = Tmdb_api()
 	movies = x.search(search)
 	data = ""
 	inlist = {}
-    #string = (db.get(User.username == username)).get("movies")
-	#for i in range(len(string)):
-        #inlist[string[i]] = ""
+	if(not movies):
+		error = 'No movies found'
+		return render_template('homepage.html', user=username, data=error)
+
 	for movie in movies:
 		res.append(movie.title)
-        #if not movie_db.search(Movie.movie == (movie.title)):
-            #new_movie = {"movie": movie.title, "thumbnail_url": movie.thumbnail_url, "overview": movie.overview, "date": movie.date, "rating": movie.rating, "type": movie.MEDIA_TYPE, "id": str(movie.media_id), "rec_final": "", "rec_thumbnail": ""}
-            #movie_db.insert(new_movie)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
@@ -74,11 +67,8 @@ def search_again():
     App route for search results page when you search again in the page assosciating with searched word
     Returns: template rendering of search results webpage
     """
-    #global db
-    #global User
-	#global movie_db
-	#global Movie
-	global username
+    
+	username = session["name"]
 	if request.form.get('media-type') == "TMDB":
 		x = Tmdb_api()
 		movies = x.search(request.form['search'])
@@ -106,7 +96,8 @@ def add_movie():
     #global Movie
     #global movie_db
 	global res
-	global username
+
+	username = session["name"]
 	rec_final = ""
 	rec_thumbnail = ""
 	x = Tmdb_api()
@@ -150,7 +141,8 @@ def remove_movie():
 	#global db
 	#global User
 	global res
-	global username
+
+	username = session["name"]
 	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 	media_id = -1
 	data = {'username': username, 'media_id': media_id}
@@ -165,7 +157,7 @@ def remove_movie():
 
 @app.route('/goto_library3', methods=['POST'])
 def goto_library3():
-	global username
+	username = session["name"]
 	"""
 	App route for going back to user library.
 	Returns: template rendering of homepage

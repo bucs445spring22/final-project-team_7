@@ -20,7 +20,6 @@ Reason: Passed between post requests to check validity
 #movie_db = TinyDB("movies.json")
 #User = Query()
 #Movie = Query()
-username = ""
 
 @app.route('/homepage', methods=['GET', 'POST'])
 def homepage():
@@ -62,6 +61,7 @@ def search():
                 media = x.search(request.form['search'])
                 if not media:
                     error = 'No movies found'
+                    return render_template('homepage.html', user=username, data=error)
                 else:
                     return redirect(url_for('search_results', query=request.form['search'], user=username))
             elif request.form.get('media-type') == "Local Library":
@@ -84,7 +84,7 @@ def goto_movie_page():
     App route for movie metadata page
     Returns: redirect for individual movie page
     """
-    global username
+    username = session["name"]
     return redirect(url_for('movie_page', user=username, id=request.form['mov']))
 
 @app.route('/goto_library', methods=['POST'])
@@ -93,5 +93,5 @@ def goto_library():
     App route for library through library
     Returns: redirects to homepage
     """
-    global username
+    username = session["name"]
     return redirect(url_for('homepage', user=username))
