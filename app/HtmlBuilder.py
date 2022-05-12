@@ -29,6 +29,7 @@ class HtmlBuilder:
         Returns: A string containing html code of the webpage
         """
         #TODO remove call of recommend in search_results.py, recommend will be called here instead
+        #print("DEBUG " + media.title)
         data = ""
         counter = 0
         api = Tmdb_api()

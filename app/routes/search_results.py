@@ -119,22 +119,13 @@ def add_movie():
 		if str(i) == request.form["add"]:
 			#print("RES: ", res[i])
 			tmp = x.get_movie(res[i])
-
-			#info = {'user': username, 'data' : {'media_id': str(tmp.media_id), 'title': tmp.title,'overview': tmp.overview, 'year': tmp.year, 
-			#'date': tmp.date, 'rating': tmp.rating, 'thumbnail_url': tmp.thumbnail_url, 'MEDIA_TYPE': tmp.MEDIA_TYPE, 'runtime': tmp.runtime, 
-			#'language': tmp.language, 'genres': tmp.genres, 'cover_url': tmp.cover_url} }
 			media_serializer = MediaSerializer()
 			serialized= media_serializer.serialize_media(tmp)
 			headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 			data = {'username': username, 'data': serialized}
 			#print(info)
 			response = requests.post("http://db:8000/add_media", data=json.dumps(data),headers = headers)
-			# results = response.json()
-			# print("JSON: ", results)
-
-			# app.logger.debug(f'VERIFIED: {results}')
-			# verified = results.get('Results')
-			# print(verified)
+			
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
 

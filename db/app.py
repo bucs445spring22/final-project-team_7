@@ -65,8 +65,9 @@ def lookup_media():
 @app.route('/add_media', methods=('POST',))
 def add_media():
     username = request.json.get('username')
-    #print("USER WE ARE ADDING TO: ",name)
+    #print("USER WE ARE ADDING TO: ",username)
     data = request.json.get('data')
+    #print("DATA WE ARE ADDING: ",data)
     db = Database(username)
     return db.add_media(data)
 

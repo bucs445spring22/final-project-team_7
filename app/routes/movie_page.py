@@ -36,8 +36,8 @@ def movie_page():
     media_builder = MediaBuilder(username)
     info = media_builder.build_media(media_id)
     html_builder = HtmlBuilder()
-    html_builder.build_mediaview(info)
-    return render_template('movie_page.html', data=info)
+    data = html_builder.build_mediaview(info)
+    return render_template('movie_page.html', data=data)
 
 @app.route('/rate', methods=['POST'])
 def rate():
@@ -84,28 +84,25 @@ def search3():
     App route for searching through movie page
     Returns: redirection to search results of searched movie
     """
-    global db
-    global User
     username = session["name"]
-    global Movie
-    global movie_db
-    movies = (db.get(User.username == username)).get("movies")
-    movies = movies.split('~~~')
-    movies.pop()
-    data = build_data(Movie, movies, username, movie_db)
+    media_builder = MediaBuilder(username)
+    media_list = media_builder.build_library()
+    html_builder = HtmlBuilder()
+    data = html_builder.build_homepage(media_list, username)
     error = None
     if request.method == 'POST':
         if request.form['search']:
             if request.form.get('media-type') == "TMDB":
                 x = Tmdb_api()
-                movies = x.search(request.form['search'])
-                if not movies:
+                media = x.search(request.form['search'])
+                if not media:
                     error = 'No movies found'
+                    return render_template('homepage.html', user=username, data=error)
                 else:
                     return redirect(url_for('search_results', query=request.form['search'], user=username))
             elif request.form.get('media-type') == "Local Library":
-                movies = library_search(movies, request.form['search'])
-                data = build_data(Movie, movies, username, movie_db)
+                media_list = library_search(media_list, request.form['search'])
+                data = html_builder.build_homepage(media_list, username)
                 return render_template('homepage.html', user=username, data=data)
 
 @app.route('/goto_library2', methods=['POST'])
