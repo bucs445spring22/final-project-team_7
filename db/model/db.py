@@ -31,13 +31,9 @@ class Database:
         """
         Gets a single MediaEntry from library
         Parameter: media_id, int corresponding to MediaEntry removed
-        Returns a dict matching media_id from data, or error dict
+        Returns a dict matching media_id from data
         """
-        q = Query()
-        result = self.table.search(q.media_id == media_id)[0]
-        if len(result) == 0:
-            return {"Results": False and "Media not found"}
-        return result[0]
+        return dict(self.table.get(doc_id=media_id))
 
     def add_media(self, data):
         """
