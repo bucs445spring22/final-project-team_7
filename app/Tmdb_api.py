@@ -34,7 +34,7 @@ class Tmdb_api(Api):
         Returns: A movie object containing a complete copy of the movie metadata corresponding to the media_id
         """
         data = request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
-        movie = Movie(data.get('id'), data.get('name'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
+        movie = Movie(data.get('id'), data.get('title'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
         movie.runtime = data.get('runtime')
         movie.language = data.get('original_language')
         movie.genres = data.get('genres')
@@ -48,7 +48,7 @@ class Tmdb_api(Api):
         Returns: A show object containing a complete copy of the show metadata corresponding to the media_id
         """
         data = request_to_dict("https://api.themoviedb.org/3/tv/" + str(media_id) + "?api_key=" + self.API_KEY)
-        show = Show(data.get('id'), data.get('title'), data.get('overview'), data.get('first_air_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
+        show = Show(data.get('id'), data.get('name'), data.get('overview'), data.get('first_air_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
         show.runtime = data.get('episode_run_time')[0]
         show.language = data.get('original_language')
         show.genres = data.get('genres')

@@ -5,3 +5,4 @@ requests
 pymongo
 bcrypt
 gunicorn
+flask_session

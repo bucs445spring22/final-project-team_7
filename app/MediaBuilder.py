@@ -7,7 +7,7 @@ from Show import Show
 class MediaBuilder:
     def __init__(self, username):
         """
-        LibraryBuilder constructor, requires User argument.
+        MediaBuilder constructor, requires username argument.
         arguments: username(str): is used to determine the current user of the library.
         Therefore, this class must be reinitialized whenever a user is changed.
         """
@@ -17,18 +17,21 @@ class MediaBuilder:
         """
         Get user's library from database 
         Returns: Return user's library as a list of all movies in the library
-        TODO: consider sorting library by title before returning
         """
+        #TODO: consider sorting library by title before returning
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         data = {'username': self.username}
         response = requests.post("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
         results = response.json()
         media_list = []
-        for cur in results:
-            if cur.get('MEDIA_TYPE') == "Movie":
-                media_list.append(build_movie(cur, media_id))
+        for t in results.items():
+            cur = t[1]
+            if cur.get('MEDIA_TYPE') == "Empty":
+                return [Movie(-1, "Empty", "", "2000-05-13", 9, "")];
+            elif cur.get('MEDIA_TYPE') == "Movie":
+                media_list.append(self.build_movie(cur))
             elif cur.get('MEDIA_TYPE') == "Show":
-                media_list.append(build_show(cur, media_id))
+                media_list.append(self.build_show(cur))
         return media_list
 
     def build_media(self, media_id):
@@ -41,10 +44,10 @@ class MediaBuilder:
         data = {'username': self.username, 'media_id': media_id}
         response = requests.post("http://db:8000/lookup_media", data=json.dumps(data), headers=headers)
         media = response.json()
-        if MEDIA_TYPE == "Movie":
-            return build_movie(media, media_id)
-        elif MEDIA_TYPE == "Show":
-            return build_show(media, media_id)
+        if media.get('MEDIA_TYPE') == "Movie":
+            return self.build_movie(media)
+        elif media.get('MEDIA_TYPE') == "Show":
+            return self.build_show(media)
         return None
 
     def build_movie(self, media) -> Movie:
@@ -54,8 +57,9 @@ class MediaBuilder:
         return: Movie object with media_id containing metadata from media
         """
         release_date = None
-        if type(media.get('year')) != None and type(media.get('date')) != None:
+        if type(media.get('year')) != type(None) and type(media.get('date')) != type(None):
             release_date = (media.get('year') + "-" + media.get('date'))
+        print(media.get('media_id'))
         movie = Movie(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))
         movie.runtime = media.get('runtime')
         movie.language = media.get('language')
@@ -69,11 +73,14 @@ class MediaBuilder:
         arguments: media(dict): dict containing show metadata
         return: Show object containing metadata from media dict
         """
-        show = Show(media.get('id'), media.get('title'), media.get('overview'), media.get('first_air_date'), media.get('vote_average'), self.thumbnail_gen(media.get('poster_path')))
-        show.runtime = media.get('episode_run_time')
-        show.language = media.get('original_language')
+        release_date = None
+        if type(media.get('year')) != None and type(media.get('date')) != None:
+            release_date = (media.get('year') + "-" + media.get('date'))
+        show = Show(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))
+        show.runtime = media.get('runtime')
+        show.language = media.get('language')
         show.genres = media.get('genres')
-        show.cover_url = self.cover_gen(media.get('poster_path'))
+        show.cover_url = media.get('cover_url')
         show.total_episodes = media.get('total_episodes')
         show.total_seasons = media.get('total_seasons')
         # Might not use seasons list

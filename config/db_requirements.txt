@@ -4,6 +4,6 @@ gunicorn
 pytest
 coverage
 tinydb
-
+bcrypt
 ###### Requirements with Version Specifiers ######
 Flask>=2.0
