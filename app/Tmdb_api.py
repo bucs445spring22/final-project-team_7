@@ -58,7 +58,7 @@ class Tmdb_api(Api):
             tmp.cover_url = "static/cover_not_found.gif"
             return tmp
         show.runtime = 0
-        if len(data.get('episode_run_time') != 0):
+        if len(data.get('episode_run_time')) != 0:
             show.runtime = data.get('episode_run_time')[0]
         show.language = data.get('original_language')
         show.genres = data.get('genres')
