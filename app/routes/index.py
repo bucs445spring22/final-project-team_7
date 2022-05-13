@@ -43,6 +43,8 @@ def login():
         #print(type(verified))
         if verified:
             session["name"] = request.form['username']
+            session["counter"] = 0
+            session["res"] = []
             return redirect(url_for('homepage', user=username))
         else:
             error = 'Invalid Credentials. Please try again.'

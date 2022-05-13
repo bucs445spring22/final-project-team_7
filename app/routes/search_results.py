@@ -6,6 +6,7 @@ from HtmlBuilder import HtmlBuilder
 from Util import library_search
 import requests
 from flask_session import Session
+import json
 """
 GLOBAL VARIABLES USED: db, movie_db, User, Movie
 Reason: Database needs it
@@ -15,8 +16,6 @@ username: Reason: Passed between post requests to check validity
 counter: Reason: need to pass counter to other post requests to check which movie is which (there is a better method no time)
 res: Reason: need to pass result between different post requests, again definitely another way to do this.
 """
-counter = 0
-res = []
 
 @app.route('/search_results', methods=('GET', 'POST'))
 def search_results():
@@ -24,8 +23,8 @@ def search_results():
 	App route for search results page assosciating with searched word
 	Returns: template rendering of search results webpage
 	"""
-	global counter
-	global res
+	#global counter
+	#global res
 	username = session["name"]
 	search = request.args["query"]
 	x = Tmdb_api()
@@ -44,32 +43,31 @@ def search_results():
 	for t in inlist.items():
 		cur = t[1]
 		media_ids.append(cur.get('media_id'))
-
 	for movie in movies:
-		res.append(movie.media_id)
+		session["res"].append(movie.media_id)
+		#print(res)
 		data += "<tr>"
 		data += "<td>" + "<img src=" + movie.thumbnail_url + " width=\"120\" height =\"auto\"/></td>"
 		data += "<td><font color=\"white\">" + movie.title + " (" + movie.year + ")" "</font></td>"
 		data += "<td style=\"text-align: center\" width=\"50\"><font color=\"white\">" + str(movie.rating) + "</font></td>"
 		data += "<td><font color=\"white\">" + movie.overview + "</font></td>"
 		if movie.media_id in media_ids:
-			data += "<form id='myform2' method='post' action='/remove_movie'><td><a class='button1' value=\">" + str(counter) + "\"><button form='myform2' name='remove' type='submit' value='" + str(counter) + "'>-</button></a></td></form>"
+			data += "<form id='myform2' method='post' action='/remove_movie'><td><a class='button1' value=\">" + str(session["counter"]) + "\"><button form='myform2' name='remove' type='submit' value='" + str(session["counter"]) + "'>-</button></a></td></form>"
 		else:
-			data += "<form id='myform' method='post' action='/add_movie'><td><a class='button1' value=\">" + str(counter) + "\"><button form='myform' name='add' type='submit' value='" + str(counter) + "'>+</button></a></td></form>"
+			data += "<form id='myform' method='post' action='/add_movie'><td><a class='button1' value=\">" + str(session["counter"]) + "\"><button form='myform' name='add' type='submit' value='" + str(session["counter"]) + "'>+</button></a></td></form>"
 		data += "</tr>"
-		counter+=1
+		session["counter"] += 1
+	#print(res)
 	data = "<table style=\"width:100%\" border=1>" + data + "</table>"
 	error = None
 	return render_template('search_results.html', user=username, data=data)
 
-
 @app.route('/search_again', methods=['POST'])
 def search_again():
 	"""
-	App route for search results page when you search again in the page assosciating with searched word
+	App route for search results page when you search again from the search page
 	Returns: template rendering of search results webpage
 	"""
-    
 	username = session["name"]
 	if request.form.get('media-type') == "TMDB":
 		x = Tmdb_api()
@@ -93,24 +91,21 @@ def add_movie():
 	App route for if user has clicked add movie, it will add movie to db and redirect to homepage
 	Returns: template rendering of homepage (my library)
 	"""
-	global counter
-	global res
-	#rec_final = ""
-	#rec_thumbnail = ""
-	#recs = []
-	#open = False
-	#name = ""
+	#print("\n\n\n")
+	#print(res)
+	#print("\n\n\n")
 	#print("counter: ", counter)
 	username = session["name"]
+	counter = session["counter"]
+	res = session["res"]
 	x = Tmdb_api()
-	username = session['name']
 	for i in range(counter):
+		#print("RES: ", res[i])
 		if str(i) == request.form["add"]:
-			#print("RES: ", res[i])
 			tmp = x.get_movie(res[i])
 			media_serializer = MediaSerializer()
 			serialized = media_serializer.serialize_media(tmp)
-			print(serialized)
+			#print("DEBUG:",serialized)
 			headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 			data = {'username': username, 'data': serialized}
 			requests.post("http://db:8000/add_media", data=json.dumps(data), headers=headers)
@@ -132,17 +127,14 @@ def remove_movie():
 	App route for if user has clicked remove movie, it will remove movie to db and redirect to homepage
 	Returns: template rendering of homepage (my library)
 	"""
-	global counter
-	#global db
-	#global User
-	global res
 	#print("HELLO FROM remove_movie")
 	media_id = 0
 	username = session["name"]
+	counter = session["counter"]
 	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 	for i in range(counter):
 		if str(i) == request.form["remove"]:
-			media_id = res[i]
+			media_id = session["res"][i]
 			data = {'username': username, 'media_id': media_id}
 			requests.post("http://db:8000/remove_media", data=json.dumps(data), headers=headers)
 	return redirect(url_for('homepage', user=username))

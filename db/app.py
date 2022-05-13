@@ -50,7 +50,7 @@ def lookup_library():
 def lookup_media():
     username = request.json.get('username')
     media_id = request.json.get('media_id')
-    print("DEBUG:", media_id)
+    #print("DEBUG:", media_id)
     db = Database(username)
     return db.lookup_media(media_id)
 
@@ -87,8 +87,8 @@ def rate():
     username = request.json.get('username')
     db = Database(username)
     media = db.lookup_media(media_id)
-    print(media)
+    #print(media)
     media['user_rating'] = rating
-    print()
-    print(media)
+    #print()
+    #print(media)
     return db.add_media(media)
