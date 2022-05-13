@@ -1,11 +1,9 @@
 from flask import *
 from app import app
 from Tmdb_api import Tmdb_api
-#from tinydb import TinyDB, Query
-#from tinydb.operations import add
-#from tinydb.operations import delete, set
 from MediaSerializer import MediaSerializer
-from Util import library_search, build_data
+from HtmlBuilder import HtmlBuilder
+from Util import library_search
 import requests
 from flask_session import Session
 """
@@ -18,12 +16,7 @@ counter: Reason: need to pass counter to other post requests to check which movi
 res: Reason: need to pass result between different post requests, again definitely another way to do this.
 """
 counter = 0
-#db = TinyDB("login_info.json")
-#User = Query()
-#movie_db = TinyDB("movies.json")
-#Movie = Query()
 res = []
-
 
 @app.route('/search_results', methods=('GET', 'POST'))
 def search_results():
@@ -85,11 +78,12 @@ def search_again():
 			error = 'No movies found'
 		return redirect(url_for('search_results', query=request.form['search'], user=username))
 	elif request.form.get('media-type') == "Local Library":
-		movies = (db.get(User.username == username)).get("movies")
-		movies = movies.split('~~~')
-		movies.pop()
-		movies = library_search(movies, request.form['search'])
-		data = build_data(Movie, movies, username, movie_db)
+		headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+		info = {'username': username}
+		response = requests.post("http://db:8000/lookup_library", data=json.dumps(info), headers=headers)
+		media_list = library_search(response, request.form['search'])
+		html_builder = HtmlBuilder()
+		data = html_builder.build_homepage(media_list, username)
 		return render_template('homepage.html', user=username, data=data)
 	return redirect(url_for('search_results', query=request.form['search'], user=username))
 
@@ -100,20 +94,16 @@ def add_movie():
     Returns: template rendering of homepage (my library)
     """
 	global counter
-	#global db
-	#global User
-	#global Movie
-	#global movie_db
 	global res
 
-	username = session["name"]
-	rec_final = ""
-	rec_thumbnail = ""
-	x = Tmdb_api()
-	recs = []
-	open = False
-	name = ""
+	#rec_final = ""
+	#rec_thumbnail = ""
+	#recs = []
+	#open = False
+	#name = ""
 	#print("counter: ", counter)
+	username = session["name"]
+	x = Tmdb_api()
 	username = session['name']
 	for i in range(counter):
 		if str(i) == request.form["add"]:
@@ -125,7 +115,6 @@ def add_movie():
 			data = {'username': username, 'data': serialized}
 			#print(info)
 			response = requests.post("http://db:8000/add_media", data=json.dumps(data),headers = headers)
-			
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
 
@@ -148,7 +137,7 @@ def remove_movie():
 	#global db
 	#global User
 	global res
-	print("HELLO FROM remove_movie")
+	#print("HELLO FROM remove_movie")
 	media_id = 0
 	username = session["name"]
 	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
@@ -167,9 +156,9 @@ def remove_movie():
 
 @app.route('/goto_library3', methods=['POST'])
 def goto_library3():
-	username = session["name"]
 	"""
 	App route for going back to user library.
 	Returns: template rendering of homepage
 	"""
+	username = session["name"]
 	return redirect(url_for('homepage', user=username))
