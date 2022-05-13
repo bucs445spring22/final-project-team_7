@@ -2,7 +2,6 @@ import json
 import requests
 from Movie import Movie
 from Show import Show
-#from Season import Season
 
 class MediaBuilder:
     def __init__(self, username):
@@ -18,7 +17,6 @@ class MediaBuilder:
         Get user's library from database 
         Returns: Return user's library as a list of all movies in the library
         """
-        #TODO: consider sorting library by title before returning
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         data = {'username': self.username}
         response = requests.post("http://db:8000/lookup_library", data=json.dumps(data), headers=headers)
@@ -85,6 +83,5 @@ class MediaBuilder:
         show.cover_url = media.get('cover_url')
         show.total_episodes = media.get('total_episodes')
         show.total_seasons = media.get('total_seasons')
-        # Might not use seasons list
         #show.seasons = self.init_season_list(media)
         return show

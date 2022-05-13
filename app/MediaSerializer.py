@@ -1,17 +1,5 @@
-from Movie import Movie
-from Show import Show
-
 class MediaSerializer:
     #NOTE MediaSerializer will not handle network request to db, will only get Media into a json which is then sent to db for storage
-
-    #def __init__(self, username):
-    #    """
-    #    MediaSerializer constructor, requires username argument.
-    #    arguments: username(str): is used to determine the current user of the library.
-    #    Therefore, this class must be reinitialized whenever a user is changed.
-    #    """
-    #    self.username = username
-
     def serialize_media(self, media) -> dict:
         """
         Converts a MediaEntry to an equivalent dict, for storage in db.

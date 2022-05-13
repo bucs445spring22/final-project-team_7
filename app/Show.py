@@ -1,5 +1,4 @@
 from MediaEntry import MediaEntry
-from Season import Season
 
 class Show(MediaEntry):
     MEDIA_TYPE = "Show"

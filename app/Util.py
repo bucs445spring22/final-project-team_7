@@ -1,6 +1,5 @@
 import json
 import requests
-import os
 
 def request_to_dict(url) -> dict:
     """

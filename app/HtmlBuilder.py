@@ -48,11 +48,12 @@ class HtmlBuilder:
         if len(recommended) != 0:
             data += "<h2 style=color:white>"+ "Because you watched this, here's some related content:" +"</h2>"
             data += "<table border=1>"
-        for i in recommended:
-            data += "<td style=color:white width='200'><img src=" + i.thumbnail_url + " width=\"200\" height =\"auto\"/>"
-            data += "<p style=color:white>" + i.title + "</p></td>"
-            counter +=1
-            if counter%7==0:
-                data+= "<tr></tr>"
-        data += "</table></div>"
+            for i in recommended:
+                data += "<td style=color:white width='200'><img src=" + i.thumbnail_url + " width=\"200\" height =\"auto\"/>"
+                data += "<p style=color:white>" + i.title + "</p></td>"
+                counter +=1
+                if counter%7==0:
+                    data+= "<tr></tr>"
+            data += "</table>"
+        data += "</div>"
         return data
