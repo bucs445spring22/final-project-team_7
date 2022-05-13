@@ -12,7 +12,7 @@ Andrew Goetz, Jin Xian Li, Yong Liu
 
 ## Getting Started
 
-MyMDB is a user hosted watchlist for movies/shows. Users can control their own watchlist with a login and signup page. You can first search for a movie through our implementation of the TMDB API into a search bar and add a movie/show to your library to keep track of watched shows to display relevant information about each one. You can also rate the shows and see the overall local user ratings as well as the TMDB API rating. When done using the applicaiton be sure to sign out.
+MyMDB is a user hosted watchlist for movies/shows. Users can control their own watchlist with a login and signup page. Users can search for a movie or show through a search bar powered by TMDB. From there, one can and add a movie/show to your library to keep track of watched content and display relevant information about each one. You can also rate the shows and see the overall local user ratings as well as the TMDB rating. When done using the application, one can sign out and log back in later.
 
 ### Roadmap
 
