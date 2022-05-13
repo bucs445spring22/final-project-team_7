@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '..')
 from Tmdb_api import Tmdb_api
-from Util import request_to_dict, library_search, build_data, build_media, check_status
+from Util import request_to_dict, library_search, build_data, build_media
 import pytest
 #from tinydb import TinyDB, Query
 #from tinydb.operations import add
@@ -20,7 +20,4 @@ def test_build_data():
     pass
 
 def test_build_media():
-    pass
-
-def test_check_status():
     pass

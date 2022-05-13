@@ -114,20 +114,3 @@ def build_media(movie_query, id, db, rate_query, user_db) -> str:
         data += "</table>"
         data += "</div>"
     return data
-
-def check_status(User, username, db):
-    """
-    Checks login status
-    Parameters: User (Query): query for user db
-                username (str): username of person making request
-                db (db): User database to see who's logged in
-    Returns: bool indicating a user's login status
-    """
-    status = ""
-    if db.search(User.username == username):
-        ret = db.get(User.username == username)
-        status = ret.get("status")
-    if status == "False":
-        return False
-    else:
-        return True
