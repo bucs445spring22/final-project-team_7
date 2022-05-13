@@ -6,16 +6,6 @@ from MediaBuilder import MediaBuilder
 from Util import library_search
 import requests
 
-"""
-GLOBAL VARIABLES USED: db, movie_db, User, Movie
-Reason: Database needs it
-
-Other global variables: username, id
-Reason: Passed between post requests to check validity
-"""
-
-media_id = ""
-
 @app.route('/movie_page', methods=['GET','POST'])
 def movie_page():
     """
@@ -23,9 +13,8 @@ def movie_page():
     Returns: rendering of movie.html with data
     """
     username = session["name"]
-    global media_id
-    username = request.args['user']
-    media_id = request.args['id']
+    session["media_id"] = request.args['id']
+    media_id = session["media_id"]
 
     media_builder = MediaBuilder(username)
     info = media_builder.build_media(media_id)
@@ -39,19 +28,14 @@ def rate():
     App route for rating movie that user has added
     Returns: redirection to movie page with updated values
     """
-    global media_id
+    #NOTE if we are able to rate a movie, it's definitely in database, else error would have already occurred
+    media_id = session["media_id"]
     username = session["name"]
-    #NOTE if we are able to rate a movie, it's definitely in database
-    #if not user_db.search(Rate.movie_id == (id)):
-        #new_rating = {"movie_id": id, "rating": rating}
-        #user_db.insert(new_rating)
-        #user_db.upsert({'rating': rating}, Rate.movie_id == id)
     rating = request.form.get('rating')
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     info = {'username': username, 'media_id': media_id, 'rating': rating}
     requests.post("http://db:8000/rate", data=json.dumps(info), headers=headers)
     return redirect(url_for('homepage', user=username))
-
 
 @app.route('/sign_out3', methods=['POST'])
 def sign_out3():

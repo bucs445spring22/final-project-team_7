@@ -28,32 +28,23 @@ class HtmlBuilder:
         Parameters: media is the Movie or Show object to display
         Returns: A string containing html code of the webpage
         """
-        #TODO remove call of recommend in search_results.py, recommend will be called here instead
-        #print("DEBUG " + media.title)
         data = ""
         counter = 0
         api = Tmdb_api()
         recommended = api.recommend(media.media_id, media.MEDIA_TYPE)
+        #Cover + metadata
         data += "<div style=''><h1 style=color:white>" + media.title + " " + media.date + " (" + str(media.rating) + ")</h1>"
         data += "<img src=" + media.thumbnail_url + " width=\"350\" height =\"auto\"/>"
-        data += "Your Rating: " + """<form method='post' action='/rate'> <select name='media-type' id='media-type'>
-            <option value=''></option>  
-            <option value='0'>0</option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-            <option value='6'>6</option>
-            <option value='7'>7</option>
-            <option value='8'>8</option>
-            <option value='9'>9</option>
-            <option value='10'>10</option>
-            </select>
-              <button type="submit">Rate Movie</button>
-            </form>
-        """
+        #Ratings
+        data += "<h2 style=color:white> Your Rating: "
+        data += "N/A" if media.user_rating == 0 else str(media.user_rating)
+        data += "</h2><form method='post' action='/rate'> <select name='rating' id='rating'></h2><option value='0'></option>"
+        for i in range(10): #numbers 1-10, rating 0 means rating isn't set yet
+            data += "<option value='" + str(i+1) + "'>" + str(i+1) + "</option>"
+        data += "</select><button type='submit'>Rate Movie</button></form>"
+        #Overview
         data += "<p style=color:white>" + "[" + media.MEDIA_TYPE + "] " + media.overview + "</p></div>"
+        #Recommendations
         if len(recommended) != 0:
             data += "<h2 style=color:white>"+ "Because you watched this, here's some related content:" +"</h2>"
             data += "<table border=1>"

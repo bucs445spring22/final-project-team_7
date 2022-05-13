@@ -1,8 +1,6 @@
 from flask import *
-#from tinydb import TinyDB, Query
 from app import app
 import requests
-#import bcrypt
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -19,13 +17,10 @@ def signup():
             password = request.form['password']
             headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
             data = {'username': username, 'password':password}
-            
+
             response = requests.post("http://db:8000/verifySignUp", data=json.dumps(data), headers=headers)
             results = response.json()
-            #app.logger.debug(f'VERIFIED: {results}')
             verified = results.get('Results')
-            #print("v: ",verified)
-            #print(type(verified))
             if verified:
                 return redirect(url_for('login'))
             error = 'User name already exists. Please try again.'

@@ -61,6 +61,7 @@ class MediaBuilder:
             release_date = (media.get('year') + "-" + media.get('date'))
         print(media.get('media_id'))
         movie = Movie(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))
+        movie.user_rating = media.get('user_rating')
         movie.runtime = media.get('runtime')
         movie.language = media.get('language')
         movie.genres = media.get('genres')
@@ -77,6 +78,7 @@ class MediaBuilder:
         if type(media.get('year')) != None and type(media.get('date')) != None:
             release_date = (media.get('year') + "-" + media.get('date'))
         show = Show(media.get('media_id'), media.get('title'), media.get('overview'), release_date, media.get('rating'), media.get('thumbnail_url'))
+        show.user_rating = media.get('user_rating')
         show.runtime = media.get('runtime')
         show.language = media.get('language')
         show.genres = media.get('genres')

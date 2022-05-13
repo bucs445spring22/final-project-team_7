@@ -1,25 +1,12 @@
 from flask import *
 from app import app
 from Tmdb_api import Tmdb_api
-#from tinydb import TinyDB, Query
 from MediaBuilder import MediaBuilder
 from HtmlBuilder import HtmlBuilder
 from Util import library_search
 import requests
 import json
 from flask_session import Session
-
-"""
-GLOBAL VARIABLES USED: db, movie_db, User, Movie
-Reason: Database needs it (I'm not sure initializing db every time would be a good idea either)
-
-Other global variables: username
-Reason: Passed between post requests to check validity
-"""
-#db = TinyDB("login_info.json")
-#movie_db = TinyDB("movies.json")
-#User = Query()
-#Movie = Query()
 
 @app.route('/homepage', methods=['GET', 'POST'])
 def homepage():

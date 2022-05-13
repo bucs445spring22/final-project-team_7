@@ -85,10 +85,8 @@ def rate():
     media_id = request.json.get('media_id')
     rating = request.json.get('rating')
     username = request.json.get('username')
+    #print("media_id:", media_id, "rating:", rating, "username:", username)
     db = Database(username)
     media = db.lookup_media(media_id)
-    #print(media)
     media['user_rating'] = rating
-    #print()
-    #print(media)
     return db.add_media(media)
