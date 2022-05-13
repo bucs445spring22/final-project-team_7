@@ -69,3 +69,12 @@ def remove_media():
     print("DEBUG:", media_id)
     db = Database(username)
     return db.remove_media(media_id)
+
+@app.route('/verifyLogin', methods=('POST',))
+def verify():
+    #print(f'FORM: {request.json}')
+    #print("DEBUGGER: In app.py verify()")
+    name = request.json.get('username')
+    password = request.json.get('password')
+    u = User(name, password)
+    return u.verify_login()

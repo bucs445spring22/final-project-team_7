@@ -59,3 +59,20 @@ class User:
             db.update(set('status', 'False'), que.username == self.name)
             return {"user": self.name and True}
         return {"user": self.name and False}
+
+    def check_status(self):
+        db = TinyDB("loginInfo.json")
+        que = Query()
+        #print("Before db.search")
+        #print("self.name: " + self.name)
+        if db.search(que.username == self.name):
+            ret = db.get(que.username == self.name)
+            status = ret.get("status")
+            #print("Before ifs")
+            if(status == "True"):
+                #print("In true if")
+                return {"user": True}
+            else:
+                #print("In false if")
+                return {"user": False}
+        return {"user": False}
