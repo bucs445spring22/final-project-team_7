@@ -27,13 +27,17 @@ class Tmdb_api(Api):
             return "static/cover_not_found.gif"
         return "https://www.themoviedb.org/t/p/w1280" + poster_path
 
-    def get_movie(self, media_id) -> Movie:
+    def get_movie(self, media_id): #-> Movie:
         """
         Fetches movie from TMDB given a media_id, initializing fields of movie class to the data from the dict
         Parameters: media_id(int): media id corresponding to a particular movie in the API
         Returns: A movie object containing a complete copy of the movie metadata corresponding to the media_id
         """
         data = request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
+        if 'success' in data:
+            tmp = Movie(media_id, 'Invalid', 'Invalid', 'Invalid', 0, "static/cover_not_found.gif")
+            tmp.cover_url = "static/cover_not_found.gif"
+            return tmp
         movie = Movie(data.get('id'), data.get('title'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
         movie.runtime = data.get('runtime')
         movie.language = data.get('original_language')
@@ -49,7 +53,13 @@ class Tmdb_api(Api):
         """
         data = request_to_dict("https://api.themoviedb.org/3/tv/" + str(media_id) + "?api_key=" + self.API_KEY)
         show = Show(data.get('id'), data.get('name'), data.get('overview'), data.get('first_air_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))
-        show.runtime = data.get('episode_run_time')[0]
+        if 'success' in data:
+            tmp = Show(media_id, 'Invalid', 'Invalid', 'Invalid', 0, "static/cover_not_found.gif")
+            tmp.cover_url = "static/cover_not_found.gif"
+            return tmp
+        show.runtime = 0
+        if len(data.get('episode_run_time') != 0):
+            show.runtime = data.get('episode_run_time')[0]
         show.language = data.get('original_language')
         show.genres = data.get('genres')
         show.cover_url = self.cover_gen(data.get('poster_path'))
