@@ -1,9 +1,9 @@
 import contextlib
 from model.user import User
 from model.db import Database
-from tinydb import TinyDB, Query
+#from tinydb import TinyDB, Query
 import os
-import json
+#import json
 from flask import Flask, request
 
 app = Flask(__name__, instance_relative_config=True)
@@ -50,6 +50,7 @@ def lookup_library():
 def lookup_media():
     username = request.json.get('username')
     media_id = request.json.get('media_id')
+    print("DEBUG:", media_id)
     db = Database(username)
     return db.lookup_media(media_id)
 
@@ -66,7 +67,7 @@ def add_media():
 def remove_media():
     username = request.json.get('username')
     media_id = request.json.get('media_id')
-    print("DEBUG:", media_id)
+    #print("DEBUG:", media_id)
     db = Database(username)
     return db.remove_media(media_id)
 
@@ -78,3 +79,16 @@ def verify():
     password = request.json.get('password')
     u = User(name, password)
     return u.verify_login()
+
+@app.route('/rate', methods=('POST',))
+def rate():
+    media_id = request.json.get('media_id')
+    rating = request.json.get('rating')
+    username = request.json.get('username')
+    db = Database(username)
+    media = db.lookup_media(media_id)
+    print(media)
+    media['user_rating'] = rating
+    print()
+    print(media)
+    return db.add_media(media)

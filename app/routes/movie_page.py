@@ -3,9 +3,8 @@ from app import app
 from Tmdb_api import Tmdb_api
 from HtmlBuilder import HtmlBuilder
 from MediaBuilder import MediaBuilder
-#from tinydb import TinyDB, Query
 from Util import library_search
-#import requests
+import requests
 
 """
 GLOBAL VARIABLES USED: db, movie_db, User, Movie
@@ -15,11 +14,6 @@ Other global variables: username, id
 Reason: Passed between post requests to check validity
 """
 
-#db = TinyDB("login_info.json")
-#movie_db = TinyDB("movies.json")
-#User = Query()
-#Movie = Query()
-username = ""
 media_id = ""
 
 @app.route('/movie_page', methods=['GET','POST'])
@@ -46,21 +40,21 @@ def rate():
     Returns: redirection to movie page with updated values
     """
     global media_id
-    #Rate = Query()
-    #db_str = username+"USERDB.json"
-    #user_db = TinyDB(db_str)
+    username = session["name"]
+    #NOTE if we are able to rate a movie, it's definitely in database
+    #if not user_db.search(Rate.movie_id == (id)):
+        #new_rating = {"movie_id": id, "rating": rating}
+        #user_db.insert(new_rating)
+        #user_db.upsert({'rating': rating}, Rate.movie_id == id)
     rating = request.form.get('rating')
-    if not user_db.search(Rate.movie_id == (id)):
-        new_rating = {"movie_id": id, "rating": rating}
-        user_db.insert(new_rating)
-    else:
-        user_db.upsert({'rating': rating}, Rate.movie_id == id)
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    info = {'username': username, 'media_id': media_id, 'rating': rating}
+    requests.post("http://db:8000/rate", data=json.dumps(info), headers=headers)
     return redirect(url_for('homepage', user=username))
 
 
 @app.route('/sign_out3', methods=['POST'])
 def sign_out3():
-    
     """
     App route for signing out each user and signs out user once button clicked
     Returns: redirection to login
@@ -75,7 +69,6 @@ def search_rec():
     Returns: redirection to search results of searched movie
     """
     username = session["name"]
-    error = None
     return redirect(url_for('search_results', query="test", user=username))
 
 @app.route('/search3', methods=['POST'])

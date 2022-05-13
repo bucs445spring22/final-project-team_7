@@ -21,9 +21,9 @@ res = []
 @app.route('/search_results', methods=('GET', 'POST'))
 def search_results():
 	"""
-    App route for search results page assosciating with searched word
-    Returns: template rendering of search results webpage
-    """
+	App route for search results page assosciating with searched word
+	Returns: template rendering of search results webpage
+	"""
 	global counter
 	global res
 	username = session["name"]
@@ -66,9 +66,9 @@ def search_results():
 @app.route('/search_again', methods=['POST'])
 def search_again():
 	"""
-    App route for search results page when you search again in the page assosciating with searched word
-    Returns: template rendering of search results webpage
-    """
+	App route for search results page when you search again in the page assosciating with searched word
+	Returns: template rendering of search results webpage
+	"""
     
 	username = session["name"]
 	if request.form.get('media-type') == "TMDB":
@@ -90,12 +90,11 @@ def search_again():
 @app.route('/add_movie', methods=['POST'])
 def add_movie():
 	"""
-    App route for if user has clicked add movie, it will add movie to db and redirect to homepage
-    Returns: template rendering of homepage (my library)
-    """
+	App route for if user has clicked add movie, it will add movie to db and redirect to homepage
+	Returns: template rendering of homepage (my library)
+	"""
 	global counter
 	global res
-
 	#rec_final = ""
 	#rec_thumbnail = ""
 	#recs = []
@@ -110,11 +109,11 @@ def add_movie():
 			#print("RES: ", res[i])
 			tmp = x.get_movie(res[i])
 			media_serializer = MediaSerializer()
-			serialized= media_serializer.serialize_media(tmp)
+			serialized = media_serializer.serialize_media(tmp)
+			print(serialized)
 			headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 			data = {'username': username, 'data': serialized}
-			#print(info)
-			response = requests.post("http://db:8000/add_media", data=json.dumps(data),headers = headers)
+			requests.post("http://db:8000/add_media", data=json.dumps(data), headers=headers)
 			return redirect(url_for('homepage', user=username))
 	return redirect(url_for('homepage', user=username))
 

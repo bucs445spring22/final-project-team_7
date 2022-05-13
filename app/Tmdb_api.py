@@ -36,6 +36,7 @@ class Tmdb_api(Api):
         data = request_to_dict("https://api.themoviedb.org/3/movie/" + str(media_id) + "?api_key=" + self.API_KEY)
         if 'success' in data:
             tmp = Movie(media_id, 'Invalid', 'Invalid', '1955-03-08', 0, "static/cover_not_found.gif")
+            tmp.language = 'Invalid'
             tmp.cover_url = "static/cover_not_found.gif"
             return tmp
         movie = Movie(data.get('id'), data.get('title'), data.get('overview'), data.get('release_date'), data.get('vote_average'), self.thumbnail_gen(data.get('poster_path')))

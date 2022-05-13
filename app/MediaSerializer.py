@@ -24,6 +24,7 @@ class MediaSerializer:
                'year': media.year,
                'date': media.date,
                'rating': media.rating,
+               'user_rating': media.user_rating,
                'thumbnail_url': media.thumbnail_url,
                'MEDIA_TYPE': media.MEDIA_TYPE}
         #if media.MEDIA_TYPE == "Movie" or media.MEDIA_TYPE == "Show":
