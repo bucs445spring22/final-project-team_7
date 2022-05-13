@@ -33,15 +33,6 @@ def verifySignUp():
     u = User(name, password)
     return u.add_user()
 
-@app.route('/verifyLogin', methods=('POST',))
-def verify():
-    #print(f'FORM: {request.json}')
-    #print("DEBUGGER: In app.py verify()")
-    name = request.json.get('username')
-    password = request.json.get('password')
-    u = User(name, password)
-    return u.verify_login()
-
 @app.route('/logout', methods=('POST',))
 def logout():
     name = request.json.get('username')
