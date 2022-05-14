@@ -1,0 +1,15 @@
+Categories
+
+As a confused movie watcher, I want a category system to make it easier for me to find the shows I want.
+
+Acceptance:
+- Category system for sorting watched shows.
+- Must be easy to navigate through library.
+
+Notes:
+
+Persona: 
+ - John Smith
+ - He is very bad at navigating applications and finding things
+ - Prone to giving up
+ - Wants to have application where it's easy to find things

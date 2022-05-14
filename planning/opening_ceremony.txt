@@ -1,0 +1,34 @@
+How will you use this application?
+ - Users will login to the program to track their movies and give ratings
+Where would the user be located physically when using this application?
+ - Self hosted web application
+Where would the results be visible?
+ - On the self hosted website
+When will this application be used?
+ - Whenever the user wants to track or rate a movie, it will be saved
+When can the application fail?
+ - Database/API related failures
+Who is my user?
+ - Movie watchers/people who wantto track their movies
+Who will deliver the inputs for the application?
+ - Users who input their movies and ratings
+Who will receive the outputs of the application?
+ - Users who want to see their movies and ratings of the movies
+What do I know about this application?
+ - Similar to myanimelist BUT for movies
+What does this application need to do?
+ - Be able to keep track of users, ratings of movies, and the users watched movies etc..
+What are the components of this application?
+ - Libraries/Frameworks:
+	- Flask
+	- TinyDB
+	- Python 3.9-alpine
+	- Docker
+	- requests
+	- Movies API
+What needs to happen next?
+ - Development
+What must happen before the next step?
+ - Planning
+What needs to be tracked?
+ - Progress

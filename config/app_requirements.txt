@@ -1,0 +1,8 @@
+flask >= 2
+pytest
+tinydb
+requests
+pymongo
+bcrypt
+gunicorn
+flask_session

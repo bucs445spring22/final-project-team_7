@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  app:
+    environment:
+      - DEBUG=True
+    env_file: ./config/app.env
+    ports:
+      - "80:3000"
+    image: app:latest
+    build:
+      context: .
+      dockerfile: config/app.Dockerfile
+    working_dir: /var/app
+    container_name: app
+    networks:
+     - app_net
+    volumes:
+      - ./app:/var/app
+    stdin_open: true
+    tty: true 
+    command: ["gunicorn", "app:app", "-c/var/gunicorn.conf.py"]
+  db:
+    image: db:latest
+    working_dir: /var/db
+    environment:
+      - FLASK_DEBUG=1
+    build:
+      context: .
+      dockerfile: config/db.Dockerfile
+    container_name: db
+
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    expose:
+      - "8000"
+    env_file: ./config/db.env
+    volumes:
+      - ./db:/var/db
+    networks:
+      - app_net
+    command: ["gunicorn", "app:app", "-c/var/gunicorn.conf.py"]
+    ports:
+      - "8000:8000"
+    
+
+networks:
+  app_net:

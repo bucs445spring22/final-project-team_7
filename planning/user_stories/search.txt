@@ -1,0 +1,16 @@
+Search
+
+As an individual who likes to search for things, I want a way to search for shows in this application in order to more easily add them to my watch list.
+
+Acceptance:
+- Implement a search functionality.
+- Implement way to add shows after searching for them.
+- Support for searching different APIs.
+
+Notes:
+
+Persona:
+- Smith John
+- Constantly searching for things
+- Likes to know the truth
+- Wants to search for the shows he watches

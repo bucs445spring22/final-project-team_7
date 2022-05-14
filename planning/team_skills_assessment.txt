@@ -1,0 +1,40 @@
+Python
+  - Andrew: Competent
+  - JL: Competent
+  - Yong: Novice(But I can pick up the language pretty quickly)
+C++
+  - Andrew: Competent
+  - JL: Novice
+  - Yong: Competent
+Flask
+  - Andrew: None
+  - JL: Novice
+  - Yong: None
+Selenium
+  - Andrew: None
+  - JL: None
+  - Yong: Novice
+Java
+  - Andrew: Competent
+  - JL: Competent
+  - Yong: Competent
+Json
+  - Andrew: Novice
+  - JL: Novice
+  - Yong: Novice
+SQL
+  - Andrew: None
+  - JL: Novice
+  - Yong: Novice
+Docker
+  - Andrew: Novice
+  - JL: Novice
+  - Yong: Novice
+requests
+  - Andrew: Novice
+  - JL: Novice
+  - Yong: None
+Spring (java)
+  - Andrew: None
+  - JL: None
+  - Yong: Novice

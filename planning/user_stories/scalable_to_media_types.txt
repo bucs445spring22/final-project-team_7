@@ -1,0 +1,15 @@
+scalable_to_media_types
+
+As a confused media watcher, I want a system where if I want another type of media added, it would be easily done. 
+
+Acceptance:
+- Application should be able to be scaled with different media types easily.
+- If users wanted additional media types like T.V. shows or books, it should be able to be scaled easily.
+- Should be a function to search for multiple types of media
+
+Notes:
+
+Persona:
+- Smith John
+- Constantly searching for things
+- Likes to search for different medias

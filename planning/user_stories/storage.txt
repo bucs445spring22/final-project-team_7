@@ -1,0 +1,14 @@
+storage
+
+As a user I want to be able to make a secure account and not have to make a new one every time.
+
+Acceptance:
+- Can store account information in database
+- User does not need to sign up every time they want to use the website
+
+Notes:
+
+Persona:
+- John Li
+- Hates doing things twice
+- Doesn't know how storage works

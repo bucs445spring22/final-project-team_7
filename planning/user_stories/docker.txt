@@ -1,0 +1,15 @@
+Docker
+
+As a client, I want an application that I can deploy on any server running Docker
+
+Acceptance:
+- Dockerfiles for each segment of the program.
+- Docker-compose file to easily launch the application.
+
+Notes:
+
+Persona:
+ - John Smith
+ - Bad at setting up dependencies for the programs he wants to run
+ - Hates dealing with lots of small things
+ - Wants an easy way to run his program on any system

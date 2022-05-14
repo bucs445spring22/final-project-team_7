@@ -1,0 +1,12 @@
+User Interface planning
+
+- Top search bar
+	- Learnability, Efficiency
+- Media in library displayed with its cover art
+	- Memorability
+- + symbol to add new shows, turns to check symbol once added
+	- Learnability, Memorability
+- Hovering over UI element tells you what it does
+	- Learnability, Memorability
+- Catagory system in user's library
+	- Efficiency
